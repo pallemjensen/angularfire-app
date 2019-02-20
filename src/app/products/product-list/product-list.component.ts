@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {ProductService} from '../shared/product.service';
 import {Product} from "../shared/product.model";
 import {FormControl, FormGroup} from "@angular/forms";
+import {FileService} from "../../files/shared/file.service";
 
 @Component({
   selector: 'app-product-list',
@@ -13,7 +14,8 @@ export class ProductListComponent implements OnInit {
   products: Observable<Product[]>;
   productFormGroup: FormGroup;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,
+              private fileService: FileService) {
     this.productFormGroup = new FormGroup( {
       name: new FormControl('')
     });
@@ -42,5 +44,6 @@ export class ProductListComponent implements OnInit {
 
   uploadFile(event) {
     const file = event.target.files[0];
+    this.fileService.upload(file);
   }
 }
