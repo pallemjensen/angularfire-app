@@ -55,4 +55,16 @@ export class ProductService {
         })
       )
   }
+
+  addProduct(product: Product): Observable<Product>{
+    return from(
+      this.db.collection('products')
+      .add(product)
+    ).pipe(
+      map( productRef => {
+        product.id = productRef.id;
+        return product;
+      })
+    );
+  }
 }
