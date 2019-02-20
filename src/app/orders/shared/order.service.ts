@@ -31,6 +31,15 @@ export class OrderService {
 
   deleteOrder(id: string) {
     this.db.doc<Order>('Orders/' + id)
-      .delete();
+      .delete()
+      .then(order => {
+        debugger;
+      })
+      .catch(err => {
+        debugger;
+      })
+      .finally(() => {
+        debugger;
+      });
   }
 }
