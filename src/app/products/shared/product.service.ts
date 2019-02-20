@@ -32,23 +32,3 @@ export class ProductService {
       .delete();
   }
 }
-
-
-/*
-export class ProductService {
-
-  constructor(private db: AngularFirestore) { }
-
-  getProducts(): Observable<Product[]> {
-    return this.db.collection<Product>('products')
-      .valueChanges()
-      .pipe(
-        map(products => {
-          return products.map(product => {
-            return {id: product.id, name: product.name, time: product.time};
-})
-})
-);
-}
-}
- */
