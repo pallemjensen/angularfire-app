@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {from, Observable} from 'rxjs';
 import {Product} from "./product.model";
-import {map, switchMap, tap} from "rxjs/operators";
+import {first, map, switchMap, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +27,11 @@ export class ProductService {
       );
   }
 
-  deleteProduct(id: string): Observable<void> {
+  deleteProduct(id: string): Observable<Product> {
     return this.db.doc<Product>('products/' + id)
       .get()
       .pipe(
+        first(),
         tap(productDocument => {
           //debugger;
         }),
@@ -43,7 +44,13 @@ export class ProductService {
             return from (
               this.db.doc<Product>('products/' + id)
                 .delete()
-            )
+            ).pipe(
+              map(() => {
+                const data = productDocument.data() as Product;
+                data.id = productDocument.id;
+                return data;
+              })
+            );
           }
         })
       )

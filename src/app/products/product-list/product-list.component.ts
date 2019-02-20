@@ -19,8 +19,8 @@ export class ProductListComponent implements OnInit {
 
   deleteProduct(product: Product) {
     const obs = this.productService.deleteProduct(product.id)
-      obs.subscribe(() => {
-        window.alert('Product with id: ' + product.id + ' was deleted.');
+      obs.subscribe(productFromFirebase => {
+        window.alert('Product with id: ' + productFromFirebase.id + ' was deleted.');
       }, error1 => {
         window.alert('Product with id: ' + product.id + ' was not found.')
         });
