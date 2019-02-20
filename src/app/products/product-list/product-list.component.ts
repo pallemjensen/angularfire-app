@@ -39,4 +39,8 @@ export class ProductListComponent implements OnInit {
       window.alert('Product with id: ' + product.id + ' and name: ' + product.name + ' was created.')
     });
   }
+
+  uploadFile(event) {
+    const file = event.target.files[0];
+  }
 }
