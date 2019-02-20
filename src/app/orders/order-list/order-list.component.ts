@@ -17,4 +17,8 @@ export class OrderListComponent implements OnInit {
   ngOnInit() {
     this.orders = this.orderservice.getOrders();
   }
+
+  deleteOrder(order: Order) {
+    this.orderservice.deleteOrder(order.id);
+  }
 }

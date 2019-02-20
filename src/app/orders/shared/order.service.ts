@@ -13,15 +13,24 @@ export class OrderService {
 
   getOrders(): Observable<Order[]> {
     return this.db.collection<Order>('Orders')
-      .valueChanges()
+      .snapshotChanges()
       .pipe(
         map(
-          orders => {
-            return orders.map(
-              orders => {
-              return {name: orders.name};
+          actions => {
+            return actions.map(
+              action => {
+                const data = action.payload.doc.data() as Order;
+                return {
+                  id: action.payload.doc.id,
+                  name: data.name
+                };
             })
           })
       );
+  }
+
+  deleteOrder(id: string) {
+    this.db.doc<Order>('Orders/' + id)
+      .delete();
   }
 }

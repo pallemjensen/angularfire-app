@@ -17,21 +17,8 @@ export class CustomerListComponent implements OnInit {
   ngOnInit() {
     this.customers = this.customerService.getCustomers()
   }
-}
 
-
-/*export class CustomerListComponent implements OnInit {
-
-  subscription: Subscription;
-  customers: Customer[];
-
-  constructor(private customerService: CustomerService) { }
-  ngOnInit() {
-    this.subscription = this.customerService.getCustomers()
-      .subscribe(customers =>{
-        this.customers = customers;
-        //debugger;
-      });
+  deleteCustomer(customer: Customer) {
+    this.customerService.deleteCustomer(customer.id);
   }
 }
-*/

@@ -12,17 +12,26 @@ export class CustomerService {
   constructor(private db: AngularFirestore) { }
 
   getCustomers(): Observable<Customer[]> {
-    return this.db.collection<Customer>('Customers').
-    valueChanges()
+    return this.db.collection<Customer>('Customers')
+      .snapshotChanges()
       .pipe(
         map(
-      customers => {
-        return customers.map(
-          customers => {
-            return {firstName: customers.firstName, lastName: customers.lastName }
-          }
-        )
-      }
-    ));
+          actions => {
+            return actions.map(
+              action => {
+                const data = action.payload.doc.data() as Customer;
+                return {
+                  id: action.payload.doc.id,
+                  firstName: data.firstName,
+                  lastName: data.lastName
+                };
+              })
+          })
+      );
+  }
+
+  deleteCustomer(id: string) {
+    this.db.doc<Customer>('Customers/' + id)
+      .delete();
   }
 }
