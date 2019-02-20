@@ -3,5 +3,5 @@ export interface FileMetadata {
   id?: string;
   type: string;
   size: number;
-  lastChanged?: Date;
+  lastModified?: number;
 }
