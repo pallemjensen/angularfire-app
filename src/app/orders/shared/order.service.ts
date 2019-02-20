@@ -29,17 +29,8 @@ export class OrderService {
       );
   }
 
-  deleteOrder(id: string) {
-    this.db.doc<Order>('Orders/' + id)
-      .delete()
-      .then(order => {
-        //debugger;
-      })
-      .catch(err => {
-        //debugger;
-      })
-      .finally(() => {
-        //debugger;
-      });
+  deleteOrder(id: string): Promise<void> {
+    return this.db.doc<Order>('Orders/' + id)
+      .delete();
   }
 }

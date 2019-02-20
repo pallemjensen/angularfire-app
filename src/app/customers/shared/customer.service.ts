@@ -30,17 +30,8 @@ export class CustomerService {
       );
   }
 
-  deleteCustomer(id: string) {
-    this.db.doc<Customer>('Customers/' + id)
+  deleteCustomer(id: string): Promise<void> {
+    return this.db.doc<Customer>('Customers/' + id)
       .delete()
-      .then(customer => {
-        //debugger;
-      })
-      .catch(err => {
-        //debugger;
-      })
-      .finally(() => {
-        //debugger;
-      });
   }
 }

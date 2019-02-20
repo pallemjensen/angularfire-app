@@ -27,16 +27,8 @@ export class ProductService {
       );
   }
 
-  deleteProduct(id: string) {
-    this.db.doc<Product>('products/' + id)
-      .delete()
-      .then(product => {
-        //debugger;
-      }).catch(err => {
-      //debugger;
-    })
-      .finally(() => {
-        //debugger;
-      });
+  deleteProduct(id: string): Promise<void> {
+    return this.db.doc<Product>('products/' + id)
+      .delete();
   }
 }

@@ -19,6 +19,15 @@ export class CustomerListComponent implements OnInit {
   }
 
   deleteCustomer(customer: Customer) {
-    this.customerService.deleteCustomer(customer.id);
+    this.customerService.deleteCustomer(customer.id)
+      .then(() => {
+        window.alert('Customer with id: ' + customer.id + ' was deleted.')
+      })
+      .catch(err => {
+        //debugger;
+      })
+      .finally(() => {
+        debugger;
+      });
   }
 }
