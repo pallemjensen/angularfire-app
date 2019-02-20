@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable} from 'rxjs';
+import {CustomerserviceService} from '../shared/customerservice.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -7,9 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerListComponent implements OnInit {
 
-  constructor() { }
-
+  customers: Observable<any[]>;
+  constructor(private customerService: CustomerserviceService) { }
   ngOnInit() {
+    this.customers = this.customerService.getCustomers();
   }
-
 }

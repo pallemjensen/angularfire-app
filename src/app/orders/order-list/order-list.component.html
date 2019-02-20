@@ -1,3 +1,5 @@
-<p>
-  order-list works!
-</p>
+<ul>
+  <li class="text" *ngFor="let order of orders | async">
+    {{order.name}}
+  </li>
+</ul>

@@ -1,3 +1,5 @@
-<p>
-  customer-list works!
-</p>
+<ul>
+  <li class="text" *ngFor="let customer of customers | async">
+    {{customer.firstName}} {{customer.lastName}}
+  </li>
+</ul>

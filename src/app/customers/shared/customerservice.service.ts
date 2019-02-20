@@ -5,11 +5,11 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class CustomerserviceService {
 
   constructor(private db: AngularFirestore) { }
 
-  getProducts(): Observable<any[]> {
-    return this.db.collection('products').valueChanges();
+  getCustomers(): Observable<any[]> {
+    return this.db.collection('Customers').valueChanges();
   }
 }
