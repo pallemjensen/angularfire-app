@@ -33,13 +33,13 @@ export class OrderService {
     this.db.doc<Order>('Orders/' + id)
       .delete()
       .then(order => {
-        debugger;
+        //debugger;
       })
       .catch(err => {
-        debugger;
+        //debugger;
       })
       .finally(() => {
-        debugger;
+        //debugger;
       });
   }
 }
