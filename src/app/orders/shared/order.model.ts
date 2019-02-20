@@ -1,4 +1,4 @@
 export interface Order {
-  id: string;
+  id?: string;
   name: string;
 }

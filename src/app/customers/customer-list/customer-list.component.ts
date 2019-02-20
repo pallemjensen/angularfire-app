@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {CustomerserviceService} from '../shared/customerservice.service';
 import {Customer} from "../shared/customer.model";
 
@@ -10,6 +10,18 @@ import {Customer} from "../shared/customer.model";
 })
 export class CustomerListComponent implements OnInit {
 
+  customers: Observable<Customer[]>;
+
+  constructor(private customerService: CustomerserviceService) { }
+
+  ngOnInit() {
+    this.customers = this.customerService.getCustomers()
+  }
+}
+
+
+/*export class CustomerListComponent implements OnInit {
+
   subscription: Subscription;
   customers: Customer[];
 
@@ -19,6 +31,7 @@ export class CustomerListComponent implements OnInit {
       .subscribe(customers =>{
         this.customers = customers;
         //debugger;
-    });
+      });
   }
 }
+*/

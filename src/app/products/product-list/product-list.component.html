@@ -1,5 +1,5 @@
 <ul>
-  <li class="text" *ngFor="let product of products">
-  {{product.name}}
+  <li class="text" *ngFor="let product of products | async">
+  {{product.name}} - {{product.time}} -  {{product.id}}
   </li>
 </ul>
