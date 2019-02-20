@@ -27,8 +27,13 @@ export class ProductService {
       );
   }
 
-  deleteProduct(id: string): Promise<void> {
-    return this.db.doc<Product>('products/' + id)
-      .delete();
+  deleteProduct(id: string): Observable<void> {
+    return Observable.create(obs => {
+      this.db.doc<Product>('products/' + id)
+        .delete()
+        .then(() => obs.next())
+        .catch(err => obs.error(err))
+        .finally(() => obs.complete());
+    });
   }
 }
