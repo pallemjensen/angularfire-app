@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Observable} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {Product} from "./product.model";
-import {map} from "rxjs/operators";
+import {map, switchMap, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +28,24 @@ export class ProductService {
   }
 
   deleteProduct(id: string): Observable<void> {
-    return Observable.create(obs => {
-      this.db.doc<Product>('products/' + id)
-        .delete()
-        .then(() => obs.next())
-        .catch(err => obs.error(err))
-        .finally(() => obs.complete());
-    });
+    return this.db.doc<Product>('products/' + id)
+      .get()
+      .pipe(
+        tap(productDocument => {
+          //debugger;
+        }),
+        switchMap(productDocument => {
+          if (!productDocument || !productDocument.data())
+          {
+            window.alert('Product does not exist or contains no data.');
+            throw new Error('Product not found');
+          } else {
+            return from (
+              this.db.doc<Product>('products/' + id)
+                .delete()
+            )
+          }
+        })
+      )
   }
 }

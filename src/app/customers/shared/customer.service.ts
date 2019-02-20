@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Observable} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {Customer} from "./customer.model";
-import {map} from "rxjs/operators";
+import {map, switchMap, tap} from "rxjs/operators";
+import {Product} from "../../products/shared/product.model";
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,25 @@ export class CustomerService {
       );
   }
 
-  deleteCustomer(id: string): Promise<void> {
+  deleteCustomer(id: string): Observable<void> {
     return this.db.doc<Customer>('Customers/' + id)
-      .delete()
+      .get()
+      .pipe(
+        tap(customerDocument => {
+          //debugger;
+        }),
+        switchMap(customerDocument => {
+          if (!customerDocument || !customerDocument.data())
+          {
+            window.alert('Customer does not exist or contains no data.');
+            throw new Error('Customer not found');
+          } else {
+            return from (
+              this.db.doc<Customer>('Customers/' + id)
+                .delete()
+            )
+          }
+        })
+      )
   }
 }

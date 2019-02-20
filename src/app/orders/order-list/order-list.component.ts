@@ -19,15 +19,11 @@ export class OrderListComponent implements OnInit {
   }
 
   deleteOrder(order: Order) {
-    this.orderservice.deleteOrder(order.id)
-      .then(() => {
-        window.alert('Order with id: ' + order.id + ' was deleted.')
-      })
-      .catch(err => {
-        //debugger;
-      })
-      .finally(() => {
-        //debugger;
-      });
+    const obs = this.orderservice.deleteOrder(order.id)
+      obs.subscribe(() => {
+        window.alert('Order with id: ' + order.id + ' was deleted.');
+      }, error1 => {
+        window.alert('Order with id: ' + order.id + 'was not found.')
+        });
   }
 }
