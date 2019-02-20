@@ -1,4 +1,4 @@
-import {OrderserviceService} from '../shared/orderservice.service';
+import {OrderService} from '../shared/order.service';
 import {Order} from "../shared/order.model";
 import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
@@ -12,7 +12,7 @@ export class OrderListComponent implements OnInit {
 
   orders: Observable<Order[]>;
 
-  constructor(private orderservice: OrderserviceService) { }
+  constructor(private orderservice: OrderService) { }
 
   ngOnInit() {
     this.orders = this.orderservice.getOrders();

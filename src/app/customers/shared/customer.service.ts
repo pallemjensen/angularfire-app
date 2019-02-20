@@ -7,7 +7,7 @@ import {map} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerserviceService {
+export class CustomerService {
 
   constructor(private db: AngularFirestore) { }
 
