@@ -22,7 +22,7 @@ export class ProductService {
               id: action.payload.doc.id,
               name: data.name
             };
-          })
+          });
         })
       );
   }
@@ -33,11 +33,10 @@ export class ProductService {
       .pipe(
         first(),
         tap(productDocument => {
-          //debugger;
+          // debugger;
         }),
         switchMap(productDocument => {
-          if (!productDocument || !productDocument.data())
-          {
+          if (!productDocument || !productDocument.data()) {
             window.alert('Product does not exist or contains no data.');
             throw new Error('Product not found');
           } else {
@@ -53,7 +52,7 @@ export class ProductService {
             );
           }
         })
-      )
+      );
   }
 
   addProduct(product: Product): Observable<Product>{
