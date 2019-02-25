@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {defer, from, Observable} from "rxjs";
-import {FileMetadata} from "./file-metadata";
-import {AngularFireStorage} from "@angular/fire/storage";
-import {AngularFirestore} from "@angular/fire/firestore";
-import {map, switchMap} from "rxjs/operators";
+import {defer, Observable} from 'rxjs';
+import {FileMetadata} from './file-metadata';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {AngularFirestore} from '@angular/fire/firestore'
+import {map, switchMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class FileService {
   constructor(private storage: AngularFireStorage,
               private db: AngularFirestore) { }
 
-  upload(file: File): Observable<FileMetadata>{
+  upload(file: File): Observable<FileMetadata> {
     return this.addFileMetadata(
       {
         name: file.name,
@@ -23,16 +23,20 @@ export class FileService {
        }
     ).pipe(
       switchMap(fileMeta => {
-      return this.storage.ref('product-pictures/' + fileMeta.id)
-        .put(file)
-        .then(() => {
-          //debugger;
-        });
+        return defer(() => this.storage.ref('product-pictures/' + fileMeta.id)
+          .put(file)
+          .then())
+          .pipe(
+            map( fileRef => {
+              return fileMeta;
+              }
+            )
+          );
       })
-    )
+    );
   }
 
-  addFileMetadata(meta: FileMetadata): Observable<FileMetadata>{
+  addFileMetadata(meta: FileMetadata): Observable<FileMetadata> {
     return defer(() => this.db.collection('files')
       .add(meta)
     ).pipe(

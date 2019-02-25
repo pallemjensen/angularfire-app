@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {from, Observable} from 'rxjs';
-import {Product} from "./product.model";
-import {first, map, switchMap, tap} from "rxjs/operators";
+import {Product} from './product.model';
+import {first, map, switchMap, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -55,11 +55,12 @@ export class ProductService {
       );
   }
 
-  addProduct(product: Product): Observable<Product>{
+  addProduct(product: Product): Observable<Product> {
     return from(
       this.db.collection('products')
       .add({
-        name: product.name
+        name: product.name,
+        pictureId: product.pictureId
       })
     ).pipe(
       map( productRef => {
