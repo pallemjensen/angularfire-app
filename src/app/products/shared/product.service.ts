@@ -20,7 +20,8 @@ export class ProductService {
             const data = action.payload.doc.data() as Product;
             return {
               id: action.payload.doc.id,
-              name: data.name
+              name: data.name,
+              pictureId: data.pictureId
             };
           });
         })
@@ -56,6 +57,7 @@ export class ProductService {
   }
 
   addProduct(product: Product): Observable<Product> {
+    debugger;
     return from(
       this.db.collection('products')
       .add({

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable, pipe} from 'rxjs';
+import {Observable} from 'rxjs';
 import {ProductService} from '../shared/product.service';
 import {Product} from '../shared/product.model';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FileService} from '../../files/shared/file.service';
-import {switchMap} from 'rxjs/operators';
+import {switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-list',
@@ -24,11 +24,23 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.products = this.productService.getProducts();
+    this.products = this.productService.getProducts()
+      .pipe(
+        tap(products => {
+          products.forEach(product => {
+            if (product.pictureId) {
+              this.fileService.getFileUrl(product.pictureId)
+                .subscribe(url => {
+                  product.url = url;
+                });
+              }
+          });
+        })
+      );
   }
 
   deleteProduct(product: Product) {
-    const obs = this.productService.deleteProduct(product.id)
+    const obs = this.productService.deleteProduct(product.id);
     obs.subscribe(productFromFirebase => {
         window.alert('Product with id: ' + productFromFirebase.id + ' was deleted.');
       }, error1 => {

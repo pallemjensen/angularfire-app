@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {defer, Observable} from 'rxjs';
 import {FileMetadata} from './file-metadata';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {AngularFirestore} from '@angular/fire/firestore'
+import {AngularFirestore} from '@angular/fire/firestore';
 import {map, switchMap} from 'rxjs/operators';
 
 @Injectable({
@@ -45,5 +45,10 @@ export class FileService {
       return meta;
     }))
    ;
+  }
+
+  getFileUrl(id: string): Observable<any> {
+   return this.storage.ref('product-pictures/' + id)
+      .getDownloadURL();
   }
 }
