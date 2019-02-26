@@ -2,9 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ProductService} from '../shared/product.service';
 import {Product} from '../shared/product.model';
-import {FormControl, FormGroup} from '@angular/forms';
 import {FileService} from '../../files/shared/file.service';
-import {switchMap, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-list',
@@ -13,14 +12,11 @@ import {switchMap, tap} from 'rxjs/operators';
 })
 export class ProductListComponent implements OnInit {
   products: Observable<Product[]>;
-  productFormGroup: FormGroup;
-  private fileToUpload: File;
+
 
   constructor(private productService: ProductService,
               private fileService: FileService) {
-    this.productFormGroup = new FormGroup( {
-      name: new FormControl('')
-    });
+
   }
 
   ngOnInit() {
@@ -48,23 +44,5 @@ export class ProductListComponent implements OnInit {
         });
   }
 
-  addProduct() {
-    const productData = this.productFormGroup.value;
-    if (this.fileToUpload) {
-      this.fileService.upload(this.fileToUpload)
-      .pipe(
-        switchMap(metadata => {
-          productData.pictureId = metadata.id;
-          return this.productService.addProduct(productData);
-        })
-      )
-        .subscribe(product => {
-          window.alert('Product with id: ' + product.id + ' and name: ' + product.name + ' was created.')
-        });
-    }
-  }
 
-  uploadFile(event) {
-    this.fileToUpload = event.target.files[0];
-  }
 }

@@ -6,16 +6,3 @@
   </li>
 </ul>
 <button routerLink="">Home</button>
-<br>
-<br>
-<br>
-<form [formGroup]="productFormGroup" (ngSubmit)="addProduct()">
-  <label>
-    Name
-    <input type="text" formControlName="name">
-  </label>
-
-  <input type="file" (change)="uploadFile($event)">
-
-    <button type="submit">Add</button>
-</form>
