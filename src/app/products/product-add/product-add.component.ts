@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {switchMap} from "rxjs/operators";
 import {ProductService} from "../shared/product.service";
 import {FileService} from "../../files/shared/file.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-add',
@@ -14,7 +15,9 @@ export class ProductAddComponent implements OnInit {
   productFormGroup: FormGroup;
   private fileToUpload: File;
 
-  constructor(private productService: ProductService,
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private productService: ProductService,
               private fileService: FileService) {
     this.productFormGroup = new FormGroup( {
     name: new FormControl('')
@@ -34,7 +37,9 @@ export class ProductAddComponent implements OnInit {
           })
         )
         .subscribe(product => {
-          window.alert('Product with id: ' + product.id + ' and name: ' + product.name + ' was created.')
+          this.router.navigate(['../'],
+            {relativeTo: this.activatedRoute});
+          //window.alert('Product with id: ' + product.id + ' and name: ' + product.name + ' was created.')
         });
     }
   }
