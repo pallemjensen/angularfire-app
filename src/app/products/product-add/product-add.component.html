@@ -1,0 +1,11 @@
+<h2>Add new product</h2>
+<form [formGroup]="productFormGroup" (ngSubmit)="addProduct()">
+  <label>
+    Name
+    <input type="text" formControlName="name">
+  </label>
+
+  <input type="file" (change)="uploadFile($event)">
+
+  <button type="submit">Add</button>
+</form>
