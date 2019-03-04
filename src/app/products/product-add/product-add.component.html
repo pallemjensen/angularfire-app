@@ -12,4 +12,6 @@
 
 <image-cropper
   [imageChangedEvent] ="imageChangedEvent"
+  format="png, jpg, jpeg"
+  (imageCropped)="imageCropped($event)"
 ></image-cropper>

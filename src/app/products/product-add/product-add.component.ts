@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {switchMap} from "rxjs/operators";
-import {ProductService} from "../shared/product.service";
-import {FileService} from "../../files/shared/file.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {FormControl, FormGroup} from '@angular/forms';
+import {switchMap} from 'rxjs/operators';
+import {ProductService} from '../shared/product.service';
+import {FileService} from '../../files/shared/file.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ImageCroppedEvent} from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-product-add',
@@ -15,6 +16,7 @@ export class ProductAddComponent implements OnInit {
   productFormGroup: FormGroup;
   private fileToUpload: File;
   imageChangedEvent: any = '';
+  croppedImage: any = '';
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -22,7 +24,7 @@ export class ProductAddComponent implements OnInit {
               private fileService: FileService) {
     this.productFormGroup = new FormGroup( {
     name: new FormControl('')
-  });}
+  }); }
 
   ngOnInit() {
   }
@@ -48,6 +50,11 @@ export class ProductAddComponent implements OnInit {
   uploadFile(event) {
     this.imageChangedEvent = event;
     this.fileToUpload = event.target.files[0];
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64;
+    debugger;
   }
 
 }
