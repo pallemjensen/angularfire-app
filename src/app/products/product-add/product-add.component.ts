@@ -49,11 +49,12 @@ export class ProductAddComponent implements OnInit {
 
   uploadFile(event) {
     this.imageChangedEvent = event;
-    this.fileToUpload = event.target.files[0];
   }
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
+    const fileBeforeCrop = this.imageChangedEvent.target.files[0];
+    this.fileToUpload = new File([event.file], fileBeforeCrop.name,
+      {type: fileBeforeCrop.type});
   }
-
 }
