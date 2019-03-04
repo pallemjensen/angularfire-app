@@ -14,6 +14,7 @@ export class ProductAddComponent implements OnInit {
 
   productFormGroup: FormGroup;
   private fileToUpload: File;
+  imageChangedEvent: any = '';
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -39,12 +40,13 @@ export class ProductAddComponent implements OnInit {
         .subscribe(product => {
           this.router.navigate(['../'],
             {relativeTo: this.activatedRoute});
-          //window.alert('Product with id: ' + product.id + ' and name: ' + product.name + ' was created.')
+          // window.alert('Product with id: ' + product.id + ' and name: ' + product.name + ' was created.')
         });
     }
   }
 
   uploadFile(event) {
+    this.imageChangedEvent = event;
     this.fileToUpload = event.target.files[0];
   }
 
