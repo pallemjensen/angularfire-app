@@ -5,6 +5,8 @@ import {ProductService} from '../shared/product.service';
 import {FileService} from '../../files/shared/file.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {Product} from '../shared/product.model';
+import {ImageMetadata} from '../../files/shared/image-metadata';
 
 @Component({
   selector: 'app-product-add',
@@ -27,6 +29,10 @@ export class ProductAddComponent implements OnInit {
   }); }
 
   ngOnInit() {
+  }
+
+  addProductWithImage(product: Product, imageMeta: ImageMetadata) {
+
   }
 
   addProduct() {
