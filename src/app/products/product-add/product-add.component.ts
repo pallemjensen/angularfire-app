@@ -54,7 +54,6 @@ export class ProductAddComponent implements OnInit {
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
-    debugger;
   }
 
 }
