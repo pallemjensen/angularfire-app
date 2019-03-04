@@ -15,6 +15,11 @@
       style="width: 512px; height: 512px;float:left;"
       [imageChangedEvent] ="imageChangedEvent"
       format="png, jpg, jpeg"
+      [aspectRatio]="1 / 1"
+      [resizeToWidth]="128"
+      [onlyScaleDown]="true"
+      [cropperMinWidth]="128"
+      [roundCropper]="true"
       (imageCropped)="imageCropped($event)" ></image-cropper>
-  <img [src]="croppedImage" style="width: 128px; height: 128px;float:left;">
+  <img [src]="croppedImage" style="width: 128px; height: 128px;float:left;border-radius: 50%">
 </div>
