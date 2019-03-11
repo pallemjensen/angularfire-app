@@ -53,7 +53,7 @@ export class FileService {
       .getDownloadURL();
   }
 
-  uploadImage(imageMetadata: ImageMetadata): Observable<FileMetadata>{
+  uploadImage(imageMetadata: ImageMetadata): Observable<FileMetadata> {
     if (imageMetadata.imageBlob) {
       const fileToUpload = new File(
         [imageMetadata.imageBlob],
