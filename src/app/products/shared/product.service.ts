@@ -3,8 +3,8 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {from, Observable, throwError} from 'rxjs';
 import {Product} from './product.model';
 import {catchError, first, map, switchMap, tap} from 'rxjs/operators';
-import {ImageMetadata} from "../../files/shared/image-metadata";
-import {FileService} from "../../files/shared/file.service";
+import {ImageMetadata} from '../../files/shared/image-metadata';
+import {FileService} from '../../files/shared/file.service';
 
 @Injectable({
   providedIn: 'root'
@@ -75,22 +75,21 @@ export class ProductService {
   }
 
   addProductWithImage(product: Product, imageMeta: ImageMetadata)
-    : Observable<Product>{
+    : Observable<Product> {
     if (imageMeta && imageMeta.fileMeta &&
     imageMeta.fileMeta.name && imageMeta.fileMeta.type &&
-      (imageMeta.imageBlob || imageMeta.base64Image) && imageMeta.fileMeta.size > 100){
+      (imageMeta.imageBlob || imageMeta.base64Image) && imageMeta.fileMeta.size > 100) {
       return this.fileService.uploadImage(imageMeta)
         .pipe(
           switchMap(metadata => {
             product.pictureId = metadata.id;
             return this.addProduct(product);
           }),
-          catchError((err, )=> {
+          catchError((err, ) => {
             return throwError(err);
            })
         );
-    } else
-      {
+    } else {
         return throwError('You done goofed your metadata');
     }
   }

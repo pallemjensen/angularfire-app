@@ -1,7 +1,7 @@
 import {OrderService} from '../shared/order.service';
-import {Order} from "../shared/order.model";
-import {Component, OnInit} from "@angular/core";
-import {Observable} from "rxjs";
+import {Order} from '../shared/order.model';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-order-list',
@@ -19,11 +19,11 @@ export class OrderListComponent implements OnInit {
   }
 
   deleteOrder(order: Order) {
-    const obs = this.orderservice.deleteOrder(order.id)
-      obs.subscribe(() => {
+    const obs = this.orderservice.deleteOrder(order.id);
+    obs.subscribe(() => {
         window.alert('Order with id: ' + order.id + ' was deleted.');
       }, error1 => {
-        window.alert('Order with id: ' + order.id + 'was not found.')
+        window.alert('Order with id: ' + order.id + 'was not found.');
         });
   }
 }

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {from, Observable} from 'rxjs';
-import {Order} from "./order.model";
-import {map, switchMap, tap} from "rxjs/operators";
+import {Order} from './order.model';
+import {map, switchMap, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class OrderService {
                   id: action.payload.doc.id,
                   name: data.name
                 };
-              })
+              });
           })
       );
   }
@@ -35,7 +35,7 @@ export class OrderService {
       .get()
       .pipe(
         tap(orderDocument => {
-          //debugger;
+          // debugger;
         }),
         switchMap(orderDocument => {
           if (!orderDocument || !orderDocument.data()) {
@@ -45,9 +45,9 @@ export class OrderService {
             return from(
               this.db.doc<Order>('Orders/' + id)
                 .delete()
-            )
+            );
           }
         })
-      )
+      );
   }
 }

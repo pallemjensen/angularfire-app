@@ -6,7 +6,7 @@ import {ProductListComponent} from './product-list/product-list.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FilesModule} from '../files/files.module';
 import {ProductAddComponent} from './product-add/product-add.component';
-import {ImageCropperModule} from "ngx-image-cropper";
+import {ImageCropperModule} from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [ProductListComponent, ProductAddComponent],
