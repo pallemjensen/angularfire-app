@@ -1,11 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {switchMap} from 'rxjs/operators';
 import {ProductService} from '../shared/product.service';
-import {FileService} from '../../files/shared/file.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
-import {Product} from '../shared/product.model';
 import {ImageMetadata} from '../../files/shared/image-metadata';
 
 @Component({
@@ -33,27 +30,64 @@ export class ProductAddComponent implements OnInit {
 
   addProduct() {
     const productData = this.productFormGroup.value;
-    const fileBeforeCrop = this.imageChangedEvent.target.files[0];
-
-    const imageMeta: ImageMetadata = {
-      imageBlob: this.croppedBlob,
-      fileMeta: {
-        name: fileBeforeCrop.name,
-        type: 'image/png',
-        size: fileBeforeCrop.size
-      }
-    };
-
     this.productService.addProductWithImage(
       productData,
-      imageMeta
-
+      this.getMetaDataForImage()
     ) .subscribe(product => {
       this.router.navigate(['../'],
         {relativeTo: this.activatedRoute});
       // window.alert('Product with id: ' + product.id + ' and name: ' + product.name + ' was created.')
     });
   }
+
+  private getMetaDataForImage(): ImageMetadata{
+    if (this.imageChangedEvent &&
+      this.imageChangedEvent.target &&
+      this.imageChangedEvent.target.files &&
+      this.imageChangedEvent.target.files.length > 0) {
+      const fileBeforeCrop = this.imageChangedEvent.target.files[0];
+      return {
+        imageBlob: this.croppedBlob,
+        fileMeta: {
+          name: fileBeforeCrop.name,
+          type: 'image/png',
+          size: fileBeforeCrop.size
+        }
+      };
+    }
+    return undefined;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   uploadFile(event) {
     this.imageChangedEvent = event;
