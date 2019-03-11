@@ -30,18 +30,17 @@ export class ProductAddComponent implements OnInit {
 
   addProduct() {
     const productData = this.productFormGroup.value;
-    try {
-      this.productService.addProductWithImage(
-        productData,
-        this.getMetaDataForImage()
-      ).subscribe(product => {
-        this.router.navigate(['../'],
-          {relativeTo: this.activatedRoute});
+    this.productService.addProductWithImage(
+      productData,
+      undefined
+      //this.getMetaDataForImage()
+    ).subscribe(product => {
+      this.router.navigate(['../'],
+        {relativeTo: this.activatedRoute});
+    },
+      error1 => {
+        window.alert('An error occurred while trying to add a product ' + error1)
       });
-    } catch (e)
-    {
-      window.alert('An error occurred while trying to add a product ' + e)
-    }
   }
   private getMetaDataForImage(): ImageMetadata{
     if (this.imageChangedEvent &&

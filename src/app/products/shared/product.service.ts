@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {from, Observable} from 'rxjs';
+import {from, Observable, throwError} from 'rxjs';
 import {Product} from './product.model';
 import {first, map, switchMap, tap} from 'rxjs/operators';
 import {ImageMetadata} from "../../files/shared/image-metadata";
@@ -86,7 +86,9 @@ export class ProductService {
             return this.addProduct(product);
           })
         );
-    } else {throw Error ('You done goofed your metadata')
+    } else
+      {
+        return throwError('You done goofed your metadata');
     }
   }
 }
