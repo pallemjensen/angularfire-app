@@ -32,8 +32,8 @@ export class ProductAddComponent implements OnInit {
     const productData = this.productFormGroup.value;
     this.productService.addProductWithImage(
       productData,
-      undefined
-      //this.getMetaDataForImage()
+      //undefined
+      this.getMetaDataForImage()
     ).subscribe(product => {
       this.router.navigate(['../'],
         {relativeTo: this.activatedRoute});
