@@ -3,13 +3,16 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {from, Observable} from 'rxjs';
 import {Product} from './product.model';
 import {first, map, switchMap, tap} from 'rxjs/operators';
+import {ImageMetadata} from "../../files/shared/image-metadata";
+import {FileService} from "../../files/shared/file.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore,
+              private fileService: FileService) { }
 
   getProducts(): Observable<Product[]> {
     return this.db.collection<Product>('products')
@@ -57,7 +60,6 @@ export class ProductService {
   }
 
   addProduct(product: Product): Observable<Product> {
-    debugger;
     return from(
       this.db.collection('products')
       .add({
@@ -68,6 +70,17 @@ export class ProductService {
       map( productRef => {
         product.id = productRef.id;
         return product;
+      })
+    );
+  }
+
+  addProductWithImage(product: Product, imageMeta: ImageMetadata)
+    : Observable<Product>{
+  return this.fileService.uploadImage(imageMeta)
+    .pipe(
+      switchMap(metadata => {
+        product.pictureId = metadata.id;
+        return this.addProduct(product);
       })
     );
   }

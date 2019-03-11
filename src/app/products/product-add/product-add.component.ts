@@ -16,14 +16,14 @@ import {ImageMetadata} from '../../files/shared/image-metadata';
 export class ProductAddComponent implements OnInit {
 
   productFormGroup: FormGroup;
-  private fileToUpload: File;
   imageChangedEvent: any = '';
   croppedImage: any = '';
+  croppedBlob: Blob;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
-              private productService: ProductService,
-              private fileService: FileService) {
+              private productService: ProductService
+              ) {
     this.productFormGroup = new FormGroup( {
     name: new FormControl('')
   }); }
@@ -31,26 +31,28 @@ export class ProductAddComponent implements OnInit {
   ngOnInit() {
   }
 
-  addProductWithImage(product: Product, imageMeta: ImageMetadata) {
-
-  }
-
   addProduct() {
     const productData = this.productFormGroup.value;
-    if (this.fileToUpload) {
-      this.fileService.upload(this.fileToUpload)
-        .pipe(
-          switchMap(metadata => {
-            productData.pictureId = metadata.id;
-            return this.productService.addProduct(productData);
-          })
-        )
-        .subscribe(product => {
-          this.router.navigate(['../'],
-            {relativeTo: this.activatedRoute});
-          // window.alert('Product with id: ' + product.id + ' and name: ' + product.name + ' was created.')
-        });
-    }
+    const fileBeforeCrop = this.imageChangedEvent.target.files[0];
+
+    const imageMeta: ImageMetadata = {
+      imageBlob: this.croppedBlob,
+      fileMeta: {
+        name: fileBeforeCrop.name,
+        type: 'image/png',
+        size: fileBeforeCrop.size
+      }
+    };
+
+    this.productService.addProductWithImage(
+      productData,
+      imageMeta
+
+    ) .subscribe(product => {
+      this.router.navigate(['../'],
+        {relativeTo: this.activatedRoute});
+      // window.alert('Product with id: ' + product.id + ' and name: ' + product.name + ' was created.')
+    });
   }
 
   uploadFile(event) {
@@ -59,8 +61,6 @@ export class ProductAddComponent implements OnInit {
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
-    const fileBeforeCrop = this.imageChangedEvent.target.files[0];
-    this.fileToUpload = new File([event.file], fileBeforeCrop.name,
-      {type: fileBeforeCrop.type});
+    this.croppedBlob = event.file;
   }
 }

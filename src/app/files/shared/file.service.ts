@@ -4,6 +4,7 @@ import {FileMetadata} from './file-metadata';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {map, switchMap} from 'rxjs/operators';
+import {ImageMetadata} from "./image-metadata";
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,16 @@ export class FileService {
   getFileUrl(id: string): Observable<any> {
    return this.storage.ref('product-pictures/' + id)
       .getDownloadURL();
+  }
+
+  uploadImage (imageMetadata: ImageMetadata): Observable<FileMetadata>{
+    if (imageMetadata.imageBlob)
+    {
+      const fileToUpload = new File(
+        [imageMetadata.imageBlob],
+          imageMetadata.fileMeta.name,
+        {type: imageMetadata.fileMeta.type});
+      return this.upload(fileToUpload);
+    }
   }
 }
