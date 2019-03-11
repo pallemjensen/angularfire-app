@@ -59,7 +59,7 @@ export class ProductService {
       );
   }
 
-  addProduct(product: Product): Observable<Product> {
+  private addProduct(product: Product): Observable<Product> {
     return from(
       this.db.collection('products')
       .add({
@@ -76,12 +76,17 @@ export class ProductService {
 
   addProductWithImage(product: Product, imageMeta: ImageMetadata)
     : Observable<Product>{
-  return this.fileService.uploadImage(imageMeta)
-    .pipe(
-      switchMap(metadata => {
-        product.pictureId = metadata.id;
-        return this.addProduct(product);
-      })
-    );
+    if (imageMeta && imageMeta.fileMeta &&
+    imageMeta.fileMeta.name && imageMeta.fileMeta.type &&
+      (imageMeta.imageBlob || imageMeta.base64Image) && imageMeta.fileMeta.size > 100){
+      return this.fileService.uploadImage(imageMeta)
+        .pipe(
+          switchMap(metadata => {
+            product.pictureId = metadata.id;
+            return this.addProduct(product);
+          })
+        );
+    } else {throw Error ('You done goofed your metadata')
+    }
   }
 }
