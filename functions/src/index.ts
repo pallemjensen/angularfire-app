@@ -12,7 +12,14 @@ exports.deleteProduct = functions.firestore
         admin.firestore().collection('files')
           .doc(deletedProduct.pictureId)
           .delete()
-          .then(value => resolve(value), err => reject(err))
+          .then(() => {
+            admin.storage()
+              .bucket().file('product-pictures/' + deletedProduct.pictureId)
+              .delete()
+              .then(result => resolve(result), err => reject(err))
+              .catch(err => reject(err))
+          },
+              err => reject(err))
           .catch(err => reject(err))
       } else {
         reject('No product was deleted!');
