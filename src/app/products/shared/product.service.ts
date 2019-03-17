@@ -5,6 +5,7 @@ import {Product} from './product.model';
 import {catchError, first, map, switchMap, tap} from 'rxjs/operators';
 import {ImageMetadata} from '../../files/shared/image-metadata';
 import {FileService} from '../../files/shared/file.service';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ import {FileService} from '../../files/shared/file.service';
 export class ProductService {
 
   constructor(private db: AngularFirestore,
-              private fileService: FileService) { }
+              private fileService: FileService,
+              private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
     return this.db.collection<Product>('products')
@@ -79,7 +81,18 @@ export class ProductService {
     if (imageMeta && imageMeta.fileMeta &&
     imageMeta.fileMeta.name && imageMeta.fileMeta.type &&
       (imageMeta.imageBlob || imageMeta.base64Image) && imageMeta.fileMeta.size > 100) {
-      return this.fileService.uploadImage(imageMeta)
+      const endPointUrl = 'https://fir-angular-app-28153.firebaseapp.com/products';
+      const productToSend: any = {
+        name: product.name,
+        image: {
+          base64: imageMeta.base64Image,
+          name: imageMeta.fileMeta.name,
+          type: imageMeta.fileMeta.type,
+          size: imageMeta.fileMeta.size
+        }
+      };
+      return this.http.post<Product>(endPointUrl, productToSend);
+      /*return this.fileService.uploadImage(imageMeta)
         .pipe(
           switchMap(metadata => {
             product.pictureId = metadata.id;
@@ -88,9 +101,30 @@ export class ProductService {
           catchError((err, ) => {
             return throwError(err);
            })
-        );
+        );*/
     } else {
         return throwError('You done goofed your metadata');
     }
   }
 }
+
+
+// addProductWithImage(product: Product, imageMeta: ImageMetadata)
+// : Observable<Product> {
+//   if (imageMeta && imageMeta.fileMeta &&
+// imageMeta.fileMeta.name && imageMeta.fileMeta.type &&
+// (imageMeta.imageBlob || imageMeta.base64Image) && imageMeta.fileMeta.size > 100) {
+//   return this.fileService.uploadImage(imageMeta)
+//     .pipe(
+//       switchMap(metadata => {
+//         product.pictureId = metadata.id;
+//         return this.addProduct(product);
+//       }),
+//       catchError((err, ) => {
+//         return throwError(err);
+//       })
+//     );
+// } else {
+//   return throwError('You done goofed your metadata');
+// }
+// }

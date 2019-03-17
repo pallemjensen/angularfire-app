@@ -45,6 +45,7 @@ export class ProductAddComponent implements OnInit {
   private getMetaDataForImage(): ImageMetadata {
       const fileBeforeCrop = this.imageChangedEvent.target.files[0];
       return {
+        base64Image: this.croppedImage,
         imageBlob: this.croppedBlob,
         fileMeta: {
           name: fileBeforeCrop.name,
