@@ -3,8 +3,26 @@ import * as admin from 'firebase-admin';
 
 admin.initializeApp()
 
-exports.uploadNewProductImage = functions.storage.object().onFinalize((object) => {
+exports.deleteProduct = functions.firestore
+  .document('products/{productID}')
+  .onDelete((snap, context) => {
+    return new Promise( (resolve, reject) => {
+      const deletedProduct = snap.data();
+      if (deletedProduct) {
+        admin.firestore().collection('files')
+          .doc(deletedProduct.pictureId)
+          .delete()
+          .then(value => resolve(value), err => reject(err))
+          .catch(err => reject(err))
+      } else {
+        reject('No product was deleted!');
+      }
+    });
+  });
 
+
+
+exports.uploadNewProductImage = functions.storage.object().onFinalize((object) => {
   return new Promise( (resolve, reject) => {
     if (object && object.name && object.metadata){
       const fileMeta = {
