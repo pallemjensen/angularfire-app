@@ -31,7 +31,7 @@ exports.products = functions.https.onRequest((request, response) => {
     .get().then(products => {
       const listOfProducts: any = [];
       products.forEach(product => {
-        let prod = product.data();
+        const prod = product.data();
         prod.id = product.id;
         listOfProducts.push(prod);
       })

@@ -43,10 +43,6 @@ export class ProductAddComponent implements OnInit {
       });
   }
   private getMetaDataForImage(): ImageMetadata {
-    if (this.imageChangedEvent &&
-      this.imageChangedEvent.target &&
-      this.imageChangedEvent.target.files &&
-      this.imageChangedEvent.target.files.length > 0) {
       const fileBeforeCrop = this.imageChangedEvent.target.files[0];
       return {
         imageBlob: this.croppedBlob,
@@ -56,12 +52,26 @@ export class ProductAddComponent implements OnInit {
           size: fileBeforeCrop.size
         }
       };
-    }
-    return undefined;
   }
 
 
-
+  // private getMetaDataForImage(): ImageMetadata {
+  //   if (this.imageChangedEvent &&
+  //     this.imageChangedEvent.target &&
+  //     this.imageChangedEvent.target.files &&
+  //     this.imageChangedEvent.target.files.length > 0) {
+  //     const fileBeforeCrop = this.imageChangedEvent.target.files[0];
+  //     return {
+  //       imageBlob: this.croppedBlob,
+  //       fileMeta: {
+  //         name: fileBeforeCrop.name,
+  //         type: 'image/png',
+  //         size: fileBeforeCrop.size
+  //       }
+  //     };
+  //   }
+  //   return undefined;
+  // }
 
 
 
