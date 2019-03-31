@@ -1,7 +1,8 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as corsModule from 'cors';
-const cors = corsModule({origin:true})
+const cors = corsModule(
+  {origin:true})
 
 exports.products = functions.https.onRequest( (request, response) => {
   cors(request, response, async () => {
