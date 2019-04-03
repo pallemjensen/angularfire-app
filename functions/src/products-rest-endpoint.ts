@@ -21,6 +21,7 @@ exports.products = functions.https.onRequest( (request, response) => {
         })
     } else if (request.method === 'POST') {
       const data = request.body;
+      console.log('data inc', data);
       const product: any = {name: data.name};
       const file = {
         name: data.image.name,

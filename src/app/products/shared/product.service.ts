@@ -81,7 +81,7 @@ export class ProductService {
     if (imageMeta && imageMeta.fileMeta &&
     imageMeta.fileMeta.name && imageMeta.fileMeta.type &&
       (imageMeta.imageBlob || imageMeta.base64Image) && imageMeta.fileMeta.size > 100) {
-      const endPointUrl = 'https://fir-angular-app-28153.firebaseapp.com/products';
+      const endPointUrl = 'https://us-central1-fir-angular-app-28153.cloudfunctions.net/products';
       const productToSend: any = {
         name: product.name,
         image: {
