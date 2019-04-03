@@ -16,7 +16,7 @@ exports.deleteProduct = functions.firestore
           const resultFromStorage = await admin.storage()
             .bucket().file('product-pictures/' + deletedProduct.pictureId)
             .delete()
-            .then()
+            .then();
 
           resolve(resultFromStorage);
         } catch (err) {

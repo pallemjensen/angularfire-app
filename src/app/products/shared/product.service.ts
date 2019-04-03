@@ -92,16 +92,6 @@ export class ProductService {
         }
       };
       return this.http.post<Product>(endPointUrl, productToSend);
-      /*return this.fileService.uploadImage(imageMeta)
-        .pipe(
-          switchMap(metadata => {
-            product.pictureId = metadata.id;
-            return this.addProduct(product);
-          }),
-          catchError((err, ) => {
-            return throwError(err);
-           })
-        );*/
     } else {
         return throwError('You done goofed your metadata');
     }

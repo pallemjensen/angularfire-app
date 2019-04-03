@@ -4,11 +4,11 @@ import * as uploadNewProductImage from './upload-productimage-function';
 import * as productRest from './products-rest-endpoint';
 
 
-admin.initializeApp()
+admin.initializeApp();
 
 
 module.exports = {
   ...deleteProducts,
   ...uploadNewProductImage,
   ...productRest
-}
+};

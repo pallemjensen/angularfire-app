@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as corsModule from 'cors';
-const cors = corsModule({origin: true})
+const cors = corsModule({origin: true});
 
 exports.products = functions.https.onRequest( (request, response) => {
   cors(request, response, async () => {
@@ -13,7 +13,7 @@ exports.products = functions.https.onRequest( (request, response) => {
           const prod = product.data();
           prod.id = product.id;
           listOfProducts.push(prod);
-        })
+        });
         response.json(listOfProducts);
       })
         .catch(err => {
