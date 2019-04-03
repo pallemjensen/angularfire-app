@@ -39,7 +39,7 @@ export class ProductAddComponent implements OnInit {
         {relativeTo: this.activatedRoute});
     },
       error1 => {
-        window.alert('An error occurred while trying to add a product ' + error1);
+        window.alert('An error occurred while trying to add a product error1 ' + error1);
       });
   }
   private getMetaDataForImage(): ImageMetadata {
