@@ -9,6 +9,6 @@ export interface Friend {
   address: string;
   mail: string;
   phone: string;
-  location: GeoPoint;
+  location?: GeoPoint;
   url?: string;
 }

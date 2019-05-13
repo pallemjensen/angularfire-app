@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {FriendService} from '../shared/friend.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
+import {FileService} from '../../files/shared/file.service';
 
 @Component({
   selector: 'app-friend-add',
@@ -18,14 +19,16 @@ export class FriendAddComponent implements OnInit {
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
-              private friendService: FriendService
+              private friendService: FriendService,
+              private fileService: FileService
               ) {
     this.friendFormGroup = new FormGroup( {
       name: new FormControl(''),
       address: new FormControl(''),
       phone: new FormControl(''),
       mail: new FormControl(''),
-      location: new FormControl('')
+      location: new FormControl(''),
+      picture: new FormControl('')
   }); }
 
   ngOnInit() {
@@ -44,37 +47,6 @@ export class FriendAddComponent implements OnInit {
       });
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   updateImage(event) {
     this.imageChangedEvent = event;
   }
@@ -82,5 +54,11 @@ export class FriendAddComponent implements OnInit {
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
     this.croppedBlob = event.file;
+  }
+
+
+  uploadFile(event) {
+    const file = event.target.files[0];
+    this.fileService.upload(file);
   }
 }

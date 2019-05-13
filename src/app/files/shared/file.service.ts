@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {defer, Observable} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {map} from 'rxjs/operators';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +14,12 @@ export class FileService {
               private db: AngularFirestore) { }
 
   upload(file: File): Observable<string> {
-    const uniqueId = this.db.createId();
-    return defer(() => this.storage.ref('friend-pictures/' + uniqueId)
-          .put(file)
-          .then())
-          .pipe(
-            map( fileRef => {
-              fileRef.id = uniqueId;
-              return uniqueId;
-      })
-    );
+    this.storage.ref('product-pictures/' + file.name)
+      .put(file)
+      .then(() => {
+        // debugger;
+      });
+    return Observable.create();
   }
 
   getFileUrl(id: string): Observable<any> {
