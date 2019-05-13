@@ -29,14 +29,4 @@ export class FileService {
    return this.storage.ref('friend-pictures/' + id)
       .getDownloadURL();
   }
-
-  // uploadImage(imageMetadata: ImageMetadata): Observable<FileMetadata> {
-  //   if (imageMetadata.imageBlob) {
-  //     const fileToUpload = new File(
-  //       [imageMetadata.imageBlob],
-  //         imageMetadata.fileMeta.name,
-  //       {type: imageMetadata.fileMeta.type});
-  //     return this.upload(fileToUpload);
-  //   }
-  // }
 }
