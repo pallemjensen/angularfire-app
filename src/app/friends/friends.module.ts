@@ -1,21 +1,21 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {ProductsRoutingModule} from './products-routing.module';
-import {ProductListComponent} from './product-list/product-list.component';
+import {FriendsRoutingModule} from './friends-routing.module';
+import {FriendListComponent} from './friend-list/friend-list.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FilesModule} from '../files/files.module';
-import {ProductAddComponent} from './product-add/product-add.component';
+import {FriendAddComponent} from './friend-add/friend-add.component';
 import {ImageCropperModule} from 'ngx-image-cropper';
 
 @NgModule({
-  declarations: [ProductListComponent, ProductAddComponent],
+  declarations: [FriendListComponent, FriendAddComponent],
   imports: [
     CommonModule,
-    ProductsRoutingModule,
+    FriendsRoutingModule,
     ReactiveFormsModule,
     FilesModule,
     ImageCropperModule
   ]
 })
-export class ProductsModule { }
+export class FriendsModule { }

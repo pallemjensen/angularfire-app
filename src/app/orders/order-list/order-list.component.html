@@ -1,7 +1,0 @@
-<ul>
-  <li class="text" *ngFor="let order of orders | async">
-    {{order.name}} -- {{order.id}}
-    <button (click)="deleteOrder(order)">Delete</button>
-  </li>
-</ul>
-<button routerLink="">Home</button>

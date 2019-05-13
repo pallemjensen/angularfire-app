@@ -1,0 +1,9 @@
+<button routerLink="add">+</button>
+<ul>
+  <li class="text" *ngFor="let friend of Friends | async">
+    <img [src]="friend.url" *ngIf="friend.url" style="width: 24px; height: 24px">
+    {{friend.name}} -- {{friend.mail}} -- {{friend.id}}
+    <button (click)="deleteFriend(friend)">Delete</button>
+  </li>
+</ul>
+<button routerLink="">Home</button>

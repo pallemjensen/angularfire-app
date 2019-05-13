@@ -1,8 +1,0 @@
-<ul>
-  <li class="text" *ngFor="let customer of customers | async">
-    {{customer.firstName}} {{customer.lastName}} -- {{customer.id}}
-    <button (click)="deleteCustomer(customer)">Delete</button>
-  </li>
-</ul>
-
-<button routerLink="">Home</button>

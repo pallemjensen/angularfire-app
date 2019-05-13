@@ -1,11 +1,32 @@
 <h2>Add new product</h2>
-<form [formGroup]="productFormGroup" (ngSubmit)="addProduct()">
+<form [formGroup]="friendFormGroup" (ngSubmit)="addFriend()">
+
   <label>
     Name
     <input type="text" formControlName="name">
+   </label>
+
+  <label>
+    Address
+    <input type="text" formControlName="address">
   </label>
 
-  <input type="file" (change)="uploadFile($event)" accept="image/*">
+  <label>
+    Mail
+    <input type="text" formControlName="mail">
+  </label>
+
+    <label>
+      Phone
+      <input type="text" formControlName="phone">
+    </label>
+
+  <label>
+    Location
+    <input type="text" formControlName="location">
+  </label>
+
+  <input type="file" (change)="updateImage($event)" accept="image/*">
 
   <button type="submit">Add</button>
 </form>
