@@ -8,6 +8,6 @@ export const environment = {
     storageBucket: 'fir-angular-app-28153.appspot.com',
     messagingSenderId: '966994851840',
   },
-  googleMapsKey: 'AIzaSyAyvc7F_FXF0JWELjGqZXtMP7GMhumwcb4'
+  googleMapsKey: 'AIzaSyCKQQ19Zy3K3Lbsbw2ueqn3ILzJaJYJtcA'
 };
 
