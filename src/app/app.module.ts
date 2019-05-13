@@ -4,11 +4,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
+export const firebase = environment.firebase;
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {HttpClientModule} from '@angular/common/http';
 
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule } from '@agm/core'; //angular google maps
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
@@ -25,7 +26,7 @@ import {FormsModule} from '@angular/forms';
     CommonModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAyvc7F_FXF0JWELjGqZXtMP7GMhumwcb4'
+      apiKey: environment.googleMapsKey
     })
   ],
   providers: [],

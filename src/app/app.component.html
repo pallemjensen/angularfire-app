@@ -17,7 +17,15 @@
   <agm-marker
     [latitude]="lat"
     [longitude]="lng"
-    *ngIf="locationChosen"></agm-marker>
+    *ngIf="locationChosen">
+
+
+    <agm-info-window>
+    <h3><strong>Howdy!</strong></h3>
+    <p>you are here!</p>
+    </agm-info-window>
+
+  </agm-marker>
 </agm-map>
 
 <router-outlet></router-outlet>
