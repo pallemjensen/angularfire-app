@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angularfire-app';
+  lat = 51.678418; //number
+  lng = 7.809007; //number
 }

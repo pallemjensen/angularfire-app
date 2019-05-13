@@ -6,4 +6,8 @@
 <button routerLink="/products">Products</button>
 <button routerLink="/orders">Orders</button>
 
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
+
 <router-outlet></router-outlet>
