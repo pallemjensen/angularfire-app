@@ -7,6 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angularfire-app';
-  lat = 51.678418; //number
-  lng = 7.809007; //number
+  lat: number = 51.678418; //number
+  lng: number = 7.809007; //number
+  zoom: number = 10;
+  locationChosen = false;
+
+  onChoseLocation(event) {
+    this.lat = event.coords.lat;
+    this.lng = event.coords.lng;
+    this.locationChosen = true;
+
+  }
 }

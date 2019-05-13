@@ -6,8 +6,18 @@
 <button routerLink="/products">Products</button>
 <button routerLink="/orders">Orders</button>
 
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+
+<h2> Google Maps:</h2>
+<agm-map
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  (mapClick)="onChoseLocation($event)">
+
+  <agm-marker
+    [latitude]="lat"
+    [longitude]="lng"
+    *ngIf="locationChosen"></agm-marker>
 </agm-map>
 
 <router-outlet></router-outlet>
