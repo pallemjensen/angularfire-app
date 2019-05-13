@@ -12,10 +12,12 @@ import {HttpClientModule} from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core'; //angular google maps
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import { GoogleMapComponent } from './google-map/google-map.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GoogleMapComponent
   ],
   imports: [
     BrowserModule,
