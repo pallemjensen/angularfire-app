@@ -3,13 +3,17 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {from, Observable} from 'rxjs';
 import {Friend} from './friend.model';
 import {first, map, switchMap, tap} from 'rxjs/operators';
+import {FileService} from '../../files/shared/file.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FriendService {
 
-  constructor(private db: AngularFirestore  ) { }
+  fileName: string;
+
+  constructor(private db: AngularFirestore,
+              private fileservice: FileService) { }
 
   getFriends(): Observable<Friend[]> {
     return this.db.collection<Friend>('Friends')
@@ -59,12 +63,13 @@ export class FriendService {
       );
   }
 
-  public addFriend(friend: Friend): Observable<Friend> {
-    return from(
+  public addFriend(friend: Friend, file: File): Observable<Friend> {
+   this.fileName = this.fileservice.uploadFile(file);
+   return from(
       this.db.collection('Friends')
       .add({
         name: friend.name,
-        picture: friend.picture,
+        picture: this.fileName,
         address: friend.address,
         phone: friend.phone,
         location: friend.location,

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FriendService} from '../shared/friend.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {FileService} from '../../files/shared/file.service';
 
 @Component({
@@ -13,6 +12,7 @@ import {FileService} from '../../files/shared/file.service';
 export class FriendAddComponent implements OnInit {
 
   friendFormGroup: FormGroup;
+  private file: File;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -34,7 +34,7 @@ export class FriendAddComponent implements OnInit {
   addFriend() {
     const friendData = this.friendFormGroup.value;
     this.friendService.addFriend(
-      friendData,
+      friendData, this.file
     ).subscribe(friend => {
       this.router.navigate(['../'],
         {relativeTo: this.activatedRoute});
@@ -44,10 +44,7 @@ export class FriendAddComponent implements OnInit {
       });
   }
 
-  upload(event) {
-    const file = event.target.files[0];
-
-    debugger;
-    this.fileService.uploadFile(file);
+  imageChange(event) {
+    this.file = event.target.files[0];
   }
 }

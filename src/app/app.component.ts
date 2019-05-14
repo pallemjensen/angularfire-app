@@ -57,6 +57,7 @@ export class AppComponent {
 }
 
 // just an interface for type safety.
+// tslint:disable-next-line:class-name
 interface marker {
   lat: number;
   lng: number;

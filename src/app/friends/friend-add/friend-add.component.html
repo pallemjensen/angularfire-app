@@ -26,12 +26,7 @@
     <input type="text" formControlName="location">
   </label>
 
-  <label>
-    Picture
-    <input type="text" formControlName="picture">
-  </label>
-
-  <input type="file" (change)="upload($event)" accept="image/*">
+  <input type="file" (change)="imageChange($event)" accept="image/*">
 
   <button type="submit">Add</button>
 </form>
