@@ -1,5 +1,11 @@
 <button routerLink="/map">Map</button>
 
+<h1>
+  {{title}}
+</h1>
+
+<button routerLink="/friends">Friends</button>
+
 <router-outlet></router-outlet>
 
 <h1>Map:</h1>
@@ -12,8 +18,8 @@
   (mapClick)="onChoseLocation($event)"
   [zoom]="zoom"
   [disableDefaultUI]="false"
-  [zoomControl]="false"/>
-<!--  (mapDblClick)="getFriendsLocation($event)"-->
+  [zoomControl]="false"
+  (mapDblClick)="getFriendsLocation($event)"
 >
 
   <agm-marker
