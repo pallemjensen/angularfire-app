@@ -1,34 +1,45 @@
-<h2>Add new product</h2>
+<Body>
+<div style="text-align: center;">
+
+<h2>Add new friend</h2>
+</div >
 <form [formGroup]="friendFormGroup" (ngSubmit)="addFriend()">
-
+  <div  style="text-align: center;">
   <label>
-    Name
-    <input type="text" formControlName="name">
+    <p>Name</p>
+    <input style="background: darkgray" type="text" formControlName="name">
    </label>
+    <br />
 
   <label>
-    Address
-    <input type="text" formControlName="address">
+    <p>Address</p>
+    <input style="background: darkgray" type="text" formControlName="address">
   </label>
+    <br />
 
   <label>
-    Mail
-    <input type="text" formControlName="mail">
+    <p>Mail</p>
+    <input style="background: darkgray" type="text" formControlName="mail">
   </label>
+    <br />
 
     <label>
-      Phone
-      <input type="text" formControlName="phone">
+      <p>Phone</p>
+      <input style="background: darkgray" type="text" formControlName="phone">
     </label>
+    <br />
 
   <label>
-    Location
-    <input type="text" formControlName="location">
+    <p>Location</p>
+    <input style="background: darkgray" type="text" formControlName="location">
   </label>
-
-  <input type="file" (change)="imageChange($event)" accept="image/*">
-
+    <br />
+    <br />
+  <input style="background: darkgray" type="file" (change)="imageChange($event)" accept="image/*">
+    <br />
+    <br />
   <button type="submit">Add</button>
+  </div>
 </form>
-
+</Body>
 

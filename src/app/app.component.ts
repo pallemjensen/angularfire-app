@@ -10,7 +10,7 @@ import {Friend} from './friends/shared/friend.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent extends FriendService {
-  title = 'angularfire-app';
+  // title = 'Friendfinder';
   lat: number = 51.678418;
   lng: number = 7.809007;
 

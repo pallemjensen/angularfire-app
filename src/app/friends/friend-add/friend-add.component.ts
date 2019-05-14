@@ -16,9 +16,9 @@ export class FriendAddComponent implements OnInit {
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
-              private friendService: FriendService,
-              private fileService: FileService
+              private friendService: FriendService
               ) {
+
     this.friendFormGroup = new FormGroup( {
       name: new FormControl(''),
       address: new FormControl(''),
