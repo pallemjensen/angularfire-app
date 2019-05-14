@@ -13,11 +13,26 @@
 <agm-map
   [latitude]="lat"
   [longitude]="lng"
-(mapClick)="onChoseLocation($event)">
+  (mapClick)="onChoseLocation($event)"
+  [zoom]="zoom"
+  [disableDefaultUI]="false"
+  [zoomControl]="false"
+  >
 
   <agm-marker
-    [latitude]="lat"
-    [longitude]="lng"
-    *ngIf="locationChosen"
-  ></agm-marker>
+    *ngFor="let m of markers; let i = index"
+    (markerClick)="clickedMarker(m.label, i)"
+    [latitude]="m.lat"
+    [longitude]="m.lng"
+    [label]="m.label"
+    [markerDraggable]="m.draggable"
+    >
+    <agm-info-window>
+    <h3><strong>Her skal afstanden vises</strong></h3>
+    </agm-info-window>
+
+  </agm-marker>
+
+
 </agm-map>
+
