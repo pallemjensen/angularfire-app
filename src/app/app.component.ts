@@ -1,18 +1,29 @@
 import { Component } from '@angular/core';
+import { FriendService} from './friends/shared/friend.service';
+import {Observable} from 'rxjs';
+import {Friend} from './friends/shared/friend.model';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent extends FriendService {
   title = 'angularfire-app';
   lat: number = 51.678418;
   lng: number = 7.809007;
 
-  zoom: number = 8;
+/*
+  getFriendsLocation(event): Observable<Friend[]> {
+    return this.getFriendsLocation();
 
+      //location?: GeoPoint;
+  }*/
+
+  zoom: number = 8;
   locationChosen = false;
+
 
   markers: marker[] = [
     {
@@ -63,3 +74,5 @@ interface marker {
   label?: string;
   draggable: boolean;
 }
+
+

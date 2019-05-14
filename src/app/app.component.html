@@ -17,6 +17,7 @@
   [zoom]="zoom"
   [disableDefaultUI]="false"
   [zoomControl]="false"
+  (mapDblClick)="getFriendsLocation($event)"
   >
 
   <agm-marker
