@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {defer, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {AngularFirestore} from '@angular/fire/firestore';
+
 
 
 
@@ -11,9 +11,9 @@ import {AngularFirestore} from '@angular/fire/firestore';
 export class FileService {
 
   constructor(private storage: AngularFireStorage,
-              private db: AngularFirestore) { }
+              ) { }
 
-  upload(file: File): Observable<string> {
+  uploadFile(file: File): Observable<string> {
     this.storage.ref('product-pictures/' + file.name)
       .put(file)
       .then(() => {

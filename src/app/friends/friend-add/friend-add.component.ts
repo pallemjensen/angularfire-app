@@ -13,9 +13,6 @@ import {FileService} from '../../files/shared/file.service';
 export class FriendAddComponent implements OnInit {
 
   friendFormGroup: FormGroup;
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
-  croppedBlob: Blob;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -47,18 +44,10 @@ export class FriendAddComponent implements OnInit {
       });
   }
 
-  updateImage(event) {
-    this.imageChangedEvent = event;
-  }
-
-  imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.base64;
-    this.croppedBlob = event.file;
-  }
-
-
-  uploadFile(event) {
+  upload(event) {
     const file = event.target.files[0];
-    this.fileService.upload(file);
+
+    debugger;
+    this.fileService.uploadFile(file);
   }
 }
