@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: './friends/friends.module#FriendsModule'
   },
   {
+    path: 'maps',
+    loadChildren: './maps/maps.module#MapsModule'
+  },
+  {
     path: '',
     redirectTo: '',
     pathMatch: 'full'
