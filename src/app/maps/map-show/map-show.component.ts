@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+import {FriendService } from "../../friends/shared/friend.service";
+import {Observable} from "rxjs";
+import {Friend} from "../../friends/shared/friend.model";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-map-show',
@@ -7,15 +10,62 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./map-show.component.css']
 })
 export class MapShowComponent implements OnInit {
+  friends: Observable<Friend[]>;
+  lat: string;
+  lng: string;
 
-  constructor() { }
+  constructor(private fs: FriendService) {
+
+  }
+
+
 
   ngOnInit() {
+
+  }
+
+  getLat(): string{
+    this.friends = this.fs.getFriends()
+      .pipe(
+        tap(friends => {
+          friends.forEach(friend => {
+            if (friend.location) {
+              // @ts-ignore
+              this.fs.getFriends(friend.location)
+                .subscribe(loc => {
+                  friend.location = loc;
+                });
+            }
+          });
+        })
+      );
+    return this.lat
+    console.log(this.lat)
+  }
+
+  getLng(): string{
+    this.friends = this.fs.getFriends()
+      .pipe(
+        tap(friends => {
+          friends.forEach(friend => {
+            if (friend.location) {
+              // @ts-ignore
+              this.fs.getFriends(friend.location)
+                .subscribe(loc => {
+                  friend.location = loc;
+                });
+            }
+          });
+        })
+      );
+    return this.lng
+    console.log(this.lng)
   }
 
   title = 'Friendfinder';
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+  EASVMarkerLat: number = 55.488432;
+  EASVMarkerLng: number = 8.4465819;
+
 
   /*
     getFriendsLocation(event): Observable<Friend[]> {
@@ -29,9 +79,9 @@ export class MapShowComponent implements OnInit {
 
   markers: marker[] = [
     {
-      lat: 51.673858,
-      lng: 7.815982,
-      label: 'A',
+      lat: this.EASVMarkerLat,
+      lng: this.EASVMarkerLng,
+      label: 'EASV',
       draggable: true
     },
     {
@@ -69,6 +119,7 @@ export class MapShowComponent implements OnInit {
   }
 }
 
+
 // just an interface for type safety.
 // tslint:disable-next-line:class-name
 interface marker {
@@ -76,5 +127,7 @@ interface marker {
   lng: number;
   label?: string;
   draggable: boolean;
-
 }
+
+
+
