@@ -43,8 +43,8 @@ export class FriendAddComponent implements OnInit {
       this.router.navigate(['../'],
         {relativeTo: this.activatedRoute});
     },
-      error1 => {
-        window.alert('An error occurred while trying to add a friend error1 ' + JSON.stringify(error1));
+      addFriendError => {
+        window.alert('An error occurred while trying to add a friend error1 ' + JSON.stringify(addFriendError));
       });
   }
 
