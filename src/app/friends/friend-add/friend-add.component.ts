@@ -13,10 +13,11 @@ import {Friend} from "../shared/friend.model";
 })
 export class FriendAddComponent implements OnInit {
   private friend: Friend;
-  friendFormGroup: FormGroup;
-  locationFormGroup: FormGroup;
   private file: File;
   private geoPoint : GeoPoint;
+  private latitude: number;
+  private longitude: number;
+
 
   friendFormGroup = new FormGroup( {
     name: new FormControl(''),
@@ -24,10 +25,6 @@ export class FriendAddComponent implements OnInit {
     phone: new FormControl(''),
     mail: new FormControl(''),
     picture: new FormControl(''),
-    location: new FormGroup({
-      latitude: new FormControl(''),
-      longitude: new FormControl(''),
-    }),
   });
 
   constructor(private router: Router,
@@ -43,8 +40,10 @@ export class FriendAddComponent implements OnInit {
   }
 
   addFriend() {
+    const lat = this.latitude;
+    const lng = this.longitude;
     this.friend = this.friendFormGroup.value;
-    this.geoPoint = this.makeGeopoint(45, 45);
+    this.geoPoint = this.makeGeopoint(lat, lng);
     this.friend.location = this.geoPoint;
     this.friendService.addFriend(
       this.friend, this.file

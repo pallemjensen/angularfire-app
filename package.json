@@ -22,8 +22,6 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
-    "@firebase/firestore": "^0.3.5",
-    "@firebase/firestore-types": "^0.2.2",
     "core-js": "^2.5.4",
     "firebase": "^5.11.1",
     "ngx-bootstrap": "^4.1.1",
