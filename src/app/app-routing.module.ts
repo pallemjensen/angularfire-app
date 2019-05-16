@@ -11,8 +11,12 @@ const routes: Routes = [
     loadChildren: './maps/maps.module#MapsModule'
   },
   {
+    path: 'home',
+    loadChildren: './home/home.module#HomeModule'
+  },
+  {
     path: '',
-    redirectTo: '',
+    redirectTo: 'home',
     pathMatch: 'full'
   }
 ];
