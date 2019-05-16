@@ -13,29 +13,25 @@ import {Friend} from "../shared/friend.model";
 })
 export class FriendAddComponent implements OnInit {
   private friend: Friend;
-  friendFormGroup: FormGroup;
-  locationFormGroup: FormGroup,
   private file: File;
-  private latFromForm: number;
-  private lngFromForm: number;
+  private geoPoint : GeoPoint;
+
+  friendFormGroup = new FormGroup( {
+    name: new FormControl(''),
+    address: new FormControl(''),
+    phone: new FormControl(''),
+    mail: new FormControl(''),
+    picture: new FormControl(''),
+    location: new FormGroup({
+      latitude: new FormControl(''),
+      longitude: new FormControl(''),
+    }),
+  });
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private friendService: FriendService
-              ) {
-
-    this.friendFormGroup = new FormGroup( {
-      name: new FormControl(''),
-      address: new FormControl(''),
-      phone: new FormControl(''),
-      mail: new FormControl(''),
-      picture: new FormControl(''),
-      this: this.locationFormGroup = new FormGroup({
-        latitude: new FormControl(''),
-        longitude: new FormControl(''),
-      }),
-  }); }
-
+              ) {}
 
   ngOnInit() {
   }
@@ -46,6 +42,8 @@ export class FriendAddComponent implements OnInit {
 
   addFriend() {
     this.friend = this.friendFormGroup.value;
+    this.geoPoint = this.makeGeopoint(45, 45);
+    this.friend.location = this.geoPoint;
     this.friendService.addFriend(
       this.friend, this.file
     ).subscribe(friend => {

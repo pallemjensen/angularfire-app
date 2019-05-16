@@ -29,19 +29,23 @@
     </label>
     <br />
 
-  <label>
-    <p>Latitude</p>
-    <input style="background: darkgray" type="number" formControlName="latitude">
-  </label>
-    <br />
-    <label>
-      <p>Longitude</p>
-      <input style="background: darkgray" type="number" formControlName="longitude">
-    </label>
-    <br />
+    <p>Location:</p>
+    <div formGroupName="location">
+      <label>
+        <p>Latitude</p>
+        <input style="background: darkgray" type="number" formControlName="latitude">
+      </label>
+      <br/>
+      <label>
+        <p>Longitude</p>
+        <input style="background: darkgray" type="number" formControlName="longitude">
+      </label>
+      <br/>
+    </div>
     <br />
   <input style="background: darkgray" type="file" (change)="imageChange($event)" accept="image/*">
     <br />
+
     <br />
   <button type="submit">Add</button>
   </div>
