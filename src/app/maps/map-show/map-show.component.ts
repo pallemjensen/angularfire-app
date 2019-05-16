@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {FriendService } from "../../friends/shared/friend.service";
 import {Observable} from "rxjs";
 import {Friend} from "../../friends/shared/friend.model";
-import {tap} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
+import * as firebase from 'firebase/app';
+import GeoPoint = firebase.firestore.GeoPoint;
+import {Marker} from "@agm/core/services/google-maps-types";
+import {AgmMarker} from "@agm/core";
 
 @Component({
   selector: 'app-map-show',
@@ -10,54 +14,32 @@ import {tap} from "rxjs/operators";
   styleUrls: ['./map-show.component.css']
 })
 export class MapShowComponent implements OnInit {
-  friends: Observable<Friend[]>;
-  lat: string;
-  lng: string;
+  friends: Observable<Friend>;
+  lat: number;
+  lng: number;
+  name: string;
 
-  constructor(private fs: FriendService) {
+  constructor(private friendService: FriendService) {
   }
 
   ngOnInit() {
-this.getLng();
   }
 
-  getLat(): string{
-    this.friends = this.fs.getFriends()
-      .pipe(
-        tap(friends => {
-          friends.forEach(friend => {
-            if (friend.location) {
-              // @ts-ignore
-              this.fs.getFriends(friend.location)
-                .subscribe(loc => {
-                  friend.location = loc;
-                });
-            }
-          });
-        })
-      );
-    return this.lat
-    console.log(this.lat)
-  }
-
-  getLng() {
-    this.friends = this.fs.getFriends()
-      .pipe(
-        tap(friends => {
-          friends.forEach(friend => {
-            if (friend.location) {
-              // @ts-ignore
-              this.fs.getFriends(friend.location)
-                .subscribe(loc => {
-                  loc = friend.location.longitude
-                  window.alert(loc)
-                  return loc;
-                });
-            }
-          });
-        })
-      );
-  }
+  // showFriendsOnMap(): marker[]{
+  //   Friend = this.friendService.getFriends()
+  //     .pipe(
+  //       tap(friends => {
+  //         friends.forEach(friend => {
+  //           this.markers.push({
+  //             lat : friend.location.latitude,
+  //             lng: friend.location.longitude,
+  //             label: friend.name
+  //           })
+  //         });
+  //       })
+  //     );
+  //   return this.markers;
+  // }
 
   title = 'Friendfinder';
   EASVMarkerLat: number = 55.488432;
@@ -71,6 +53,7 @@ this.getLng();
 
   zoom: number = 8;
   locationChosen = false;
+
 
 
   markers: marker[] = [
@@ -101,24 +84,18 @@ this.getLng();
     console.log(`clicked the marker: ${label || index}`)
   }
 
-  mapClicked(event) {
-    this.markers.push({
-      lat: event.coords.lat,
-      lng: event.coords.lng,
-    });
-  }markerDragEnd(m: marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
-  }
+  // mapClicked(event) {
+  //   this.markers.push({
+  //     lat: event.coords.lat,
+  //     lng: event.coords.lng,
+  //   });
+  // }
 }
 
 
-// just an interface for type safety.
-// tslint:disable-next-line:class-name
 interface marker {
   lat: number;
   lng: number;
   label?: string;
 }
-
-
 

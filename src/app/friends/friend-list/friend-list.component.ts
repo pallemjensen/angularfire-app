@@ -4,6 +4,7 @@ import {FriendService} from '../shared/friend.service';
 import {Friend} from '../shared/friend.model';
 import {FileService} from '../../files/shared/file.service';
 import {tap} from 'rxjs/operators';
+import {Marker} from "@agm/core/services/google-maps-types";
 
 @Component({
   selector: 'app-friend-list',
