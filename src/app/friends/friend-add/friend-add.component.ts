@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FriendService} from '../shared/friend.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import * as firebase from 'firebase/app'
+import * as firebase from 'firebase/app';
 import GeoPoint = firebase.firestore.GeoPoint;
 import {Friend} from "../shared/friend.model";
 
@@ -13,6 +13,8 @@ import {Friend} from "../shared/friend.model";
 })
 export class FriendAddComponent implements OnInit {
   private friend: Friend;
+  friendFormGroup: FormGroup;
+  locationFormGroup: FormGroup;
   private file: File;
   private geoPoint : GeoPoint;
 

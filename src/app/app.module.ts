@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AgmCoreModule} from '@agm/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {ButtonsModule} from 'ngx-bootstrap';
 
 
 
@@ -22,6 +23,7 @@ import {FormsModule} from '@angular/forms';
     CommonModule,
     FormsModule,
     AppRoutingModule,
+    ButtonsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, AngularFireStorageModule,
     HttpClientModule,

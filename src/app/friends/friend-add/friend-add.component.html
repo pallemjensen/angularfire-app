@@ -6,48 +6,45 @@
 <form [formGroup]="friendFormGroup" (ngSubmit)="addFriend()">
   <div  style="text-align: center;">
   <label>
-    <p>Name</p>
-    <input style="background: darkgray" type="text" formControlName="name">
+
+    <input class="form-control" placeholder="Name" style="background: whitesmoke" type="text" formControlName="name" >
    </label>
     <br />
 
   <label>
-    <p>Address</p>
-    <input style="background: darkgray" type="text" formControlName="address">
+
+    <input class="form-control" placeholder="Address" style="background: whitesmoke" type="text" formControlName="address">
   </label>
     <br />
 
   <label>
-    <p>Mail</p>
-    <input style="background: darkgray" type="text" formControlName="mail">
+
+    <input class="form-control" placeholder="Mail" style="background: whitesmoke" type="text" formControlName="mail">
   </label>
     <br />
 
     <label>
-      <p>Phone</p>
-      <input style="background: darkgray" type="text" formControlName="phone">
+
+      <input class="form-control" placeholder="Phone" style="background: whitesmoke" type="text" formControlName="phone">
     </label>
     <br />
 
-    <p>Location:</p>
-    <div formGroupName="location">
-      <label>
-        <p>Latitude</p>
-        <input style="background: darkgray" type="number" formControlName="latitude">
-      </label>
-      <br/>
-      <label>
-        <p>Longitude</p>
-        <input style="background: darkgray" type="number" formControlName="longitude">
-      </label>
-      <br/>
-    </div>
+  <label>
+
+    <input class="form-control" placeholder="Latitude" style="background: whitesmoke" type="number" formControlName="latitude">
+  </label>
     <br />
-  <input style="background: darkgray" type="file" (change)="imageChange($event)" accept="image/*">
+    <label>
+
+      <input class="form-control" placeholder="Longitude" style="background: whitesmoke" type="number" formControlName="longitude">
+    </label>
+    <br />
+    <br />
+  <input  style="background: whitesmoke" type="file" (change)="imageChange($event)" accept="image/*">
     <br />
 
     <br />
-  <button type="submit">Add</button>
+  <button class="btn btn-primary" type="submit">Add friend</button>
   </div>
 </form>
 </Body>

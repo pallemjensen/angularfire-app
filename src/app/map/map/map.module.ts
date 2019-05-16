@@ -10,6 +10,7 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireStorageModule} from "@angular/fire/storage";
 import {HttpClientModule} from "@angular/common/http";
 import {AgmCoreModule} from "@agm/core";
+import {ButtonsModule} from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [MapComponent],
@@ -17,6 +18,7 @@ import {AgmCoreModule} from "@agm/core";
     BrowserModule,
     CommonModule,
     FormsModule,
+    ButtonsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, AngularFireStorageModule,
