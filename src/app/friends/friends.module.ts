@@ -5,6 +5,7 @@ import {FriendListComponent} from './friend-list/friend-list.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FilesModule} from '../files/files.module';
 import {FriendAddComponent} from './friend-add/friend-add.component';
+import {ButtonsModule} from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [FriendListComponent, FriendAddComponent],
@@ -12,7 +13,8 @@ import {FriendAddComponent} from './friend-add/friend-add.component';
     CommonModule,
     FriendsRoutingModule,
     ReactiveFormsModule,
-    FilesModule
+    FilesModule,
+    ButtonsModule
   ]
 })
 export class FriendsModule { }
