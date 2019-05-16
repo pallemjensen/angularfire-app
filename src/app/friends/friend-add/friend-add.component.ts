@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {FriendService} from '../shared/friend.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FileService} from '../../files/shared/file.service';
+import {GeoPoint} from "@firebase/firestore-types";
 
 @Component({
   selector: 'app-friend-add',
@@ -13,7 +13,6 @@ export class FriendAddComponent implements OnInit {
 
   friendFormGroup: FormGroup;
   private file: File;
-
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private friendService: FriendService
@@ -24,12 +23,17 @@ export class FriendAddComponent implements OnInit {
       address: new FormControl(''),
       phone: new FormControl(''),
       mail: new FormControl(''),
-      location: new FormControl(''),
+      latitude: new FormControl(''),
+      longitude: new FormControl(''),
       picture: new FormControl('')
   }); }
 
   ngOnInit() {
   }
+
+  // makeGeopoint(latitude: number, longitude: number): GeoPoint {
+  // return new GeoPoint(latitude, longitude);
+  // }
 
   addFriend() {
     const friendData = this.friendFormGroup.value;

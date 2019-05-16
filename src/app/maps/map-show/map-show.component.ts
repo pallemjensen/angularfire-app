@@ -15,13 +15,10 @@ export class MapShowComponent implements OnInit {
   lng: string;
 
   constructor(private fs: FriendService) {
-
   }
 
-
-
   ngOnInit() {
-
+this.getLng();
   }
 
   getLat(): string{
@@ -43,7 +40,7 @@ export class MapShowComponent implements OnInit {
     console.log(this.lat)
   }
 
-  getLng(): string{
+  getLng() {
     this.friends = this.fs.getFriends()
       .pipe(
         tap(friends => {
@@ -52,14 +49,14 @@ export class MapShowComponent implements OnInit {
               // @ts-ignore
               this.fs.getFriends(friend.location)
                 .subscribe(loc => {
-                  friend.location = loc;
+                  loc = friend.location.longitude
+                  window.alert(loc)
+                  return loc;
                 });
             }
           });
         })
       );
-    return this.lng
-    console.log(this.lng)
   }
 
   title = 'Friendfinder';
@@ -67,11 +64,10 @@ export class MapShowComponent implements OnInit {
   EASVMarkerLng: number = 8.4465819;
 
 
-  /*
-    getFriendsLocation(event): Observable<Friend[]> {
-      return this.getFriendsLocation();
-        //location?: GeoPoint;
-    }*/
+  //    getFriendsLocation(event): Observable<Friend[]> {
+  //   return this.getFriendsLocation();
+  //   location ? : GeoPoint;
+  // }
 
   zoom: number = 8;
   locationChosen = false;
@@ -82,19 +78,16 @@ export class MapShowComponent implements OnInit {
       lat: this.EASVMarkerLat,
       lng: this.EASVMarkerLng,
       label: 'EASV',
-      draggable: true
     },
     {
       lat: 51.373858,
       lng: 7.215982,
       label: 'B',
-      draggable: false
     },
     {
       lat: 51.723858,
       lng: 7.895982,
       label: 'C',
-      draggable: true
     }
   ]
 
@@ -112,7 +105,6 @@ export class MapShowComponent implements OnInit {
     this.markers.push({
       lat: event.coords.lat,
       lng: event.coords.lng,
-      draggable: true
     });
   }markerDragEnd(m: marker, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
@@ -126,7 +118,6 @@ interface marker {
   lat: number;
   lng: number;
   label?: string;
-  draggable: boolean;
 }
 
 

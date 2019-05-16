@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
 import {FriendsRoutingModule} from './friends-routing.module';
 import {FriendListComponent} from './friend-list/friend-list.component';
 import {ReactiveFormsModule} from '@angular/forms';
