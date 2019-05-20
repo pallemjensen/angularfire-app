@@ -4,3 +4,7 @@ describe('Friend add test', function () {
     cy.contains('Name')
   });
 })
+
+it('should run', function () {
+  
+}); 
