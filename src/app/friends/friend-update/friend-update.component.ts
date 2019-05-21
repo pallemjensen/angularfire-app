@@ -51,7 +51,6 @@ export class FriendUpdateComponent implements OnInit {
     this.friend.location = this.geoPoint;
     this.friendService.updateFriend(this.friend, this.file)
       .subscribe(friend => {
-          debugger;
           this.router.navigate(['../../'],
             {relativeTo: this.activatedRoute});
         },
