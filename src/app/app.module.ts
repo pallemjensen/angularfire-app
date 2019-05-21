@@ -29,7 +29,7 @@ import {ButtonsModule} from 'ngx-bootstrap';
     HttpClientModule,
     AgmCoreModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAyvc7F_FXF0JWELjGqZXtMP7GMhumwcb4'
+      apiKey: 'AIzaSyDHw1XrdTuOey13-mR9qLId7pMqYP7trIg'
     })
   ],
   providers: [AngularFirestore,

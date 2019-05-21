@@ -1,9 +1,12 @@
-<button type="button" class="btn btn-info" routerLink="add">+</button>
+
 <ul fa>
+  <div style="float: right">
+  <button type="button" class="btn btn-primary" routerLink="add">Add Friend</button>
+  </div>
   <h1>Friends:</h1>
   <li class="text" *ngFor="let friend of Friends | async">
     <img [src]="friend.url" *ngIf="friend.url" style="width: 48px; height: 48px">
-    {{friend.name}}
+    Name: {{friend.name}}  --  Address: {{friend.address}}  --  Phone: {{friend.phone}}
     <div style="float: right">
       <button routerLink="update/{{friend.id}}" class="btn btn-warning">Update</button>
     <button type="button" class="btn btn-danger" (click)="deleteFriend(friend)">Delete</button>

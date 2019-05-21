@@ -29,7 +29,7 @@ export class FileService {
   }
 
   getRandomId(): string {
-    this.randomId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10);
+    this.randomId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10) + '.jpg';
     return this.randomId;
   }
 }
