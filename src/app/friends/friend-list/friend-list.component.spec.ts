@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FriendListComponent } from './friend-list.component';
+import {FriendService} from '../shared/friend.service';
+import {FileService} from '../../files/shared/file.service';
+import {Observable, of} from 'rxjs';
+import {Friend} from '../shared/friend.model';
 
 describe('FriendListComponent', () => {
   let component: FriendListComponent;
@@ -8,7 +12,12 @@ describe('FriendListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FriendListComponent ]
+      declarations: [ FriendListComponent ],
+      imports: [],
+      providers: [
+        {provide: FriendService, useClass: friendServiceStub},
+        {provide: FileService, useClass: fileServiceStub}
+      ]
     })
     .compileComponents();
   }));
@@ -23,3 +32,11 @@ describe('FriendListComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+class friendServiceStub {
+  getFriends(): Observable<Friend[]> {
+    return of([]);
+  }
+}
+
+class fileServiceStub {}

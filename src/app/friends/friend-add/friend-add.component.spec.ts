@@ -1,6 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FriendAddComponent } from './friend-add.component';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ButtonsModule} from 'ngx-bootstrap';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {FriendService} from '../shared/friend.service';
+
+
 
 describe('FriendAddComponent', () => {
   let component: FriendAddComponent;
@@ -8,7 +17,20 @@ describe('FriendAddComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FriendAddComponent ]
+      declarations: [ FriendAddComponent ],
+      imports: [
+        ReactiveFormsModule,
+        ButtonsModule,
+        FormsModule,
+        RouterTestingModule,
+        CommonModule,
+        AngularFireStorageModule
+      ],
+      providers: [
+        {
+          provide: FriendService, useClass: friendServiceStub
+        }
+      ]
     })
     .compileComponents();
   }));
@@ -22,3 +44,5 @@ describe('FriendAddComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+class friendServiceStub {}
