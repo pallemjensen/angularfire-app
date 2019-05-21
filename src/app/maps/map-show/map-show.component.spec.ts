@@ -5,6 +5,7 @@ import {AgmCoreModule, MapsAPILoader} from '@agm/core';
 import {FriendService} from '../../friends/shared/friend.service';
 import {Observable, of} from 'rxjs';
 import {Friend} from '../../friends/shared/friend.model';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
 
 describe('MapShowComponent', () => {
   let component: MapShowComponent;
@@ -12,12 +13,16 @@ describe('MapShowComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapShowComponent ],
+      declarations: [ MapShowComponent],
       imports: [
-        AgmCoreModule
+        AgmCoreModule.forRoot()
       ],
       providers: [
-        MapsAPILoader
+        MapsAPILoader,
+        {provide: FriendService, useClass: friendServiceStub}
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA
       ]
     })
     .compileComponents();
@@ -34,4 +39,7 @@ describe('MapShowComponent', () => {
   });
 });
 
+class friendServiceStub {
+
+}
 
