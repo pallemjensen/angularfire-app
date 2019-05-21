@@ -51,7 +51,6 @@ export class MapShowComponent implements OnInit {
   public markerClicked = (lat: number, lng: number) => {
     if (this.map)
       this.map.setCenter({ lat, lng });
-    console.log('clicked', { lat, lng});
   }
 }
 
