@@ -32,6 +32,7 @@ export class MapShowComponent implements OnInit {
         })
       });
   }
+  maxZoom: number = 9;
   minZoom: number = 2;
   zoom: number = 2;
   locationChosen = false;

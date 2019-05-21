@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreDocument, DocumentReference} from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {from, Observable} from 'rxjs';
 import {Friend} from './friend.model';
 import {first, map, switchMap, tap} from 'rxjs/operators';
@@ -13,7 +13,6 @@ export class FriendService {
   private friendDoc: AngularFirestoreDocument<Friend>;
   friend: Observable<Friend>;
   fileName: string;
-  friendRef: AngularFirestoreDocument<any>;
 
   constructor(private db: AngularFirestore,
               private fileservice: FileService) {
@@ -71,7 +70,6 @@ export class FriendService {
         })
       );
   }
-
 
   updateFriend(friend: Friend, file: File, id: string): Observable<Friend>{
     this.friendDoc = this.db.doc<Friend>('Friends/' + id);
