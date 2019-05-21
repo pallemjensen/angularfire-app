@@ -72,6 +72,17 @@ describe('FriendListComponent', () => {
     const nativeButton: HTMLButtonElement = addFriendButton[0].nativeElement;
     expect(nativeButton.textContent).toBe('+');
   });
+  it('should show an unordered list of friends', () => {
+    const listFriends = fixture.debugElement
+      .queryAll(By.css('ul'));
+    expect(listFriends.length).toBe(1);
+  });
+
+  it('should show no list when no friends are avalible', () => {
+    const listFriends = fixture.debugElement
+      .queryAll(By.css('li'));
+    expect(listFriends.length).toBe(0);
+  });
 
 });
 
