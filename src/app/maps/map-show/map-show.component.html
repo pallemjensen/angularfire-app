@@ -1,6 +1,6 @@
 <body>
 <div style="text-align: center;">
-<agm-map
+<agm-map [fitBounds]="true"
   [latitude]="lat"
   [longitude]="lng"
   (mapClick)="onChoseLocation($event)"
@@ -10,7 +10,7 @@
   [minZoom]="minZoom"
   >
 
-  <agm-marker
+  <agm-marker [agmFitBounds]="true"
     *ngFor="let m of markers; let i = index"
     (markerClick)="clickedMarker(m.label, i)"
     [latitude]="m.lat"
