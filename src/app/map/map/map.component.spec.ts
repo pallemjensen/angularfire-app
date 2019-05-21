@@ -3,7 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapComponent } from './map.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
-import {AgmCoreModule} from '@agm/core';
+import {AgmCoreModule, MapsAPILoader} from '@agm/core';
+import {FileService} from '../../files/shared/file.service';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -16,6 +17,9 @@ describe('MapComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         AgmCoreModule
+      ],
+      providers: [
+        MapsAPILoader
       ]
     })
     .compileComponents();
@@ -31,3 +35,6 @@ describe('MapComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
+
