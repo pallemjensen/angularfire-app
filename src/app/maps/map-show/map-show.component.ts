@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FriendService } from "../../friends/shared/friend.service";
+import {AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-map-show',

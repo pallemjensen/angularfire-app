@@ -38,6 +38,20 @@ describe('FriendListComponent', () => {
     const h1element = fixture.debugElement.query(By.css('h1'));
     expect(h1element.nativeElement.textContent).toBe('Friends:');
   });
+
+  it('should atleast have one button on the page', () => {
+    const buttons = fixture.debugElement
+      .queryAll(By.css('button'));
+    expect(buttons.length >= 1).toBeTruthy(); //Should have minimum one button
+  });
+
+  it('should contain atlease one add button (+) ', () => {
+    const addFriendButton = fixture.debugElement
+      .queryAll(By.css('button'));
+    const nativeButton: HTMLButtonElement = addFriendButton[0].nativeElement;
+    expect(nativeButton.textContent).toBe('+');
+  });
+
 });
 
 class friendServiceStub {

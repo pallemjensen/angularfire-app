@@ -11,6 +11,7 @@ import {AgmCoreModule} from '@agm/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {ButtonsModule} from 'ngx-bootstrap';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 
 
@@ -19,13 +20,15 @@ import {ButtonsModule} from 'ngx-bootstrap';
     AppComponent
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
     BrowserModule,
     CommonModule,
     FormsModule,
     AppRoutingModule,
     ButtonsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule, AngularFireStorageModule,
     HttpClientModule,
     AgmCoreModule,
     AgmCoreModule.forRoot({
