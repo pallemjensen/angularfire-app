@@ -19,14 +19,14 @@ export class FriendUpdateComponent implements OnInit {
   private geoPoint: GeoPoint;
   latitude: number;
   longitude: number;
+  id: string;
 
 
   friendFormGroup = new FormGroup( {
     name: new FormControl(''),
     address: new FormControl(''),
     phone: new FormControl(''),
-    mail: new FormControl(''),
-    picture: new FormControl(''),
+    mail: new FormControl('')
   });
 
 
@@ -37,10 +37,22 @@ export class FriendUpdateComponent implements OnInit {
               ) { }
 
   ngOnInit() {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.friendService.getFriendById(this.id).
+      subscribe(friend => {
+        this.friendFormGroup.patchValue({
+          name: friend.name,
+          address: friend.address,
+          phone: friend.phone,
+          mail: friend.mail
+        })
+         this.latitude = friend.location.latitude;
+        this.longitude = friend.location.longitude;
+    })
   }
 
-  makeGeopoint(latitude: number, longitude: number): GeoPoint {
-    return new GeoPoint(latitude, longitude);
+  makeGeopoint(latitude: number, longitude: number): GeoPoint
+  {return new GeoPoint(latitude, longitude);
   }
 
   updateFriend() {
@@ -49,7 +61,7 @@ export class FriendUpdateComponent implements OnInit {
     this.friend = this.friendFormGroup.value;
     this.geoPoint = this.makeGeopoint(lat, lng);
     this.friend.location = this.geoPoint;
-    this.friendService.updateFriend(this.friend, this.file)
+    this.friendService.updateFriend(this.friend, this.file, this.id)
       .subscribe(friend => {
           this.router.navigate(['../../'],
             {relativeTo: this.activatedRoute});
