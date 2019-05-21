@@ -36,6 +36,7 @@ export class FriendService {
       );
   }
 
+
   deleteFriend(id: string): Observable<Friend> {
     return this.db.doc<Friend>('Friends/' + id)
       .get()
@@ -62,6 +63,7 @@ export class FriendService {
         })
       );
   }
+
 
   public addFriend(friend: Friend, file: File): Observable<Friend> {
    this.fileName = this.fileservice.uploadFile(file);

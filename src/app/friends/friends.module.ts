@@ -6,9 +6,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FilesModule} from '../files/files.module';
 import {FriendAddComponent} from './friend-add/friend-add.component';
 import {ButtonsModule} from 'ngx-bootstrap';
+import { FriendUpdateComponent } from './friend-update/friend-update.component';
 
 @NgModule({
-  declarations: [FriendListComponent, FriendAddComponent],
+  declarations: [FriendListComponent, FriendAddComponent, FriendUpdateComponent],
   imports: [
     CommonModule,
     FriendsRoutingModule,
