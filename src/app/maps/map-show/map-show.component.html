@@ -1,11 +1,13 @@
 <body>
+<div style="text-align: center;">
 <agm-map
   [latitude]="lat"
   [longitude]="lng"
   (mapClick)="onChoseLocation($event)"
   [zoom]="zoom"
   [disableDefaultUI]="false"
-  [zoomControl]="false"
+  [zoomControl]="true"
+  [minZoom]="minZoom"
   >
 
   <agm-marker
@@ -18,4 +20,5 @@
   </agm-marker>
 
 </agm-map>
+</div>
 </body>
