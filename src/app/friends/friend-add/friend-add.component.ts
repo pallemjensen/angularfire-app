@@ -48,11 +48,11 @@ export class FriendAddComponent implements OnInit {
     this.friendService.addFriend(
       this.friend, this.file
     ).subscribe(friend => {
-      this.router.navigate(['../'],
-        {relativeTo: this.activatedRoute});
-    },
+        this.router.navigate(['../'],
+          {relativeTo: this.activatedRoute});
+      },
       addFriendError => {
-        window.alert('An error occurred while trying to add a friend error1 ' + JSON.stringify(addFriendError));
+        window.alert('An error occurred while trying to add a friend ' + JSON.stringify(addFriendError));
       });
   }
 

@@ -45,7 +45,6 @@ export class MapShowComponent implements OnInit {
   clickedMarker(label: string, index: number){
     console.log(`clicked the marker: ${label || index}`)
   }
-
 }
 
 interface marker {

@@ -5,6 +5,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {Friend} from "../shared/friend.model";
 import * as firebase from 'firebase/app';
 import GeoPoint = firebase.firestore.GeoPoint;
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-friend-update',
@@ -30,7 +31,10 @@ export class FriendUpdateComponent implements OnInit {
 
 
   constructor(private friendService: FriendService,
-              private fileService: FileService) { }
+              private fileService: FileService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute
+              ) { }
 
   ngOnInit() {
   }
@@ -40,6 +44,20 @@ export class FriendUpdateComponent implements OnInit {
   }
 
   updateFriend() {
+    const lat = this.latitude;
+    const lng = this.longitude;
+    this.friend = this.friendFormGroup.value;
+    this.geoPoint = this.makeGeopoint(lat, lng);
+    this.friend.location = this.geoPoint;
+    this.friendService.updateFriend(this.friend, this.file)
+      .subscribe(friend => {
+          debugger;
+          this.router.navigate(['../../'],
+            {relativeTo: this.activatedRoute});
+        },
+        updateFriendError => {
+          window.alert('An error occurred while trying to update a friend ' + JSON.stringify(updateFriendError));
+        });
   }
 
   imageChange(event) {
