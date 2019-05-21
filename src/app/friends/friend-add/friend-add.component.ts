@@ -15,8 +15,8 @@ export class FriendAddComponent implements OnInit {
   private friend: Friend;
   private file: File;
   private geoPoint: GeoPoint;
-  private latitude: number;
-  private longitude: number;
+ latitude: number;
+ longitude: number;
 
 
   friendFormGroup = new FormGroup( {

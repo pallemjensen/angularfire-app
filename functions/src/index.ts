@@ -8,5 +8,4 @@ admin.initializeApp();
 
 module.exports = {
   ...deleteFriend,
-  // ...productRest
 };
