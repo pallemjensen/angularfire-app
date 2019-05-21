@@ -33,6 +33,7 @@ export class MapShowComponent implements OnInit {
         })
       });
   }
+
   maxZoom: number = 9;
   minZoom: number = 2;
   zoom: number = 2;
@@ -50,7 +51,7 @@ export class MapShowComponent implements OnInit {
 
   public markerClicked = (lat: number, lng: number) => {
     if (this.map)
-      this.map.setCenter({ lat, lng });
+      this.map.panTo({ lat, lng });
   }
 }
 
