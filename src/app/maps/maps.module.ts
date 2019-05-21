@@ -10,7 +10,9 @@ import {AgmCoreModule} from "@agm/core";
   imports: [
     CommonModule,
     MapsRoutingModule,
-    AgmCoreModule
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAyvc7F_FXF0JWELjGqZXtMP7GMhumwcb4'})
   ]
+
 })
 export class MapsModule { }
