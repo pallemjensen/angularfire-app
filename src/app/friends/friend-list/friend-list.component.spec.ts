@@ -84,6 +84,17 @@ describe('FriendListComponent', () => {
     expect(listFriends.length).toBe(0);
   });
 
+  it('should show one friend on the list, when friend is added', () => {
+    component.Friends = of( [
+      {
+        id: 'test', name: 'friend1', address: 'test', phone: '123', mail: 'test', latitude: '12', longitude: '20'
+      }
+    ]);
+    fixture.detectChanges();
+    const friendAdd = fixture.debugElement
+      .queryAll(By.css('li'));
+    expect(friendAdd.length).toBe(1);
+  });
 });
 
 @Component({ template: ''})
