@@ -87,7 +87,8 @@ describe('FriendListComponent', () => {
   it('should show one friend on the list, when friend is added', () => {
     component.Friends = of( [
       {
-        id: 'test', name: 'friend1', address: 'test', phone: '123', mail: 'test', latitude: '12', longitude: '20'
+        id: 'test', name: 'friend1', address: 'test', phone: '123', mail: 'test',
+        latitude: '12', longitude: '20', picture: 'asd', url: 'www'
       }
     ]);
     fixture.detectChanges();
