@@ -14,7 +14,7 @@ import {Location} from '@angular/common';
 describe('FriendListComponent', () => {
   let component: FriendListComponent;
   let fixture: ComponentFixture<FriendListComponent>;
-
+  let helper: Helper;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FriendListComponent, DummyComponent],
@@ -33,9 +33,11 @@ describe('FriendListComponent', () => {
     .compileComponents();
   }));
 
+
   beforeEach(() => {
     fixture = TestBed.createComponent(FriendListComponent);
     component = fixture.componentInstance;
+    helper = new Helper();
     fixture.detectChanges();
   });
 
@@ -85,12 +87,7 @@ describe('FriendListComponent', () => {
   });
 
   it('should show one friend on the list, when friend is added', () => {
-    component.Friends = of( [
-      {
-        id: 'test', name: 'friend1', address: 'test', phone: '123', mail: 'test',
-        latitude: '12', longitude: '20', picture: 'asd', url: 'www'
-      }
-    ]);
+    component.Friends = helper.getFriends(1); //HELPER CLASS, to make EASY tests
     fixture.detectChanges();
     const friendAdd = fixture.debugElement
       .queryAll(By.css('li'));
@@ -108,3 +105,17 @@ class friendServiceStub {
 }
 
 class fileServiceStub {}
+
+
+class Helper {
+  friends: Friend[] = [];
+  getFriends(amount: number): Observable<Friend[]> {
+    for (let i = 0; i < amount; i++) {
+      this.friends.push(
+        { id: 'test' + i, name: 'friend1' + i , address: 'test' + i, phone: '123' + i, mail: 'test' + i,
+          picture: 'asd' + i , url: 'www' + i }
+      );
+    }
+    return of(this.friends);
+  }
+}
