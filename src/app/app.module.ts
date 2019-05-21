@@ -4,7 +4,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {HttpClientModule} from '@angular/common/http';
 import {AgmCoreModule} from '@agm/core';
@@ -27,11 +27,13 @@ import {ButtonsModule} from 'ngx-bootstrap';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, AngularFireStorageModule,
     HttpClientModule,
+    AgmCoreModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAyvc7F_FXF0JWELjGqZXtMP7GMhumwcb4'
     })
   ],
-  providers: [],
+  providers: [AngularFirestore,
+    AngularFireStorageModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

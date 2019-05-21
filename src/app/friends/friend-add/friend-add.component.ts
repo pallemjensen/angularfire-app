@@ -14,7 +14,7 @@ import {Friend} from "../shared/friend.model";
 export class FriendAddComponent implements OnInit {
   private friend: Friend;
   private file: File;
-  private geoPoint : GeoPoint;
+  private geoPoint: GeoPoint;
   private latitude: number;
   private longitude: number;
 

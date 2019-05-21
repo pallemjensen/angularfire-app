@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapShowComponent } from './map-show.component';
+import {AgmCoreModule, MapsAPILoader} from '@agm/core';
+import {FriendService} from '../../friends/shared/friend.service';
+import {Observable, of} from 'rxjs';
+import {Friend} from '../../friends/shared/friend.model';
 
 describe('MapShowComponent', () => {
   let component: MapShowComponent;
@@ -8,7 +12,13 @@ describe('MapShowComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapShowComponent ]
+      declarations: [ MapShowComponent ],
+      imports: [
+        AgmCoreModule
+      ],
+      providers: [
+        MapsAPILoader
+      ]
     })
     .compileComponents();
   }));
@@ -23,3 +33,5 @@ describe('MapShowComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
