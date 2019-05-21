@@ -7,6 +7,9 @@ import {Observable, of} from 'rxjs';
 import {Friend} from '../shared/friend.model';
 import {By} from '@angular/platform-browser';
 import {Debugger} from 'inspector';
+import {RouterTestingModule} from '@angular/router/testing';
+import {Component} from '@angular/core';
+import {Location} from '@angular/common';
 
 describe('FriendListComponent', () => {
   let component: FriendListComponent;
@@ -14,8 +17,14 @@ describe('FriendListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FriendListComponent ],
-      imports: [],
+      declarations: [ FriendListComponent, DummyComponent],
+      imports: [
+        RouterTestingModule.withRoutes(
+          [
+            {path: 'add', component: DummyComponent}
+          ]
+        )
+      ],
       providers: [
         {provide: FriendService, useClass: friendServiceStub},
         {provide: FileService, useClass: fileServiceStub}
@@ -45,6 +54,18 @@ describe('FriendListComponent', () => {
     expect(buttons.length >= 1).toBeTruthy(); //Should have minimum one button
   });
 
+  it('should navigate to /add when + button is clicked', () => {
+    const location = TestBed.get(Location);
+    const linkDes = fixture.debugElement
+      .queryAll(By.css('button'));
+    const nativeButton: HTMLButtonElement = linkDes[0].nativeElement;
+    nativeButton.click();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(location.path()).toBe('/add');
+    });
+  });
+
   it('should contain atlease one add button (+) ', () => {
     const addFriendButton = fixture.debugElement
       .queryAll(By.css('button'));
@@ -53,6 +74,9 @@ describe('FriendListComponent', () => {
   });
 
 });
+
+@Component({ template: ''})
+class DummyComponent {}
 
 class friendServiceStub {
   getFriends(): Observable<Friend[]> {

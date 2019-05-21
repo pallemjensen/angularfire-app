@@ -5,10 +5,12 @@ import {FriendAddComponent} from './friend-add/friend-add.component';
 
 const routes: Routes = [
   {
+    // /friends//add
     path: 'add',
     component: FriendAddComponent
   },
   {
+    // /friends
     path: '',
     component: FriendListComponent
   }
