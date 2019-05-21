@@ -7,6 +7,7 @@ import {FriendService } from "../../friends/shared/friend.service";
   styleUrls: ['./map-show.component.css']
 })
 export class MapShowComponent implements OnInit {
+  protected map: any;
   lat: number;
   lng: number;
   name: string;
@@ -37,14 +38,20 @@ export class MapShowComponent implements OnInit {
   zoom: number = 2;
   locationChosen = false;
 
-  onChoseLocation(event) {
-    this.lat = event.coords.lat;
-    this.lng = event.coords.lng;
+  onChoseLocation(eventLocation) {
+    this.lat = eventLocation.coords.lat;
+    this.lng = eventLocation.coords.lng;
     this.locationChosen = true;
   }
 
-  clickedMarker(label: string, index: number){
-    console.log(`clicked the marker: ${label || index}`)
+  protected mapReady(map) {
+    this.map = map;
+  }
+
+  public markerClicked = (lat: number, lng: number) => {
+    if (this.map)
+      this.map.setCenter({ lat, lng });
+    console.log('clicked', { lat, lng});
   }
 }
 

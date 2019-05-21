@@ -1,6 +1,6 @@
 <body>
 <div style="text-align: center;">
-<agm-map [fitBounds]="true"
+<agm-map (mapReady)="mapReady($event)" [fitBounds]="true"
   [latitude]="lat"
   [longitude]="lng"
   (mapClick)="onChoseLocation($event)"
@@ -13,13 +13,12 @@
 
   <agm-marker [agmFitBounds]="true"
     *ngFor="let m of markers; let i = index"
-    (markerClick)="clickedMarker(m.label, i)"
     [latitude]="m.lat"
     [longitude]="m.lng"
     [label]="m.label"
+    (markerClick)="markerClicked(m.lat, m.lng)"
   >
   </agm-marker>
-
 </agm-map>
 </div>
 </body>
