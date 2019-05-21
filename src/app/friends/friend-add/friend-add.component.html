@@ -5,43 +5,37 @@
 </div >
 <form [formGroup]="friendFormGroup" (ngSubmit)="addFriend()">
   <div  style="text-align: center;">
-  <label>
 
+    <button class="btn btn-primary" type="submit">Add friend</button>
+    <br />
+    <br />
+  <label>
     <input class="form-control" placeholder="Name" style="background: whitesmoke" type="text" formControlName="name" >
    </label>
     <br />
-
   <label>
     <input class="form-control" placeholder="Address" style="background: whitesmoke" type="text" formControlName="address">
   </label>
     <br />
-
   <label>
     <input class="form-control" placeholder="Mail" style="background: whitesmoke" type="text" formControlName="mail">
   </label>
     <br />
-
     <label>
       <input class="form-control" placeholder="Phone" style="background: whitesmoke" type="text" formControlName="phone">
     </label>
     <br />
-
-    <br />
-  <input  style="background: whitesmoke" type="file" (change)="imageChange($event)" accept="image/*">
-    <br />
-
-    <br />
-
   </div>
 </form>
+
 <div style="text-align: center;">
     <input  placeholder="Latitude" type="number" [(ngModel)]="latitude">
     <br>
     <input  placeholder="Longitude" type="number" [(ngModel)]="longitude">
   <br />
-
   <br />
-  <button class="btn btn-primary" type="submit">Add friend</button>
+  <input  style="background: whitesmoke" type="file" (change)="imageChange($event)" accept="image/*">
+  <br />
 </div>
 </Body>
 
