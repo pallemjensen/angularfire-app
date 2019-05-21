@@ -1,10 +1,3 @@
-<h1>
-  {{title}}
-</h1>
-
-<button (click)="showFriendsOnMap()">Test</button>
-
-<h1>Map:</h1>
 
 <agm-map
   [latitude]="lat"
@@ -22,11 +15,8 @@
     [longitude]="m.lng"
     [label]="m.label"
   >
-    <agm-info-window>
-      <h3><strong>Her skal afstanden vises</strong></h3>
-    </agm-info-window>
+
 
   </agm-marker>
-
 
 </agm-map>
