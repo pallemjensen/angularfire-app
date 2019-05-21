@@ -3,7 +3,13 @@
   <div style="float: right">
   <button type="button" class="btn btn-primary" routerLink="add">Add Friend</button>
   </div>
+  <br>
+  <div style="text-align: center;">
   <h1>Friends:</h1>
+  </div>
+  <br>
+  <br>
+  <br>
   <li class="text" *ngFor="let friend of Friends | async">
     <img [src]="friend.url" *ngIf="friend.url" style="width: 48px; height: 48px">
     Name: {{friend.name}}  --  Address: {{friend.address}}  --  Phone: {{friend.phone}}
