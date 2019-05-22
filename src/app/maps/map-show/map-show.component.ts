@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FriendService } from "../../friends/shared/friend.service";
+import {FileService} from "../../files/shared/file.service";
+import index from "@angular/cli/lib/cli";
 
 @Component({
   selector: 'app-map-show',
@@ -12,13 +14,18 @@ export class MapShowComponent implements OnInit {
   lng: number;
   name: string;
   markers: marker[];
+  pictureUrls: pictureUrl[];
 
-  constructor(private friendService: FriendService) {
+
+  constructor(private friendService: FriendService,
+              private fileService: FileService) {
     this.markers = new Array();
+    this.pictureUrls = new Array();
   }
 
   ngOnInit() {
     this.showFriendsOnMap();
+    this.getUrls()
   }
 
   showFriendsOnMap(){
@@ -34,6 +41,17 @@ export class MapShowComponent implements OnInit {
       });
   }
 
+  getUrls(){
+    this.friendService.getFriends()
+      .subscribe( friends => {
+        friends.forEach(friend => {
+          this.pictureUrls.push({
+            picUrl: friend.url
+          })
+        })
+      });
+  }
+  
   maxZoom: number = 9;
   minZoom: number = 2;
   zoom: number = 2;
@@ -53,11 +71,23 @@ export class MapShowComponent implements OnInit {
     if (this.map)
       this.map.panTo({ lat, lng });
   }
+
+  icon = {
+    url:'../assets/images/lion.jpg',
+    scaledSize: {
+      width: 40,
+      height: 40
+    }
+  }
 }
 
 interface marker {
   lat: number;
   lng: number;
   label?: string;
+}
+
+interface pictureUrl {
+  picUrl: string;
 }
 
