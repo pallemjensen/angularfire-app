@@ -14,7 +14,8 @@ export class FriendListComponent implements OnInit {
   Friends: Observable<Friend[]>;
 
   constructor(private friendService: FriendService,
-              private fileService: FileService) {
+              private fileService: FileService
+             ) {
 
   }
 

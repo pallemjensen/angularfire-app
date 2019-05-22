@@ -1,4 +1,4 @@
-import { Friend } from "../../friends/shared/friend.model";
+import { Friend } from "../friends/shared/friend.model";
 import GeoPoint = firebase.firestore.GeoPoint;
 import * as firebase from 'firebase';
 
