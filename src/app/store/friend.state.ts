@@ -25,6 +25,7 @@ export interface FriendsStateModel{
 
 
   export class FriendState {
+  friends: Friend[];
   constructor(private friendService: FriendService) {}
 
   @Selector()
