@@ -1,40 +1,71 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Friend } from "../../friends/shared/friend.model";
 import { AddFriend, RemoveFriend} from "../actions/friend.actions";
+import {FriendService} from "../../friends/shared/friend.service";
+import * as friendActions from '../actions/friend.actions'
+import {catchError, map} from "rxjs/operators";
+import {asapScheduler, of} from "rxjs";
 
-export class FriendStateModel {
-  friends: Friend[]
+export interface FriendsStateModel{
+  friends: Friend[];
+  loaded: boolean;
+  loading: boolean;
+  selectedFriendId: string;
 }
 
-@State<FriendStateModel> ({
+@State<FriendsStateModel> ({
   name: 'friends',
   defaults: {
-    friends: []
+    friends: [],
+    loaded: false,
+    loading: false,
+    selectedFriendId: null
   }
 })
 
-  export class FriendState {
 
+  export class FriendState {
+  constructor(private friendService: FriendService) {}
 
   @Selector()
-  static getFriends(state: FriendStateModel){
+  static getFriends(state: FriendsStateModel){
     return state.friends
   }
 
 
-  @Action(AddFriend)
-  add({getState, patchState}: StateContext<FriendStateModel>, { payload } : AddFriend){
+  @Action(friendActions.AddFriend)
+  add({getState, patchState}: StateContext<FriendsStateModel>, { payload } : AddFriend){
     const state = getState();
     patchState({
       friends: [...state.friends, payload]
     })
   }
 
-  @Action(RemoveFriend)
-  remove({getState, patchState}: StateContext<FriendStateModel>, { payload } : RemoveFriend){
+  @Action(friendActions.RemoveFriend)
+  remove({getState, patchState}: StateContext<FriendsStateModel>, { payload } : RemoveFriend){
     patchState({
       friends: getState().friends.filter(a => a.name != payload)
     })
   }
+
+  @Action(friendActions.LoadFriends)
+  loadFriends({ patchState, dispatch }: StateContext<FriendsStateModel>){
+    patchState({loading: true});
+    return this.friendService
+      .getFriends()
+      .pipe(
+        map((friends: Friend[]) =>
+        asapScheduler.schedule(() =>
+        dispatch(new friendActions.LoadFriendsSuccess(friends))
+        )
+        ),
+        catchError(error =>
+        of (
+          asapScheduler.schedule(() =>
+          dispatch(new friendActions.LoadFriendsFail(error)))
+        ))
+      )
+  }
+
 
 }
