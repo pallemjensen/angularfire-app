@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FriendService } from "../../friends/shared/friend.service";
 import {FileService} from "../../files/shared/file.service";
-import index from "@angular/cli/lib/cli";
 
 @Component({
   selector: 'app-map-show',
@@ -19,13 +18,13 @@ export class MapShowComponent implements OnInit {
 
   constructor(private friendService: FriendService,
               private fileService: FileService) {
-    this.markers = new Array();
-    this.pictureUrls = new Array();
+    this.markers = [];
+    this.pictureUrls = [];
   }
 
   ngOnInit() {
+    this.getUrls();
     this.showFriendsOnMap();
-    this.getUrls()
   }
 
   showFriendsOnMap(){
@@ -46,12 +45,12 @@ export class MapShowComponent implements OnInit {
       .subscribe( friends => {
         friends.forEach(friend => {
           this.pictureUrls.push({
-            picUrl: friend.url
+            picUrl: this.fileService.getFileUrl(friend.picture).subscribe()
           })
         })
       });
   }
-  
+
   maxZoom: number = 9;
   minZoom: number = 2;
   zoom: number = 2;
@@ -70,10 +69,25 @@ export class MapShowComponent implements OnInit {
   public markerClicked = (lat: number, lng: number) => {
     if (this.map)
       this.map.panTo({ lat, lng });
+  };
+
+  private iconx: { scaledSize: { width: number; height: number }; url: string };
+
+  getIcon(): { scaledSize: { width: number; height: number }; url: string } {
+    for (let p of this.pictureUrls)
+    {
+    this.icon = {
+      url: 'p',
+      scaledSize: {
+        width: 40,
+        height: 40
+      }
+    }}
+    return this.icon;
   }
 
   icon = {
-    url:'../assets/images/lion.jpg',
+    url: './assets/images/lion.jpg',
     scaledSize: {
       width: 40,
       height: 40
@@ -88,6 +102,10 @@ interface marker {
 }
 
 interface pictureUrl {
-  picUrl: string;
+  picUrl: any;
+}
+
+interface icon {
+  url: string;
 }
 

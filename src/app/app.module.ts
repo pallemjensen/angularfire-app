@@ -11,12 +11,16 @@ import {AgmCoreModule} from '@agm/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {ButtonsModule} from 'ngx-bootstrap';
+import { CreateComponent } from './store/create/create.component';
+import { ReadComponent } from './store/read/read.component';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CreateComponent,
+    ReadComponent
   ],
   imports: [
     BrowserModule,

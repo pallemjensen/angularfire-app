@@ -29,7 +29,6 @@ export class FriendUpdateComponent implements OnInit {
     mail: new FormControl('')
   });
 
-
   constructor(private friendService: FriendService,
               private fileService: FileService,
               private router: Router,
