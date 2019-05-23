@@ -21,7 +21,6 @@ export class MapShowComponent implements OnInit {
   locationChosen = false;
   picUrl: any;
   url: string;
-  private iconx: { scaledSize: { width: number; height: number }; url: string };
   icon = {
     url: this.picUrl,
     scaledSize: {
@@ -83,20 +82,28 @@ export class MapShowComponent implements OnInit {
     }
   }
 
-
-
-  getIcon(): { scaledSize: { width: number; height: number }; url: string } {
-    for (const p of this.pictureUrls) {
-    this.icon = {
-      url : p,
-      scaledSize: {
-        width: 40,
-        height: 40
-      }
-    };
+  iconX = {
+    url: '../assets/images/lion.jpg',
+    scaledSize: {
+      width: 40,
+      height: 40
     }
-    return this.icon;
-  }
+  };
+
+
+
+  // getIcon(): { scaledSize: { width: number; height: number }; url: string } {
+  //   for (const p of this.pictureUrls) {
+  //   this.icon = {
+  //     url : p,
+  //     scaledSize: {
+  //       width: 40,
+  //       height: 40
+  //     }
+  //   };
+  //   }
+  //   return this.icon;
+  // }
 
 
 }
@@ -114,5 +121,3 @@ interface pictureUrl {
   picUrl: any;
 }
 
-interface icon {
-  url: string;
