@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FriendService } from "../../friends/shared/friend.service";
-import {FileService} from "../../files/shared/file.service";
+import {FriendService } from '../../friends/shared/friend.service';
+import {FileService} from '../../files/shared/file.service';
 import {AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
@@ -15,7 +15,20 @@ export class MapShowComponent implements OnInit {
   name: string;
   markers: marker[];
   pictureUrls: pictureUrl[];
-
+  maxZoom = 9;
+  minZoom = 2;
+  zoom = 2;
+  locationChosen = false;
+  picUrl: any;
+  url: string;
+  private iconx: { scaledSize: { width: number; height: number }; url: string };
+  icon = {
+    url: this.picUrl,
+    scaledSize: {
+      width: 40,
+      height: 40
+    }
+  };
 
   constructor(private friendService: FriendService,
               private fileService: FileService) {
@@ -28,7 +41,7 @@ export class MapShowComponent implements OnInit {
     this.showFriendsOnMap();
   }
 
-  showFriendsOnMap(){
+  showFriendsOnMap() {
      this.friendService.getFriends()
       .subscribe( friends => {
         friends.forEach(friend => {
@@ -36,26 +49,23 @@ export class MapShowComponent implements OnInit {
             lat: friend.location.latitude,
             lng: friend.location.longitude,
             label: friend.name
-          })
-        })
+          });
+        });
       });
   }
 
-  getUrls(){
+  getUrls() {
     this.friendService.getFriends()
       .subscribe( friends => {
         friends.forEach(friend => {
           this.pictureUrls.push({
-            picUrl: this.fileService.getFileUrl(friend.picture).subscribe()
-          })
-        })
+           picUrl : this.fileService.getFileUrl(friend.picture)
+          });
+        });
       });
   }
 
-  maxZoom: number = 9;
-  minZoom: number = 2;
-  zoom: number = 2;
-  locationChosen = false;
+
 
   onChoseLocation(eventLocation) {
     this.lat = eventLocation.coords.lat;
@@ -68,45 +78,41 @@ export class MapShowComponent implements OnInit {
   }
 
   public markerClicked = (lat: number, lng: number) => {
-    if (this.map)
+    if (this.map) {
       this.map.panTo({ lat, lng });
-  };
+    }
+  }
 
-  private iconx: { scaledSize: { width: number; height: number }; url: string };
+
 
   getIcon(): { scaledSize: { width: number; height: number }; url: string } {
-    for (let p of this.pictureUrls)
-    {
+    for (const p of this.pictureUrls) {
     this.icon = {
-      url: 'p',
+      url : p,
       scaledSize: {
         width: 40,
         height: 40
       }
-    }}
+    };
+    }
     return this.icon;
   }
 
-  icon = {
-    url: './assets/images/lion.jpg',
-    scaledSize: {
-      width: 40,
-      height: 40
-    }
-  }
+
 }
 
+
+// tslint:disable-next-line:class-name
 interface marker {
   lat: number;
   lng: number;
   label?: string;
 }
 
+// tslint:disable-next-line:class-name
 interface pictureUrl {
   picUrl: any;
 }
 
 interface icon {
   url: string;
-}
-
