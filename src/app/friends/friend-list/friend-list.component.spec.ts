@@ -7,15 +7,24 @@ import {Observable, of} from 'rxjs';
 import {Friend} from '../shared/friend.model';
 import {By} from '@angular/platform-browser';
 import {Debugger} from 'inspector';
+import {RouterTestingModule} from '@angular/router/testing';
+import {Component} from '@angular/core';
+import {Location} from '@angular/common';
 
 describe('FriendListComponent', () => {
   let component: FriendListComponent;
   let fixture: ComponentFixture<FriendListComponent>;
-
+  let helper: Helper;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FriendListComponent ],
-      imports: [],
+      declarations: [ FriendListComponent, DummyComponent],
+      imports: [
+        RouterTestingModule.withRoutes(
+          [
+            {path: 'add', component: DummyComponent}
+          ]
+        )
+      ],
       providers: [
         {provide: FriendService, useClass: friendServiceStub},
         {provide: FileService, useClass: fileServiceStub}
@@ -24,9 +33,11 @@ describe('FriendListComponent', () => {
     .compileComponents();
   }));
 
+
   beforeEach(() => {
     fixture = TestBed.createComponent(FriendListComponent);
     component = fixture.componentInstance;
+    helper = new Helper();
     fixture.detectChanges();
   });
 
@@ -38,7 +49,54 @@ describe('FriendListComponent', () => {
     const h1element = fixture.debugElement.query(By.css('h1'));
     expect(h1element.nativeElement.textContent).toBe('Friends:');
   });
+
+  it('should atleast have one button on the page', () => {
+    const buttons = fixture.debugElement
+      .queryAll(By.css('button'));
+    expect(buttons.length >= 1).toBeTruthy(); //Should have minimum one button
+  });
+
+  it('should navigate to /add when + button is clicked', () => {
+    const location = TestBed.get(Location);
+    const linkDes = fixture.debugElement
+      .queryAll(By.css('button'));
+    const nativeButton: HTMLButtonElement = linkDes[0].nativeElement;
+    nativeButton.click();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(location.path()).toBe('/add');
+    });
+  });
+
+  it('should contain atlease one add button (+) ', () => {
+    const addFriendButton = fixture.debugElement
+      .queryAll(By.css('button'));
+    const nativeButton: HTMLButtonElement = addFriendButton[0].nativeElement;
+    expect(nativeButton.textContent).toBe('+');
+  });
+  it('should show an unordered list of friends', () => {
+    const listFriends = fixture.debugElement
+      .queryAll(By.css('ul'));
+    expect(listFriends.length).toBe(1);
+  });
+
+  it('should show no list when no friends are avalible', () => {
+    const listFriends = fixture.debugElement
+      .queryAll(By.css('li'));
+    expect(listFriends.length).toBe(0);
+  });
+
+  it('should show one friend on the list, when friend is added', () => {
+    component.Friends = helper.getFriends(1); //HELPER CLASS, to make EASY tests
+    fixture.detectChanges();
+    const friendAdd = fixture.debugElement
+      .queryAll(By.css('li'));
+    expect(friendAdd.length).toBe(1);
+  });
 });
+
+@Component({ template: ''})
+class DummyComponent {}
 
 class friendServiceStub {
   getFriends(): Observable<Friend[]> {
@@ -47,3 +105,17 @@ class friendServiceStub {
 }
 
 class fileServiceStub {}
+
+
+class Helper {
+  friends: Friend[] = [];
+  getFriends(amount: number): Observable<Friend[]> {
+    for (let i = 0; i < amount; i++) {
+      this.friends.push(
+        { id: 'test' + i, name: 'friend1' + i , address: 'test' + i, phone: '123' + i, mail: 'test' + i,
+          picture: 'asd' + i , url: 'www' + i }
+      );
+    }
+    return of(this.friends);
+  }
+}

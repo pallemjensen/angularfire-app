@@ -6,10 +6,12 @@ import {FriendUpdateComponent} from "./friend-update/friend-update.component";
 
 const routes: Routes = [
   {
+    // /friends//add
     path: 'add',
     component: FriendAddComponent
   },
   {
+    // /friends
     path: '',
     component: FriendListComponent
   },

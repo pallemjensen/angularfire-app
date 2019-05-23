@@ -15,6 +15,8 @@ import { NgxsModule } from '@ngxs/store';
 import { FriendState } from "./store/friend.state";
 import {NgxsLoggerPlugin, NgxsLoggerPluginModule} from "@ngxs/logger-plugin";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+
 
 
 @NgModule({
@@ -22,6 +24,10 @@ import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
     AppComponent
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
     BrowserModule,
     CommonModule,
     FormsModule,
