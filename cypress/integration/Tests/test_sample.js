@@ -29,9 +29,9 @@ describe('Freinds title', function () {
 describe('clicking "map" shows the right headings', function () {
   it('should show the correct headings', function () {
   cy.visit('http://localhost:4200/maps')
-  cy.contains('Map')
   cy.contains('Home')
-  cy.contains('Friends')
+  cy.contains('Show your friends on the map')
+  cy.contains('Friend Administration')
   });
 })
 
@@ -50,6 +50,27 @@ describe('Show frontpage picture', () => {
   });
 })
 
+describe('Update button', function () {
+  it('should contain a button for the update-friend page', function () {
+    cy.visit('http://localhost:4200/friends')
+    cy.contains('Update').click()
+  });
+})
+
+
+
+
+
+describe('Update friend button', function () {
+  it('should contain a button for updating the friend', function () {
+    cy.visit('http://localhost:4200/friends/update/5pEkfpSNvNun1uVNANEw')
+    cy.pause()
+    cy.contains('Update friend').click()
+  });
+})
+
+
+
 describe('Email test', function () {
   it('Gets, types and asserts', function () {
     cy.visit('http://localhost:4200/friends/add')
@@ -60,7 +81,6 @@ describe('Email test', function () {
       .should('have.value', 'fake@email.com')
   });
 })
-
 
 describe('Contains file selector', function () {
   it('should contain file selector', function () {
