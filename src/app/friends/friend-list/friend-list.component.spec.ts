@@ -12,25 +12,32 @@ import {Component} from '@angular/core';
 import {Location} from '@angular/common';
 import {count} from "rxjs/operators";
 import {DOMHelper, Helper} from "../../../testing/dom-helper";
+import {Router} from "@angular/router";
 
 describe('FriendListComponent', () => {
   let component: FriendListComponent;
   let fixture: ComponentFixture<FriendListComponent>;
   let helper: Helper<FriendListComponent>;
   let dh: DOMHelper<FriendListComponent>;
+  let friendServiceMock: any;
+  let fileServiceMock: any;
   beforeEach(async(() => {
+    //Jasmine = "spy" on the method. See how many times it's called ect.
+    friendServiceMock = jasmine.createSpyObj('FriendService', ['getFriends']); //Same as creating a stub.
+    friendServiceMock.getFriends.and.returnValue(of([]));
+    fileServiceMock = jasmine.createSpyObj('FileService', ['getFileUrl']); //Same as creating a stub.
+    fileServiceMock.getFileUrl.and.returnValue(of([]));
+
     TestBed.configureTestingModule({
-      declarations: [ FriendListComponent, DummyComponent],
+      declarations: [ FriendListComponent],
       imports: [
-        RouterTestingModule.withRoutes(
-          [
-            {path: 'add', component: DummyComponent}
-          ]
-        )
+        RouterTestingModule
       ],
       providers: [
-        {provide: FriendService, useClass: friendServiceStub},
-        {provide: FileService, useClass: fileServiceStub}
+        {provide: FriendService, useValue: friendServiceMock},
+        // {provide: FriendService, useClass: friendServiceStub},
+        {provide: FileService, useValue: fileServiceMock}
+        // {provide: FileService, useClass: fileServiceStub}
       ]
     })
     .compileComponents();
@@ -60,7 +67,16 @@ describe('FriendListComponent', () => {
     expect(dh.count('button')).toBe(1);
   });
 
-  it('should navigate to /add when + button is clicked', () => {
+  it('should navigate to /add when + button is clicked',
+    () => {
+    const router = TestBed.get(Router);
+    spyOn(router, 'navigateByUrl')
+    dh.clickButton('Add Friend');
+    expect(router.navigateByUrl)
+      .toHaveBeenCalledWith(router.createUrlTree(['/add']),
+        { skipLocationChange: false, replaceUrl: false });
+    /*
+    * ***Replaced by clickButton method from Dom-helper class.
     const location = TestBed.get(Location);
     const linkDes = fixture.debugElement
       .queryAll(By.css('button'));
@@ -68,8 +84,25 @@ describe('FriendListComponent', () => {
     nativeButton.click();
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      expect(location.path()).toBe('/add');
-    });
+      expect(router.path()).toBe('/add');
+      */
+  });
+
+  it('should call deleteFriend once when delete buttton is clicked', () => {
+    component.Friends = helper.getFriends(1);
+    fixture.detectChanges();
+    spyOn(component, 'deleteFriend');
+    dh.clickButton('Delete');
+    expect(component.deleteFriend).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call deleteFriend with the friend to delete when clicked delete', () => {
+    component.Friends = helper.getFriends(1);
+    fixture.detectChanges();
+    spyOn(component, 'deleteFriend');
+    dh.clickButton('Delete');
+    expect(component.deleteFriend).toHaveBeenCalledWith(helper.friends[0]);
+    //expect(component.deleteFriend).toHaveBeenCalledTimes(1);
   });
 
   it('should contain atlease one add friend button ', () => {
@@ -99,9 +132,6 @@ describe('FriendListComponent', () => {
     expect(friendAdd.length).toBe(1);
   });
 });
-
-@Component({ template: ''})
-class DummyComponent {}
 
 class friendServiceStub {
   getFriends(): Observable<Friend[]> {

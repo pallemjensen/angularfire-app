@@ -33,4 +33,23 @@ export class DOMHelper<T> {
       .queryAll(By.css(tagName));
     return elements.length;
   }
+
+  /*
+  Get all buttons, and if the button is equal to the button we are looking for , it should click.
+   */
+  clickButton(buttonText: string) {
+    this.findAll('button').forEach(button => {
+      const buttonElement: HTMLButtonElement =
+        button.nativeElement;
+      if (buttonElement.textContent === buttonText) {
+        buttonElement.click();
+      }
+    });
+  }
+  findAll(tagName: string) {
+    return this.fixture.debugElement
+      .queryAll(By.css(tagName));
+  }
 }
+
+
