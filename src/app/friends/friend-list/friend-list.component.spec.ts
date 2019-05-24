@@ -10,13 +10,14 @@ import {Debugger} from 'inspector';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Component} from '@angular/core';
 import {Location} from '@angular/common';
-
+import {count} from "rxjs/operators";
+import {DOMHelper, Helper} from "../../../testing/dom-helper";
 
 describe('FriendListComponent', () => {
   let component: FriendListComponent;
   let fixture: ComponentFixture<FriendListComponent>;
-  let helper: Helper;
-  let dh: DOMHelper;
+  let helper: Helper<FriendListComponent>;
+  let dh: DOMHelper<FriendListComponent>;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FriendListComponent, DummyComponent],
@@ -56,7 +57,7 @@ describe('FriendListComponent', () => {
   it('should atleast have one button on the page', () => {
     const buttons = fixture.debugElement
       .queryAll(By.css('button'));
-    expect(buttons.length >= 1).toBeTruthy(); //Should have minimum one button
+    expect(dh.count('button')).toBe(1);
   });
 
   it('should navigate to /add when + button is clicked', () => {
@@ -86,7 +87,8 @@ describe('FriendListComponent', () => {
   it('should show no list when no friends are avalible', () => {
     const listFriends = fixture.debugElement
       .queryAll(By.css('li'));
-    expect(listFriends.length).toBe(0);
+    expect(dh.count('listFriends')).toBe(0);
+    //expect(listFriends.length).toBe(0);
   });
 
   it('should show one friend on the list, when friend is added', () => {
@@ -110,35 +112,6 @@ class friendServiceStub {
 class fileServiceStub {}
 
 
-class Helper {
-  friends: Friend[] = [];
-  getFriends(amount: number): Observable<Friend[]> {
-    for (let i = 0; i < amount; i++) {
-      this.friends.push(
-        { id: 'test' + i, name: 'friend1' + i , address: 'test' + i, phone: '123' + i, mail: 'test' + i,
-          picture: 'asd' + i , url: 'www' + i }
-      );
-    }
-    return of(this.friends);
-  }
-}
 
-class DOMHelper {
-  private fixture: ComponentFixture<FriendListComponent>
-  constructor(fixture: ComponentFixture<FriendListComponent>) {
-    this.fixture = fixture;
-  }
-  singleText(tagName: string): string {
-  const h2Ele = this.fixture.debugElement.query(By.css(tagName));
-  if (h2Ele) {
-    return h2Ele.nativeElement.textContent;
-  }
-  }
-  count(tagName: string): number {
-    const elements = this.fixture.debugElement
-      .queryAll(By.css(tagName));
-    return elements.length;
-  }
-}
 
 
