@@ -16,6 +16,7 @@ describe('FriendListComponent', () => {
   let component: FriendListComponent;
   let fixture: ComponentFixture<FriendListComponent>;
   let helper: Helper;
+  let dh: DOMHelper;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FriendListComponent, DummyComponent],
@@ -39,6 +40,7 @@ describe('FriendListComponent', () => {
     fixture = TestBed.createComponent(FriendListComponent);
     component = fixture.componentInstance;
     helper = new Helper();
+    dh = new DOMHelper(fixture)
     fixture.detectChanges();
   });
 
@@ -78,7 +80,7 @@ describe('FriendListComponent', () => {
   it('should show an unordered list of friends', () => {
     const listFriends = fixture.debugElement
       .queryAll(By.css('ul'));
-    expect(listFriends.length).toBe(1);
+    expect(dh.count('ul')).toBe(1);
   });
 
   it('should show no list when no friends are avalible', () => {
@@ -120,3 +122,23 @@ class Helper {
     return of(this.friends);
   }
 }
+
+class DOMHelper {
+  private fixture: ComponentFixture<FriendListComponent>
+  constructor(fixture: ComponentFixture<FriendListComponent>) {
+    this.fixture = fixture;
+  }
+  singleText(tagName: string): string {
+  const h2Ele = this.fixture.debugElement.query(By.css(tagName));
+  if (h2Ele) {
+    return h2Ele.nativeElement.textContent;
+  }
+  }
+  count(tagName: string): number {
+    const elements = this.fixture.debugElement
+      .queryAll(By.css(tagName));
+    return elements.length;
+  }
+}
+
+
