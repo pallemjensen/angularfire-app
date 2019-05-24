@@ -4,7 +4,7 @@ import {FriendService} from '../shared/friend.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as firebase from 'firebase/app';
 import GeoPoint = firebase.firestore.GeoPoint;
-import {Friend} from "../shared/friend.model";
+import {Friend} from '../shared/friend.model';
 
 @Component({
   selector: 'app-friend-add',

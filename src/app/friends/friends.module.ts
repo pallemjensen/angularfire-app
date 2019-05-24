@@ -19,8 +19,7 @@ import { FriendsState} from "../store";
     FilesModule,
     ButtonsModule,
     FormsModule,
-    NgxsModule.forFeature(FriendsState),
-    FormGroup
+    NgxsModule.forFeature(FriendsState)
   ]
 })
 export class FriendsModule { }
