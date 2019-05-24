@@ -4,7 +4,7 @@ import {ComponentFixture} from "@angular/core/testing";
 import {FriendListComponent} from "../app/friends/friend-list/friend-list.component";
 import {By} from "@angular/platform-browser";
 
-export class Helper<T> {
+export class Helper {
   friends: Friend[] = [];
   getFriends(amount: number): Observable<Friend[]> {
     for (let i = 0; i < amount; i++) {

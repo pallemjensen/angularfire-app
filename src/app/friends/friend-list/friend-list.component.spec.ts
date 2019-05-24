@@ -10,14 +10,14 @@ import {Debugger} from 'inspector';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Component} from '@angular/core';
 import {Location} from '@angular/common';
-import {count} from "rxjs/operators";
-import {DOMHelper, Helper} from "../../../testing/dom-helper";
-import {Router} from "@angular/router";
+import {count} from 'rxjs/operators';
+import {DOMHelper, Helper} from '../../../testing/dom-helper';
+import {Router} from '@angular/router';
+import {before} from 'selenium-webdriver/testing';
 
 describe('FriendListComponent', () => {
   let component: FriendListComponent;
   let fixture: ComponentFixture<FriendListComponent>;
-  let helper: Helper<FriendListComponent>;
   let dh: DOMHelper<FriendListComponent>;
   let friendServiceMock: any;
   let fileServiceMock: any;
@@ -47,12 +47,12 @@ describe('FriendListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FriendListComponent);
     component = fixture.componentInstance;
-    helper = new Helper();
-    dh = new DOMHelper(fixture)
-    fixture.detectChanges();
+    dh = new DOMHelper(fixture);
   });
   describe('Simple HTML', () => {
-
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
     it('should create', () => {
       expect(component).toBeTruthy();
     });
@@ -69,7 +69,11 @@ describe('FriendListComponent', () => {
     });
   })
   describe('Navigation', () => {
-
+    let helper: Helper;
+    beforeEach(() => {
+      helper = new Helper();
+      fixture.detectChanges();
+    });
     it('should navigate to /add when + button is clicked',
       () => {
         const router = TestBed.get(Router);
@@ -93,6 +97,11 @@ describe('FriendListComponent', () => {
   })
 
   describe('Button calls', () => {
+    let helper: Helper;
+    beforeEach(() => {
+      helper = new Helper();
+      fixture.detectChanges();
+    });
     it('should call deleteFriend once when delete buttton is clicked', () => {
       component.Friends = helper.getFriends(1);
       fixture.detectChanges();
@@ -107,13 +116,17 @@ describe('FriendListComponent', () => {
       spyOn(component, 'deleteFriend');
       dh.clickButton('Delete');
       expect(component.deleteFriend).toHaveBeenCalledWith(helper.friends[0]);
-      //expect(component.deleteFriend).toHaveBeenCalledTimes(1);
+      // expect(component.deleteFriend).toHaveBeenCalledTimes(1);
     });
 
   })
 
   describe('Contains' , () => {
-
+    let helper: Helper;
+    beforeEach(() => {
+      helper = new Helper();
+      fixture.detectChanges();
+    });
     it('should contain atlease one add friend button ', () => {
       const addFriendButton = fixture.debugElement
         .queryAll(By.css('button'));
@@ -140,6 +153,37 @@ describe('FriendListComponent', () => {
       const friendAdd = fixture.debugElement
         .queryAll(By.css('li'));
       expect(friendAdd.length).toBe(1);
+    });
+  });
+
+  describe('images', () =>  {
+    let helper: Helper;
+    beforeEach(() => {
+      helper = new Helper();
+      fixture.detectChanges();
+    });
+    it('should show img tag with url on friends',  () => {
+      component.Friends = helper.getFriends(1);
+      helper.friends[0].url = 'http://abc-url';
+      fixture.detectChanges();
+      expect(dh.count('img'))
+        .toBe(1);
+    });
+  });
+  describe('Calls from service', () => {
+
+  });
+
+
+  describe('Async calls', () => {
+    let helper: Helper;
+    beforeEach(() => {
+      helper = new Helper();
+      fixture.detectChanges();
+    });
+    it('should call getFriends on friendService once on ngOnInit',  () => {
+
+      expect(friendServiceMock.getFriends).toHaveBeenCalledTimes(1);
     });
   });
 });
