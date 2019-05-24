@@ -7,6 +7,7 @@ import {tap} from 'rxjs/operators';
 import {FriendState} from "../../store";
 import { Store, Select } from '@ngxs/store';
 
+
 @Component({
   selector: 'app-friend-list',
   templateUrl: './friend-list.component.html',
@@ -16,8 +17,8 @@ export class FriendListComponent implements OnInit {
   Friends: Observable<Friend[]>;
 
   constructor(private friendService: FriendService,
-              private fileService: FileService,
-              private store: Store
+              private fileService: FileService
+              //,private store: Store
              ) {
 
   }

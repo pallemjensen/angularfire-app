@@ -12,7 +12,6 @@ import {RouterTestingModule} from '@angular/router/testing';
     HomeRoutingModule,
     ButtonsModule,
     RouterTestingModule
-
   ]
 })
 export class HomeModule { }

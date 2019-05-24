@@ -11,6 +11,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {Component} from '@angular/core';
 import {Location} from '@angular/common';
 
+
 describe('FriendListComponent', () => {
   let component: FriendListComponent;
   let fixture: ComponentFixture<FriendListComponent>;
@@ -68,11 +69,11 @@ describe('FriendListComponent', () => {
     });
   });
 
-  it('should contain atlease one add button (+) ', () => {
+  it('should contain atlease one add friend button ', () => {
     const addFriendButton = fixture.debugElement
       .queryAll(By.css('button'));
     const nativeButton: HTMLButtonElement = addFriendButton[0].nativeElement;
-    expect(nativeButton.textContent).toBe('+');
+    expect(nativeButton.textContent).toBe('Add Friend');
   });
   it('should show an unordered list of friends', () => {
     const listFriends = fixture.debugElement
