@@ -51,85 +51,96 @@ describe('FriendListComponent', () => {
     dh = new DOMHelper(fixture)
     fixture.detectChanges();
   });
+  describe('Simple HTML', () => {
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
 
-  it('should should contain an h1 tag', () => {
-    const h1element = fixture.debugElement.query(By.css('h1'));
-    expect(h1element.nativeElement.textContent).toBe('Friends:');
-  });
+    it('should should contain an h1 tag', () => {
+      const h1element = fixture.debugElement.query(By.css('h1'));
+      expect(h1element.nativeElement.textContent).toBe('Friends:');
+    });
 
-  it('should atleast have one button on the page', () => {
-    const buttons = fixture.debugElement
-      .queryAll(By.css('button'));
-    expect(dh.count('button')).toBe(1);
-  });
+    it('should atleast have one button on the page', () => {
+      const buttons = fixture.debugElement
+        .queryAll(By.css('button'));
+      expect(dh.count('button')).toBe(1);
+    });
+  })
+  describe('Navigation', () => {
 
-  it('should navigate to /add when + button is clicked',
-    () => {
-    const router = TestBed.get(Router);
-    spyOn(router, 'navigateByUrl')
-    dh.clickButton('Add Friend');
-    expect(router.navigateByUrl)
-      .toHaveBeenCalledWith(router.createUrlTree(['/add']),
-        { skipLocationChange: false, replaceUrl: false });
-    /*
-    * ***Replaced by clickButton method from Dom-helper class.
-    const location = TestBed.get(Location);
-    const linkDes = fixture.debugElement
-      .queryAll(By.css('button'));
-    const nativeButton: HTMLButtonElement = linkDes[0].nativeElement;
-    nativeButton.click();
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(router.path()).toBe('/add');
-      */
-  });
+    it('should navigate to /add when + button is clicked',
+      () => {
+        const router = TestBed.get(Router);
+        spyOn(router, 'navigateByUrl')
+        dh.clickButton('Add Friend');
+        expect(router.navigateByUrl)
+          .toHaveBeenCalledWith(router.createUrlTree(['/add']),
+            { skipLocationChange: false, replaceUrl: false });
+        /*
+        * ***Replaced by clickButton method from Dom-helper class.
+        const location = TestBed.get(Location);
+        const linkDes = fixture.debugElement
+          .queryAll(By.css('button'));
+        const nativeButton: HTMLButtonElement = linkDes[0].nativeElement;
+        nativeButton.click();
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(router.path()).toBe('/add');
+          */
+      });
+  })
 
-  it('should call deleteFriend once when delete buttton is clicked', () => {
-    component.Friends = helper.getFriends(1);
-    fixture.detectChanges();
-    spyOn(component, 'deleteFriend');
-    dh.clickButton('Delete');
-    expect(component.deleteFriend).toHaveBeenCalledTimes(1);
-  });
+  describe('Button calls', () => {
+    it('should call deleteFriend once when delete buttton is clicked', () => {
+      component.Friends = helper.getFriends(1);
+      fixture.detectChanges();
+      spyOn(component, 'deleteFriend');
+      dh.clickButton('Delete');
+      expect(component.deleteFriend).toHaveBeenCalledTimes(1);
+    });
 
-  it('should call deleteFriend with the friend to delete when clicked delete', () => {
-    component.Friends = helper.getFriends(1);
-    fixture.detectChanges();
-    spyOn(component, 'deleteFriend');
-    dh.clickButton('Delete');
-    expect(component.deleteFriend).toHaveBeenCalledWith(helper.friends[0]);
-    //expect(component.deleteFriend).toHaveBeenCalledTimes(1);
-  });
+    it('should call deleteFriend with the friend to delete when clicked delete', () => {
+      component.Friends = helper.getFriends(1);
+      fixture.detectChanges();
+      spyOn(component, 'deleteFriend');
+      dh.clickButton('Delete');
+      expect(component.deleteFriend).toHaveBeenCalledWith(helper.friends[0]);
+      //expect(component.deleteFriend).toHaveBeenCalledTimes(1);
+    });
 
-  it('should contain atlease one add friend button ', () => {
-    const addFriendButton = fixture.debugElement
-      .queryAll(By.css('button'));
-    const nativeButton: HTMLButtonElement = addFriendButton[0].nativeElement;
-    expect(nativeButton.textContent).toBe('Add Friend');
-  });
-  it('should show an unordered list of friends', () => {
-    const listFriends = fixture.debugElement
-      .queryAll(By.css('ul'));
-    expect(dh.count('ul')).toBe(1);
-  });
+  })
 
-  it('should show no list when no friends are avalible', () => {
-    const listFriends = fixture.debugElement
-      .queryAll(By.css('li'));
-    expect(dh.count('listFriends')).toBe(0);
-    //expect(listFriends.length).toBe(0);
-  });
+  describe('Contains' , () => {
 
-  it('should show one friend on the list, when friend is added', () => {
-    component.Friends = helper.getFriends(1); //HELPER CLASS, to make EASY tests
-    fixture.detectChanges();
-    const friendAdd = fixture.debugElement
-      .queryAll(By.css('li'));
-    expect(friendAdd.length).toBe(1);
+    it('should contain atlease one add friend button ', () => {
+      const addFriendButton = fixture.debugElement
+        .queryAll(By.css('button'));
+      const nativeButton: HTMLButtonElement = addFriendButton[0].nativeElement;
+      expect(nativeButton.textContent).toBe('Add Friend');
+    });
+
+    it('should show an unordered list of friends', () => {
+      const listFriends = fixture.debugElement
+        .queryAll(By.css('ul'));
+      expect(dh.count('ul')).toBe(1);
+    });
+
+    it('should show no list when no friends are avalible', () => {
+      const listFriends = fixture.debugElement
+        .queryAll(By.css('li'));
+      expect(dh.count('listFriends')).toBe(0);
+      //expect(listFriends.length).toBe(0);
+    });
+
+    it('should show one friend on the list, when friend is added', () => {
+      component.Friends = helper.getFriends(1); //HELPER CLASS, to make EASY tests
+      fixture.detectChanges();
+      const friendAdd = fixture.debugElement
+        .queryAll(By.css('li'));
+      expect(friendAdd.length).toBe(1);
+    });
   });
 });
 
