@@ -17,9 +17,7 @@ describe('Map route test', function() {
   });
 })
 
-
-
-describe('Freinds title', function () {
+describe('Friends title', function () {
   it('should contain a h1 tag', function () {
     cy.visit('http://localhost:4200/friends')
     cy.contains("Friends:")
@@ -57,10 +55,6 @@ describe('Update button', function () {
   });
 })
 
-
-
-
-
 describe('Update friend button', function () {
   it('should contain a button for updating the friend', function () {
     cy.visit('http://localhost:4200/friends/update/5pEkfpSNvNun1uVNANEw')
@@ -68,8 +62,6 @@ describe('Update friend button', function () {
     cy.contains('Update friend').click()
   });
 })
-
-
 
 describe('Email test', function () {
   it('Gets, types and asserts', function () {

@@ -29,9 +29,13 @@
 </form>
 
 <div style="text-align: center;">
-  <input  placeholder="Latitude" type="number" [(ngModel)]="latitude">
+  <label>
+  <input class="form-control" style="background: whitesmoke" placeholder="Latitude" type="number" [(ngModel)]="latitude">
+  </label>
   <br>
-  <input  placeholder="Longitude" type="number" [(ngModel)]="longitude">
+  <label>
+  <input class="form-control" style="background: whitesmoke" placeholder="Longitude" type="number" [(ngModel)]="longitude">
+  </label>
   <br />
   <br />
   <input  style="background: whitesmoke" type="file" (change)="imageChange($event)" accept="image/*">

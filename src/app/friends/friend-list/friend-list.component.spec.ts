@@ -201,8 +201,3 @@ class friendServiceStub {
 }
 
 class fileServiceStub {}
-
-
-
-
-
