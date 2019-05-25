@@ -71,7 +71,7 @@ export class FriendService {
       );
   }
 
-  updateFriend(friend: Friend, file: File, id: string): Observable<Friend>{
+  updateFriend(friend: Friend, file: File, id: string): Observable<Friend> {
     this.friendDoc = this.db.doc<Friend>('Friends/' + id);
     this.friend = this.friendDoc.valueChanges();
     this.fileName = this.fileservice.uploadFile(file);

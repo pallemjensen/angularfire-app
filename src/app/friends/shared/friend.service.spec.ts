@@ -1,30 +1,31 @@
 import {getTestBed, TestBed} from '@angular/core/testing';
 
 import { FriendService } from './friend.service';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
 import {FileService} from '../../files/shared/file.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {Observable, of} from 'rxjs';
+import {Friend} from './friend.model';
 
 describe('FriendService', () => {
   let angularFirestoreMock: any;
   let fileServiceMock: any;
   let fsCollectionMock: any;
-  let docMock: any;
+
   let httpMock: HttpTestingController;
   let service: FriendService;
   let helper: Helper;
   beforeEach(() => {
 
-    helper = new Helper();
+
     angularFirestoreMock = jasmine.createSpyObj('AngularFireStore', ['collection']);
-    fsCollectionMock = jasmine.createSpyObj('collection', ['snapshotChanges', 'valueChanges', 'doc']);
+    fsCollectionMock = jasmine.createSpyObj('collection', ['snapshotChanges', 'valueChanges', 'doc', 'add']);
 
     angularFirestoreMock.collection.and.returnValue(fsCollectionMock);
     fsCollectionMock.snapshotChanges.and.returnValue(of([]));
-    fsCollectionMock.doc.and.returnValue(docMock);
+    fsCollectionMock.doc.and.returnValue();
     fileServiceMock = jasmine.createSpyObj('FileService', ['uploadFile']);
-    docMock = jasmine.createSpyObj('doc', ['delete', 'set']);
+    helper = new Helper();
     TestBed.configureTestingModule({
       imports: [
         AngularFirestoreModule,
@@ -40,6 +41,7 @@ describe('FriendService', () => {
   });
 
   it('should be created', () => {
+    service = TestBed.get(FriendService);
     expect(service).toBeTruthy();
   });
 
@@ -52,22 +54,12 @@ describe('FriendService', () => {
     it('should call collection and snapshotChanges on FireStore', () => {
       expect(angularFirestoreMock.collection).toHaveBeenCalledTimes(1);
     });
-    it('should call snapshotChanges one time', ()  => {
+    it('should call snapshotChanges one time on AngularfireStore service', ()  => {
       expect(fsCollectionMock.snapshotChanges).toHaveBeenCalledTimes(1);
     });
     it('should call collection with "friends" as parameter', () => {
       expect(fsCollectionMock.snapshotChanges).toHaveBeenCalledTimes(1);
     });
-  });
-
-  describe('deleteFriend', () => {
-    it('should call firestore when deleteFriend ', () => {
-      service.deleteFriend('test');
-
-      expect(docMock.delete).toHaveBeenCalledTimes(1);
-
-    });
-
     // Expect to return a list of actions from helper. "payload" as an action.
     describe('get friends return value', () => {
       it('should call getFriends and return one friend', () => {
@@ -78,7 +70,6 @@ describe('FriendService', () => {
       });
     });
   });
-
 });
 
 
