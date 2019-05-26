@@ -58,25 +58,14 @@ describe('Update button', function () {
 describe('Update friend button', function () {
   it('should contain a button for updating the friend', function () {
     cy.visit('http://localhost:4200/friends/update/5pEkfpSNvNun1uVNANEw')
-    cy.pause()
     cy.contains('Update friend').click()
   });
 })
 
-describe('Email test', function () {
-  it('Gets, types and asserts', function () {
+describe('Friend add page - buttons ',  () => {
+  it('friend add page should contain 4 buttons ', function () {
     cy.visit('http://localhost:4200/friends/add')
-    cy.url('include', '/friends/add')
-
-    cy.get('mail')
-      .type('friend@email.com')
-      .should('have.value', 'fake@email.com')
-  });
+    cy.get('button').should('have.length', 4);
+});
 })
 
-describe('Contains file selector', function () {
-  it('should contain file selector', function () {
-    cy.visit('http://localhost:4200/friends/add')
-    cy.contains('file').click()
-  });
-})
