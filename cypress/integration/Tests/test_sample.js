@@ -38,7 +38,6 @@ describe('Friend form creation', function () {
     cy.visit('http://localhost:4200/friends/add')
     cy.get('form').contains('Add friend')
   });
-
 })
 
 describe('Show frontpage picture', () => {
@@ -48,24 +47,36 @@ describe('Show frontpage picture', () => {
   });
 })
 
-describe('Update button', function () {
+
+describe('Buttons ',  () => {
+  it('friend add page should contain 4 buttons ', function () {
+    cy.visit('http://localhost:4200/friends/add')
+    cy.get('button').should('have.length', 4);
+});
+
+  it('should contain a button for updating the friend', function () {
+    cy.visit('http://localhost:4200/friends/update/5pEkfpSNvNun1uVNANEw')
+    cy.contains('Update friend').click()
+  });
+
   it('should contain a button for the update-friend page', function () {
     cy.visit('http://localhost:4200/friends')
     cy.contains('Update').click()
   });
 })
 
-describe('Update friend button', function () {
-  it('should contain a button for updating the friend', function () {
-    cy.visit('http://localhost:4200/friends/update/5pEkfpSNvNun1uVNANEw')
-    cy.contains('Update friend').click()
-  });
-})
-
-describe('Friend add page - buttons ',  () => {
-  it('friend add page should contain 4 buttons ', function () {
+describe('friend creation form', () => {
+  it('should have the friend fields for adding a friend', function () {
     cy.visit('http://localhost:4200/friends/add')
-    cy.get('button').should('have.length', 4);
-});
+    cy.contains('Add friend').click()
+    cy.get('[formControlName="name"]').type('testName')
+      .should('have.value', 'testName')
+    cy.get('[formControlName="address"]').type('testAddress')
+      .should('have.value', 'testAddress')
+    cy.get('[formControlName="mail"]').type('testMail')
+      .should('have.value', 'testMail')
+    cy.get('[formControlName="phone"]').type('testPhone')
+      .should('have.value', 'testPhone')
+  });
 })
 
