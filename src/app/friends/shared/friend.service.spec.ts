@@ -11,20 +11,33 @@ describe('FriendService', () => {
   let angularFirestoreMock: any;
   let fileServiceMock: any;
   let fsCollectionMock: any;
-
+  let docMock: any;
+  let pipeMock: any;
+  let dbUpdate: any;
   let httpMock: HttpTestingController;
   let service: FriendService;
   let helper: Helper;
   beforeEach(() => {
 
 
-    angularFirestoreMock = jasmine.createSpyObj('AngularFireStore', ['collection']);
+    angularFirestoreMock = jasmine.createSpyObj('AngularFireStore', ['collection', 'doc']);
     fsCollectionMock = jasmine.createSpyObj('collection', ['snapshotChanges', 'valueChanges', 'doc', 'add']);
+
 
     angularFirestoreMock.collection.and.returnValue(fsCollectionMock);
     fsCollectionMock.snapshotChanges.and.returnValue(of([]));
     fsCollectionMock.doc.and.returnValue();
+
     fileServiceMock = jasmine.createSpyObj('FileService', ['uploadFile']);
+
+    // doc
+    docMock = jasmine.createSpyObj('doc', ['delete', 'get']);
+    pipeMock = jasmine.createSpyObj('get', ['pipe']);
+    docMock.get.and.returnValue(pipeMock)
+    angularFirestoreMock.doc.and.returnValue(docMock);
+    dbUpdate = jasmine.createSpyObj('doc', ['update']);
+    fsCollectionMock.doc.and.returnValue(dbUpdate);
+
     helper = new Helper();
     TestBed.configureTestingModule({
       imports: [
@@ -32,8 +45,8 @@ describe('FriendService', () => {
         HttpClientTestingModule
       ],
       providers: [
-        { provide: AngularFirestore, useValue: angularFirestoreMock},
-        { provide: FileService, useValue: fileServiceMock}
+        {provide: AngularFirestore, useValue: angularFirestoreMock},
+        {provide: FileService, useValue: fileServiceMock}
       ]
     });
     httpMock = getTestBed().get(HttpTestingController);
@@ -48,13 +61,13 @@ describe('FriendService', () => {
   describe('getFriends', () => {
 
     beforeEach(() => {
-    service.getFriends(); //calls getFriend before each "it"
+      service.getFriends(); //calls getFriend before each "it"
     });
 
     it('should call collection and snapshotChanges on FireStore', () => {
       expect(angularFirestoreMock.collection).toHaveBeenCalledTimes(1);
     });
-    it('should call snapshotChanges one time on AngularfireStore service', ()  => {
+    it('should call snapshotChanges one time on AngularfireStore service', () => {
       expect(fsCollectionMock.snapshotChanges).toHaveBeenCalledTimes(1);
     });
     it('should call collection with "friends" as parameter', () => {
@@ -70,8 +83,25 @@ describe('FriendService', () => {
       });
     });
   });
-});
 
+  describe('getfriendById', () => {
+    beforeEach(() => {
+      service.getFriendById('testId');
+    });
+    it('should call doc when get friend by id', () => {
+      expect(docMock.get).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('updateUser', () => {
+    beforeEach(() => {
+      service.deleteFriend('test');
+    });
+    it('should call db collection', () => {
+      expect(docMock.get).toHaveBeenCalledTimes(1);
+    });
+  });
+});
 
 
 /*
