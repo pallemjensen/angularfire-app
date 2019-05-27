@@ -27,7 +27,7 @@ describe('FileService', () => {
     angularFireStorageMock = jasmine.createSpyObj('AngularFireStorage', ['ref']);
     refMock = jasmine.createSpyObj('ref', ['getDownloadURL', 'putString']);
     angularFireStorageMock.ref.and.returnValue(refMock);
-    refMock.getDownloadURL.and.returnValue(of(''));
+    refMock.getDownloadURL.and.returnValue(of('test'));
 
     putMock = jasmine.createSpyObj('Put', ['then', 'put', 'putString']);
     putMock.then.and.returnValue(of(''));
@@ -76,14 +76,24 @@ describe('FileService', () => {
       service.uploadFile();
       expect(service.uploadFile).toHaveBeenCalledTimes(1);
     });
-  });
-/*
-  describe('uploadFile Put & then should be called', () => {
-    it('should call put', () => {
-      // @ts-ignore
-      service.uploadFile();
-      expect(putMock.putString).toHaveBeenCalledTimes(1);
+
+    it('should return observable string', () => {
+      const service: FileService = TestBed.get(FileService);
+      const d = service.getFileUrl('string');
+
+      d.subscribe(o => {
+        expect(o).toBe('test');
+      });
+      });
+
+      /*
+        describe('uploadFile Put & then should be called', () => {
+          it('should call put', () => {
+            // @ts-ignore
+            service.uploadFile();
+            expect(putMock.putString).toHaveBeenCalledTimes(1);
+          });
+        });*/
     });
-  });*/
 });
 
