@@ -22,7 +22,8 @@ describe('MapShowComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ MapShowComponent],
       imports: [
-        AgmCoreModule.forRoot()
+        AgmCoreModule.forRoot(),
+        RouterTestingModule
       ],
       providers: [
         { provide: AngularFirestore, useValue: FirestoreStub },
@@ -41,11 +42,20 @@ describe('MapShowComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
   /*
+  describe('onChoseLocation' , () => {
+    component.onChoseLocation('d');
+    it('should call onChoseLocation', () => {
+      expect(component.onChoseLocation).toHaveBeenCalledTimes(1);
+    });
+  });
+*/
+/*
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  */
+*/
 });
 
 

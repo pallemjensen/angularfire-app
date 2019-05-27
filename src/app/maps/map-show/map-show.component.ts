@@ -14,7 +14,7 @@ export class MapShowComponent implements OnInit {
   lng: number;
   name: string;
   markers: marker[];
-  pictureUrls: pictureUrl[];
+  // pictureUrls: pictureUrl[];
   maxZoom = 9;
   minZoom = 2;
   zoom = 2;
@@ -32,11 +32,11 @@ export class MapShowComponent implements OnInit {
   constructor(private friendService: FriendService,
               private fileService: FileService) {
     this.markers = [];
-    this.pictureUrls = [];
+    // this.pictureUrls = [];
   }
 
   ngOnInit() {
-    this.getUrls();
+    // this.getUrls();
     this.showFriendsOnMap();
   }
 
@@ -52,7 +52,7 @@ export class MapShowComponent implements OnInit {
         });
       });
   }
-
+/*
   getUrls() {
     this.friendService.getFriends()
       .subscribe( friends => {
@@ -62,7 +62,7 @@ export class MapShowComponent implements OnInit {
           });
         });
       });
-  }
+  }*/
 
 
 
@@ -82,6 +82,7 @@ export class MapShowComponent implements OnInit {
     }
   }
 
+  /*
   iconX = {
     url: '../assets/images/lion.jpg',
     scaledSize: {
@@ -89,6 +90,7 @@ export class MapShowComponent implements OnInit {
       height: 40
     }
   };
+  */
 
 
 
@@ -116,8 +118,9 @@ interface marker {
   label?: string;
 }
 
+/*
 // tslint:disable-next-line:class-name
 interface pictureUrl {
   picUrl: any;
 }
-
+*/
