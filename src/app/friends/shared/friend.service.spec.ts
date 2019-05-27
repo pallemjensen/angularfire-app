@@ -31,8 +31,8 @@ describe('FriendService', () => {
     fileServiceMock = jasmine.createSpyObj('FileService', ['uploadFile']);
 
     // doc
-    docMock = jasmine.createSpyObj('doc', ['delete', 'get', 'valueChanges']);
     pipeMock = jasmine.createSpyObj('get', ['pipe']);
+    docMock = jasmine.createSpyObj('doc', ['delete', 'get', 'valueChanges']);
     docMock.get.and.returnValue(pipeMock)
     angularFirestoreMock.doc.and.returnValue(docMock);
     dbUpdate = jasmine.createSpyObj('doc', ['update']);

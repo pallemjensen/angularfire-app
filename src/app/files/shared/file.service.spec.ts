@@ -6,6 +6,8 @@ import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore'
 import {of} from 'rxjs';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorage} from '@angular/fire/storage';
+import * as firebase from 'firebase';
+import {isBrowserEvents} from '@angular/core/src/render3/discovery_utils';
 
 describe('FileService', () => {
   let angularFirestoreMock: any;
@@ -13,6 +15,7 @@ describe('FileService', () => {
   let fsCollectionMock: any;
   let service: FileService;
   let httpMock: HttpTestingController;
+  let putMock: any;
   let refMock;
 
   beforeEach(() => {
@@ -26,7 +29,8 @@ describe('FileService', () => {
     angularFireStorageMock.ref.and.returnValue(refMock);
     refMock.getDownloadURL.and.returnValue(of(''));
 
-
+    putMock = jasmine.createSpyObj('Put', ['then', 'put', 'putString']);
+    putMock.then.and.returnValue(of(''));
 
     TestBed.configureTestingModule({
       imports: [
@@ -36,7 +40,7 @@ describe('FileService', () => {
       ],
       providers: [
         {provide: AngularFirestore, useValue: angularFirestoreMock},
-        {provide: AngularFireStorage, useValue: angularFireStorageMock }
+        {provide: AngularFireStorage, useValue: angularFireStorageMock}
       ]
     });
     httpMock = getTestBed().get(HttpTestingController);
@@ -48,10 +52,38 @@ describe('FileService', () => {
   });
 
   describe('getFileUrl', () => {
-  it('should call getFileUrl when called', () => {
-    spyOn(service, 'getFileUrl');
-    service.getFileUrl('test');
-    expect(service.getFileUrl).toHaveBeenCalledTimes(1);
+    it('should call getFileUrl', () => {
+      spyOn(service, 'getFileUrl');
+      service.getFileUrl('test');
+      expect(service.getFileUrl).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getRandomId', () => {
+    it('should call getRandomId ', () => {
+      spyOn(service, 'getRandomId');
+      service.getRandomId();
+      expect(service.getRandomId).toHaveBeenCalledTimes(1);
+    });
+
+
+  });
+
+  describe('uploadFile', () => {
+    it('should call uploadFile', () => {
+      spyOn(service, 'uploadFile');
+      // @ts-ignore
+      service.uploadFile();
+      expect(service.uploadFile).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('uploadFile Put & then should be called', () => {
+    it('should call put', () => {
+      // @ts-ignore
+      service.uploadFile();
+      expect(putMock.putString).toHaveBeenCalledTimes(1);
+    });
   });
 });
-});
+
