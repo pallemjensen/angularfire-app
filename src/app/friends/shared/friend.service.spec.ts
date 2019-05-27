@@ -31,7 +31,7 @@ describe('FriendService', () => {
     fileServiceMock = jasmine.createSpyObj('FileService', ['uploadFile']);
 
     // doc
-    docMock = jasmine.createSpyObj('doc', ['delete', 'get']);
+    docMock = jasmine.createSpyObj('doc', ['delete', 'get', 'valueChanges']);
     pipeMock = jasmine.createSpyObj('get', ['pipe']);
     docMock.get.and.returnValue(pipeMock)
     angularFirestoreMock.doc.and.returnValue(docMock);
@@ -86,14 +86,25 @@ describe('FriendService', () => {
 
   describe('getfriendById', () => {
     beforeEach(() => {
-      service.getFriendById('testId');
+      service.getFriendById('1');
     });
+
     it('should call doc when get friend by id', () => {
-      expect(docMock.get).toHaveBeenCalledTimes(1);
+      expect(docMock.valueChanges).toHaveBeenCalledTimes(1);
     });
+
   });
 
-  describe('updateUser', () => {
+  describe('delete friend', () => {
+    beforeEach(() => {
+      service.deleteFriend('1');
+    });
+    it('should call pipe when deleting a friend ', ()  => {
+      expect(pipeMock.pipe).toHaveBeenCalledTimes(1);
+    });
+  })
+
+  describe('updateFriend', () => {
     beforeEach(() => {
       service.deleteFriend('test');
     });

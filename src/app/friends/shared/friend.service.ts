@@ -39,7 +39,7 @@ export class FriendService {
       );
   }
 
-  getFriendById(id: string): Observable<Friend>{
+  getFriendById(id: string): Observable<Friend> {
     return this.db.doc<Friend>('Friends/' + id).valueChanges();
   }
 
