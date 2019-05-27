@@ -1,71 +1,49 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Friend } from "../friends/shared/friend.model";
-import { AddFriend, RemoveFriend} from "./friend.actions";
+import {AddFriend, GetFriendById, RemoveFriend, SetFriends, UpdateFriend} from "./friend.actions";
 import {FriendService} from "../friends/shared/friend.service";
-import * as friendActions from './friend.actions'
+import * as friendActions from './friend.actions';
 import {catchError, map} from "rxjs/operators";
 import {asapScheduler, of} from "rxjs";
 
-export interface FriendsStateModel{
+export interface FriendsStateModel {
   friends: Friend[];
-  loaded: boolean;
-  loading: boolean;
-  selectedFriendId: string;
+  friendById: Friend;
 }
 
 @State<FriendsStateModel> ({
-  name: 'friends',
+  name: 'friendState',
   defaults: {
     friends: [],
-    loaded: false,
-    loading: false,
-    selectedFriendId: null
+    friendById: null
   }
 })
 
+export class FriendState {
 
-  export class FriendState {
-  friends: Friend[];
-  constructor(private friendService: FriendService) {}
+  constructor(private service: FriendService) {}
 
   @Selector()
-  static getFriends(state: FriendsStateModel){
-    return state.friends
+  static getFriends(state: FriendsStateModel) {
+    return state.friends;
   }
 
+  @Selector()
+  static getIdFriend(state: FriendsStateModel) {
+    return state.friendById;
+  }
 
-  @Action(friendActions.AddFriend)
-  add({getState, patchState}: StateContext<FriendsStateModel>, { payload } : AddFriend){
+  @Action(RemoveFriend)
+  remove({getState, patchState }: StateContext<FriendsStateModel>, { payload }: RemoveFriend) {
+    this.service.deleteFriend(payload);
+  }
+
+  @Action(GetFriendById)
+  get({getState, patchState}: StateContext<FriendsStateModel>, { payload }: GetFriendById) {
     const state = getState();
     patchState({
-      friends: [...state.friends, payload]
-    })
-  }
-
-  @Action(friendActions.RemoveFriend)
-  remove({getState, patchState}: StateContext<FriendsStateModel>, { payload } : RemoveFriend){
-    patchState({
-      friends: getState().friends.filter(a => a.name != payload)
-    })
-  }
-
-  @Action(friendActions.LoadFriends)
-  loadFriends({ patchState, dispatch }: StateContext<FriendsStateModel>){
-    patchState({loading: true});
-    return this.friendService
-      .getFriends()
-      .pipe(
-        map((friends: Friend[]) =>
-        asapScheduler.schedule(() =>
-        dispatch(new friendActions.LoadFriendsSuccess(friends))
-        )
-        ),
-        catchError(error =>
-        of (
-          asapScheduler.schedule(() =>
-          dispatch(new friendActions.LoadFriendsFail(error)))
-        ))
-      )
+      friendById: state.friends.find(o => o.id === payload)
+    });
   }
 
 }

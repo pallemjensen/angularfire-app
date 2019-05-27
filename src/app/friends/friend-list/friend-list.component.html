@@ -1,22 +1,25 @@
-
 <ul fa>
   <div style="float: right">
-  <button type="button" class="btn btn-primary" routerLink="add">Add Friend</button>
+    <button type="button" class="btn btn-primary" routerLink="add">Add Friend</button>
   </div>
   <br>
   <div style="text-align: center;">
-  <h1>Friends:</h1>
+    <h1>Friends:</h1>
   </div>
   <br>
   <br>
   <br>
-  <li class="text" *ngFor="let friend of Friends | async">
+  <div *ngIf="Friends" >
+  <li *ngFor="let friend of Friends | async">
+    <mat-card>
     <img [src]="friend.url" *ngIf="friend.url" style="width: 48px; height: 48px">
     Name: {{friend.name}}  --  Address: {{friend.address}}  --  Phone: {{friend.phone}}
     <div style="float: right">
       <button routerLink="update/{{friend.id}}" class="btn btn-warning">Update</button>
-    <button type="button" class="btn btn-danger" (click)="deleteFriend(friend)">Delete</button>
+      <button type="button" class="btn btn-danger" (click)="deleteFriend(friend.id)">Delete</button>
     </div>
+    </mat-card>
   </li>
+  </div>
 </ul>
 

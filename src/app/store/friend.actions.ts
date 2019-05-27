@@ -1,35 +1,41 @@
-import { Friend } from "../friends/shared/friend.model";
+import { Friend } from '../friends/shared/friend.model';
 import GeoPoint = firebase.firestore.GeoPoint;
 import * as firebase from 'firebase';
 
 export class AddFriend {
-  static readonly type = '[Friend] add Friend'
+  static readonly type = '[FRIEND] Add'
 
-  constructor(public payload: { id?: string, name: any, picture?: string,  address: string,  mail: string, phone: string, location?: GeoPoint, url?: string}) {}
-
+  constructor(public payload: Friend) {}
+  /*{ id?: string, name: any, picture?: string,  address: string,  mail: string, phone: string, location?: GeoPoint, url?: string}) {}*/
 }
 
 export class RemoveFriend {
-  static readonly type = '[Friend] remove Friend';
-  constructor (public payload: string) {}
+  static readonly type = '[FRIEND] Remove';
+  constructor(public payload: string) {}
 }
 
-export class LoadFriends {
-  static readonly type = '[Friend] Load Friend';
+export class GetFriendById {
+  static readonly  type = '[FRIEND] Get';
+
+  constructor(public payload: string) {}
 }
 
-export class LoadFriendsSuccess {
-  static readonly type = '[Friend] Load Friends Success';
-  constructor(public readonly payload: Friend[]) {}
+export class SetFriends {
+  static readonly type = '[FRIEND] Set';
+
+  constructor(public payload: string) {}
 }
-export class LoadFriendsFail {
-  static readonly type = '[Friend] Load Friends Fail';
-  constructor(public readonly payload?: any) {}
+
+
+export class UpdateFriend {
+  static readonly type = '[FRIEND] Update';
+
+  constructor(public payload: Friend) {}
 }
 
 export type FriendActions =
 | RemoveFriend
-| AddFriend
-| LoadFriends
-| LoadFriendsFail
-| LoadFriendsSuccess
+| GetFriendById
+| SetFriends
+| UpdateFriend
+| AddFriend;

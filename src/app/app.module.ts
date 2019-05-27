@@ -39,7 +39,7 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     AngularFirestoreModule, AngularFireStorageModule,
     HttpClientModule,
     AgmCoreModule,
-    NgxsModule.forRoot([FriendState], {developmentMode: !environment.production}),
+    NgxsModule.forRoot([FriendState]),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDHw1XrdTuOey13-mR9qLId7pMqYP7trIg'
     })

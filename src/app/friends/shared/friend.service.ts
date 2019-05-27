@@ -43,7 +43,7 @@ export class FriendService {
     return this.db.doc<Friend>('Friends/' + id).valueChanges();
   }
 
-
+/*
   deleteFriend(id: string): Observable<Friend> {
     return this.db.doc<Friend>('Friends/' + id)
       .get()
@@ -70,6 +70,7 @@ export class FriendService {
         })
       );
   }
+  */
 
   updateFriend(friend: Friend, file: File, id: string): Observable<Friend> {
     this.friendDoc = this.db.doc<Friend>('Friends/' + id);
@@ -104,4 +105,33 @@ export class FriendService {
       })
     );
   }
-}
+
+  //DAV
+
+  getFriendsById(friendId: string): Observable<Friend[]> {
+    return this.db.collection<Friend>('friends', ref => ref.where('friendId', '==', friendId)).snapshotChanges()
+      .pipe(map(actions => {
+        return actions.map(action => {
+          const data = action.payload.doc.data() as Friend;
+          return {
+            id: action.payload.doc.id,
+            name: data.name,
+            address: data.address,
+            phone: data.phone,
+            mail: data.mail,
+            picture: data.picture,
+            location: data.location
+          };
+        });
+      }));
+  }
+
+  deleteFriend(id: string) {
+    this.db.collection('friends').doc(id).delete();
+  }
+
+  createFriend(friend: Friend) {
+    this.db.collection('friends').add(friend);
+  }
+
+ }
