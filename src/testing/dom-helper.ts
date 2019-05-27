@@ -1,7 +1,6 @@
 import {Friend} from "../app/friends/shared/friend.model";
 import {Observable, of} from "rxjs";
 import {ComponentFixture} from "@angular/core/testing";
-import {FriendListComponent} from "../app/friends/friend-list/friend-list.component";
 import {By} from "@angular/platform-browser";
 
 export class Helper {

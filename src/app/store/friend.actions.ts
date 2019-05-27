@@ -1,6 +1,4 @@
 import { Friend } from '../friends/shared/friend.model';
-import GeoPoint = firebase.firestore.GeoPoint;
-import * as firebase from 'firebase';
 
 export class AddFriend {
   static readonly type = '[FRIEND] Add'

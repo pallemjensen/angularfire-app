@@ -11,9 +11,9 @@ import {AgmCoreModule} from '@agm/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {ButtonsModule} from 'ngx-bootstrap';
-import { NgxsModule } from '@ngxs/store';
-import { FriendState } from './store/friend.state';
-import {NgxsLoggerPlugin, NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
+import {NgxsModule} from '@ngxs/store';
+import {FriendState} from './store';
+import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 

@@ -1,10 +1,7 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Friend } from "../friends/shared/friend.model";
-import {AddFriend, GetFriendById, RemoveFriend, SetFriends, UpdateFriend} from "./friend.actions";
+import {GetFriendById, RemoveFriend} from "./friend.actions";
 import {FriendService} from "../friends/shared/friend.service";
-import * as friendActions from './friend.actions';
-import {catchError, map} from "rxjs/operators";
-import {asapScheduler, of} from "rxjs";
 
 export interface FriendsStateModel {
   friends: Friend[];
