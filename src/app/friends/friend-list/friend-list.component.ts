@@ -4,8 +4,6 @@ import {FriendService} from '../shared/friend.service';
 import {Friend} from '../shared/friend.model';
 import {FileService} from '../../files/shared/file.service';
 import {tap} from 'rxjs/operators';
-import {FriendState} from '../../store';
-import { Store, Select } from '@ngxs/store';
 
 
 @Component({
@@ -17,9 +15,7 @@ export class FriendListComponent implements OnInit {
   Friends: Observable<Friend[]>;
 
   constructor(private friendService: FriendService,
-              private fileService: FileService
-              //,private store: Store
-             ) {
+              private fileService: FileService) {
 
   }
 

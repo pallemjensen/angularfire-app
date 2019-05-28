@@ -7,7 +7,6 @@ import {of} from 'rxjs';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorage} from '@angular/fire/storage';
 import * as firebase from 'firebase';
-import {isBrowserEvents} from '@angular/core/src/render3/discovery_utils';
 
 describe('FileService', () => {
   let angularFirestoreMock: any;
