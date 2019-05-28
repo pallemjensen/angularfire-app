@@ -45,7 +45,7 @@ export class MapShowComponent implements OnInit {
     this.locationChosen = true;
   }
 
-  protected mapReady(map) {
+  mapReady(map) {
     this.map = map;
   }
 
