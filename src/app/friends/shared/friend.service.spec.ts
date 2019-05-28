@@ -1,5 +1,5 @@
 import {getTestBed, TestBed} from '@angular/core/testing';
-
+import { Friend} from './friend.model';
 import { FriendService } from './friend.service';
 import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
 import {FileService} from '../../files/shared/file.service';
@@ -11,32 +11,36 @@ describe('FriendService', () => {
   let fileServiceMock: any;
   let fsCollectionMock: any;
   let docMock: any;
+  let mapMock: any;
   let pipeMock: any;
   let dbUpdate: any;
   let httpMock: HttpTestingController;
   let service: FriendService;
   let helper: Helper;
+  let friendHelper: FriendHelper;
+  let refMock;
+  let friendX: Friend;
   beforeEach(() => {
 
 
     angularFirestoreMock = jasmine.createSpyObj('AngularFireStore', ['collection', 'doc']);
     fsCollectionMock = jasmine.createSpyObj('collection', ['snapshotChanges', 'valueChanges', 'doc', 'add']);
-
-
     angularFirestoreMock.collection.and.returnValue(fsCollectionMock);
     fsCollectionMock.snapshotChanges.and.returnValue(of([]));
     fsCollectionMock.doc.and.returnValue();
-
     fileServiceMock = jasmine.createSpyObj('FileService', ['uploadFile']);
-
+    refMock = jasmine.createSpyObj('FriendService', ['updateFriend']);
+    refMock.updateFriend.and.returnValue(of(friendX));
     // doc
     pipeMock = jasmine.createSpyObj('get', ['pipe']);
-    docMock = jasmine.createSpyObj('doc', ['delete', 'get', 'valueChanges']);
-    docMock.get.and.returnValue(pipeMock)
+    mapMock = jasmine.createSpyObj('pipe', ['map']);
+    docMock = jasmine.createSpyObj('doc', ['delete', 'get', 'valueChanges', 'update']);
+    docMock.get.and.returnValue(pipeMock);
+    docMock.update.and.returnValue(mapMock);
     angularFirestoreMock.doc.and.returnValue(docMock);
     dbUpdate = jasmine.createSpyObj('doc', ['update']);
     fsCollectionMock.doc.and.returnValue(dbUpdate);
-
+    friendHelper = new FriendHelper();
     helper = new Helper();
     TestBed.configureTestingModule({
       imports: [
@@ -111,6 +115,29 @@ describe('FriendService', () => {
       expect(docMock.get).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('updatefriend return value', () => {
+    it('should return observable friend object', () => {
+      let id: 'dd';
+      let file: any;
+
+      const friend = {
+        id: 'ere',
+        name : 'fgf',
+        address: 'dsfs',
+        mail: 'sads',
+        phone: 'dfdsfs',
+        url: 'dfd',
+        picture: 'dfdf'
+      };
+
+      const d = service.updateFriend(friend, file, id);
+
+      d.subscribe( m => {
+        expect(m).toBe(friendX);
+      })
+    });
+  })
 });
 
 
@@ -138,4 +165,16 @@ class Helper {
     }
     return of(this.actions);
   }
+}
+
+class FriendHelper {
+  friends: Friend[] = [];
+  getFriends(amount: number): Observable<Friend[]> {
+    for (let i = 0; i < amount; i++) {
+      this.friends.push(
+        {id: 'abc' + i, name: 'efg' + i, address: 'abc' + i, mail: 'hello' + 1, phone: 'lsad' + i, url: 'wazzap' + i, picture: 'picString'});
+    }
+    return of(this.friends);
+  }
+
 }

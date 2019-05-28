@@ -81,15 +81,6 @@ describe('FileService', () => {
         expect(o).toBe('test');
       });
       });
-
-      /*
-        describe('uploadFile Put & then should be called', () => {
-          it('should call put', () => {
-            // @ts-ignore
-            service.uploadFile();
-            expect(putMock.putString).toHaveBeenCalledTimes(1);
-          });
-        });*/
     });
 });
 
