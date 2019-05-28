@@ -6,14 +6,9 @@ import {FileService} from '../../files/shared/file.service';
 import {Observable, of} from 'rxjs';
 import {Friend} from '../shared/friend.model';
 import {By} from '@angular/platform-browser';
-import {Debugger} from 'inspector';
 import {RouterTestingModule} from '@angular/router/testing';
-import {Component} from '@angular/core';
-import {Location} from '@angular/common';
-import {count} from 'rxjs/operators';
 import {DOMHelper, Helper} from '../../../testing/dom-helper';
 import {Router} from '@angular/router';
-import {before} from 'selenium-webdriver/testing';
 
 describe('FriendListComponent', () => {
   let component: FriendListComponent;
@@ -82,17 +77,6 @@ describe('FriendListComponent', () => {
         expect(router.navigateByUrl)
           .toHaveBeenCalledWith(router.createUrlTree(['/add']),
             { skipLocationChange: false, replaceUrl: false });
-        /*
-        * ***Replaced by clickButton method from Dom-helper class.
-        const location = TestBed.get(Location);
-        const linkDes = fixture.debugElement
-          .queryAll(By.css('button'));
-        const nativeButton: HTMLButtonElement = linkDes[0].nativeElement;
-        nativeButton.click();
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(router.path()).toBe('/add');
-          */
       });
   })
 
@@ -184,13 +168,6 @@ describe('FriendListComponent', () => {
     it('should call getFriends on friendService once on ngOnInit',  () => {
       expect(friendServiceMock.getFriends).toHaveBeenCalledTimes(1);
     });
-/*
-    it('should show img tag when friend is loaded async from friendService',  () => {
-      friendServiceMock.getFriends.and.returnValue(helper.getFriends(5));
-      fileServiceMock.getFileUrl.and.returnValue(of('http://testurl'));
-      fixture.detectChanges();
-      expect(dh.count('img')).toBe(1);
-    });*/
   });
 });
 

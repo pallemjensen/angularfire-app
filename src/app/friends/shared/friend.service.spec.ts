@@ -5,7 +5,6 @@ import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore'
 import {FileService} from '../../files/shared/file.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {Observable, of} from 'rxjs';
-import {Friend} from './friend.model';
 
 describe('FriendService', () => {
   let angularFirestoreMock: any;
