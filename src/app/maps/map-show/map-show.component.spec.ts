@@ -12,7 +12,7 @@ import {environment} from '../../../environments/environment';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {FileService} from "../../files/shared/file.service";
+import {FileService} from '../../files/shared/file.service';
 
 describe('MapShowComponent', () => {
   let component: MapShowComponent;
@@ -42,20 +42,27 @@ describe('MapShowComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+/*
+  describe('showFriendsOnMap', () => {
+    component.ngOnInit();
+    it('should call showFriendsOnMap ', ()  => {
+      expect(component.showFriendsOnMap).toHaveBeenCalledTimes(1);
+    });
+  });
 
-  /*
+
   describe('onChoseLocation' , () => {
     component.onChoseLocation('d');
     it('should call onChoseLocation', () => {
       expect(component.onChoseLocation).toHaveBeenCalledTimes(1);
     });
-  });
-*/
+  });*/
+
 /*
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-*/
+  */
 });
 
 

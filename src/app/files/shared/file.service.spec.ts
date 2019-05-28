@@ -24,10 +24,10 @@ describe('FileService', () => {
     fsCollectionMock.snapshotChanges.and.returnValue(of([]));
 
     angularFireStorageMock = jasmine.createSpyObj('AngularFireStorage', ['ref']);
-    refMock = jasmine.createSpyObj('ref', ['getDownloadURL', 'putString']);
+    refMock = jasmine.createSpyObj('ref', ['getDownloadURL', 'putString', 'getRandomId']);
     angularFireStorageMock.ref.and.returnValue(refMock);
     refMock.getDownloadURL.and.returnValue(of('test'));
-
+    refMock.getRandomId.and.returnValue('');
     putMock = jasmine.createSpyObj('Put', ['then', 'put', 'putString']);
     putMock.then.and.returnValue(of(''));
 
@@ -59,13 +59,10 @@ describe('FileService', () => {
   });
 
   describe('getRandomId', () => {
-    it('should call getRandomId ', () => {
-      spyOn(service, 'getRandomId');
-      service.getRandomId();
-      expect(service.getRandomId).toHaveBeenCalledTimes(1);
+    it('should call getRandomId and contain a .jpg file ', () => {
+      const test = service.getRandomId();
+      expect(test).toContain('.jpg');
     });
-
-
   });
 
   describe('uploadFile', () => {
