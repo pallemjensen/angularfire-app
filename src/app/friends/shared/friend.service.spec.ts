@@ -115,29 +115,6 @@ describe('FriendService', () => {
       expect(docMock.get).toHaveBeenCalledTimes(1);
     });
   });
-
-  describe('updatefriend return value', () => {
-    it('should return observable friend object', () => {
-      let id: 'dd';
-      let file: any;
-
-      const friend = {
-        id: 'ere',
-        name : 'fgf',
-        address: 'dsfs',
-        mail: 'sads',
-        phone: 'dfdsfs',
-        url: 'dfd',
-        picture: 'dfdf'
-      };
-
-      const d = service.updateFriend(friend, file, id);
-
-      d.subscribe( m => {
-        expect(m).toBe(friendX);
-      })
-    });
-  })
 });
 
 
