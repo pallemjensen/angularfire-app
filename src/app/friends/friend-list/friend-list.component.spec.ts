@@ -17,10 +17,10 @@ describe('FriendListComponent', () => {
   let friendServiceMock: any;
   let fileServiceMock: any;
   beforeEach(async(() => {
-    //Jasmine = "spy" on the method. See how many times it's called ect.
-    friendServiceMock = jasmine.createSpyObj('FriendService', ['getFriends']); //Same as creating a stub.
+    // Jasmine = "spy" on the method. See how many times it's called ect.
+    friendServiceMock = jasmine.createSpyObj('FriendService', ['getFriends']); // Same as creating a stub.
     friendServiceMock.getFriends.and.returnValue(of([]));
-    fileServiceMock = jasmine.createSpyObj('FileService', ['getFileUrl']); //Same as creating a stub.
+    fileServiceMock = jasmine.createSpyObj('FileService', ['getFileUrl']); // Same as creating a stub.
     fileServiceMock.getFileUrl.and.returnValue(of([]));
 
     TestBed.configureTestingModule({
@@ -58,11 +58,11 @@ describe('FriendListComponent', () => {
     });
 
     it('should atleast have one button on the page', () => {
-      const buttons = fixture.debugElement
-        .queryAll(By.css('button'));
+      // const buttons = fixture.debugElement
+      //   .queryAll(By.css('button'));
       expect(dh.count('button')).toBe(1);
     });
-  })
+  });
   describe('Navigation', () => {
     let helper: Helper;
     beforeEach(() => {
@@ -72,13 +72,13 @@ describe('FriendListComponent', () => {
     it('should navigate to /add when + button is clicked',
       () => {
         const router = TestBed.get(Router);
-        spyOn(router, 'navigateByUrl')
+        spyOn(router, 'navigateByUrl');
         dh.clickButton('Add Friend');
         expect(router.navigateByUrl)
           .toHaveBeenCalledWith(router.createUrlTree(['/add']),
             { skipLocationChange: false, replaceUrl: false });
       });
-  })
+  });
 
   describe('Button calls', () => {
     let helper: Helper;
@@ -103,7 +103,7 @@ describe('FriendListComponent', () => {
       // expect(component.deleteFriend).toHaveBeenCalledTimes(1);
     });
 
-  })
+  });
 
   describe('Contains' , () => {
     let helper: Helper;
@@ -128,11 +128,11 @@ describe('FriendListComponent', () => {
       const listFriends = fixture.debugElement
         .queryAll(By.css('li'));
       expect(dh.count('listFriends')).toBe(0);
-      //expect(listFriends.length).toBe(0);
+      // expect(listFriends.length).toBe(0);
     });
 
     it('should show one friend on the list, when friend is added', () => {
-      component.Friends = helper.getFriends(1); //HELPER CLASS, to make EASY tests
+      component.Friends = helper.getFriends(1); // HELPER CLASS, to make EASY tests
       fixture.detectChanges();
       const friendAdd = fixture.debugElement
         .queryAll(By.css('li'));

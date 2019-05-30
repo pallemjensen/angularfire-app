@@ -57,14 +57,14 @@ describe('FriendService', () => {
   });
 
   it('should be created', () => {
-    service = TestBed.get(FriendService);
+    // service = TestBed.get(FriendService);
     expect(service).toBeTruthy();
   });
 
   describe('getFriends', () => {
 
     beforeEach(() => {
-      service.getFriends(); //calls getFriend before each "it"
+      service.getFriends(); // calls getFriend before each "it"
     });
 
     it('should call collection and snapshotChanges on FireStore', () => {
