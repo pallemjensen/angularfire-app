@@ -21,8 +21,6 @@ describe('FriendService', () => {
   let refMock;
   let friendX: Friend;
   beforeEach(() => {
-
-
     angularFirestoreMock = jasmine.createSpyObj('AngularFireStore', ['collection', 'doc']);
     fsCollectionMock = jasmine.createSpyObj('collection', ['snapshotChanges', 'valueChanges', 'doc', 'add']);
     angularFirestoreMock.collection.and.returnValue(fsCollectionMock);

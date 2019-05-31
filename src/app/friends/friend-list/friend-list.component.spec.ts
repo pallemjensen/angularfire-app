@@ -38,7 +38,6 @@ describe('FriendListComponent', () => {
     .compileComponents();
   }));
 
-
   beforeEach(() => {
     fixture = TestBed.createComponent(FriendListComponent);
     component = fixture.componentInstance;
@@ -60,7 +59,7 @@ describe('FriendListComponent', () => {
     it('should atleast have one button on the page', () => {
       // const buttons = fixture.debugElement
       //   .queryAll(By.css('button'));
-      expect(dh.count('button')).toBe(1);
+      expect(dh.count('button')).toBeGreaterThanOrEqual(1);
     });
   });
   describe('Navigation', () => {
@@ -100,7 +99,6 @@ describe('FriendListComponent', () => {
       spyOn(component, 'deleteFriend');
       dh.clickButton('Delete');
       expect(component.deleteFriend).toHaveBeenCalledWith(helper.friends[0]);
-      // expect(component.deleteFriend).toHaveBeenCalledTimes(1);
     });
 
   });
@@ -144,16 +142,27 @@ describe('FriendListComponent', () => {
     let helper: Helper;
     beforeEach(() => {
       helper = new Helper();
-      fixture.detectChanges();
+      // fixture.detectChanges();
     });
+
     it('should show img tag with url on friends',  () => {
-      component.Friends = helper.getFriends(1);
-      helper.friends[0].url = 'http://abc-url';
+      friendServiceMock.getFriends.and.returnValue(helper.getFriends(1));
+      fileServiceMock.getFileUrl.and.returnValue(of ('http://hest'))
       fixture.detectChanges();
       expect(dh.count('img'))
         .toBe(1);
     });
+
+    it('should not show img tag with url on friends if no url exits',  () => {
+      friendServiceMock.getFriends.and.returnValue(helper.getFriends(1));
+      helper.friends[0].picture = undefined;
+      fileServiceMock.getFileUrl.and.returnValue(of ('http://hest'))
+      fixture.detectChanges();
+      expect(dh.count('img'))
+        .toBe(0);
+    });
   });
+
   describe('Calls from service', () => {
 
   });
@@ -170,11 +179,3 @@ describe('FriendListComponent', () => {
     });
   });
 });
-
-class friendServiceStub {
-  getFriends(): Observable<Friend[]> {
-    return of([]);
-  }
-}
-
-class fileServiceStub {}

@@ -12,7 +12,7 @@ export class Helper {
     for (let i = 0; i < amount; i++) {
       this.friends.push(
         { id: 'test' + i, name: 'friend1' + i , address: 'test' + i, phone: '123' + i, mail: 'test' + i,
-          picture: 'asd' + i , url: 'http://test' + i ,
+          picture: 'asd' + i ,
           location: new GeoPoint(34, 45)}
       );
     }
