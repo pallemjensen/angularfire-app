@@ -45,13 +45,13 @@ export class FriendUpdateComponent implements OnInit {
           phone: friend.phone,
           mail: friend.mail
         })
-         this.latitude = friend.location.latitude;
+        this.latitude = friend.location.latitude;
         this.longitude = friend.location.longitude;
-    })
+    });
   }
 
-  makeGeopoint(latitude: number, longitude: number): GeoPoint
-  {return new GeoPoint(latitude, longitude);
+  makeGeopoint(latitude: number, longitude: number): GeoPoint {
+    return new GeoPoint(latitude, longitude);
   }
 
   updateFriend() {

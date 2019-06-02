@@ -5,6 +5,8 @@ import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore'
 import {FileService} from '../../files/shared/file.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {Observable, of} from 'rxjs';
+import GeoPoint = firestore.GeoPoint;
+import {firestore} from 'firebase';
 
 describe('FriendService', () => {
   let angularFirestoreMock: any;
@@ -40,6 +42,7 @@ describe('FriendService', () => {
     fsCollectionMock.doc.and.returnValue(dbUpdate);
     friendHelper = new FriendHelper();
     helper = new Helper();
+    // fsCollectionMock.snapshotChanges.and.returnValue(helper.getActions(1));
     TestBed.configureTestingModule({
       imports: [
         AngularFirestoreModule,
@@ -103,7 +106,7 @@ describe('FriendService', () => {
     it('should call pipe when deleting a friend ', ()  => {
       expect(pipeMock.pipe).toHaveBeenCalledTimes(1);
     });
-  })
+  });
 
   describe('updateFriend', () => {
     beforeEach(() => {
@@ -131,7 +134,13 @@ class Helper {
             data: () => {
               return {
                 id: 'testId' + i,
-                name: 'test' + i
+                name: 'test' + i,
+                address: 'abc' + i,
+                mail: 'hello' + 1,
+                phone: 'lsad' + i,
+                url: 'wazzap' + i,
+                picture: 'picString',
+                location: {latitude: 34, longitude: 45}
               };
             }
           }
@@ -147,7 +156,15 @@ class FriendHelper {
   getFriends(amount: number): Observable<Friend[]> {
     for (let i = 0; i < amount; i++) {
       this.friends.push(
-        {id: 'abc' + i, name: 'efg' + i, address: 'abc' + i, mail: 'hello' + 1, phone: 'lsad' + i, url: 'wazzap' + i, picture: 'picString'});
+        {id: 'abc' + i,
+          name: 'efg' + i,
+          address: 'abc' + i,
+          mail: 'hello' + 1,
+          phone: 'lsad' + i,
+          url: 'wazzap' + i,
+          picture: 'picString',
+          location: new GeoPoint(34, 45)
+        });
     }
     return of(this.friends);
   }
