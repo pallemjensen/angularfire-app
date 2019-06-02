@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FriendService} from "../shared/friend.service";
-import {FileService} from "../../files/shared/file.service";
-import {FormControl, FormGroup} from "@angular/forms";
-import {Friend} from "../shared/friend.model";
-import * as firebase from 'firebase/app';
-import GeoPoint = firebase.firestore.GeoPoint;
-import {ActivatedRoute, Router} from "@angular/router";
+import {FriendService} from '../shared/friend.service';
+import {FileService} from '../../files/shared/file.service';
+import {FormControl, FormGroup} from '@angular/forms';
+import {Friend} from '../shared/friend.model';
+import GeoPoint = firestore.GeoPoint;
+import {firestore} from 'firebase';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-friend-update',
@@ -44,7 +44,7 @@ export class FriendUpdateComponent implements OnInit {
           address: friend.address,
           phone: friend.phone,
           mail: friend.mail
-        })
+        });
         this.latitude = friend.location.latitude;
         this.longitude = friend.location.longitude;
     });
