@@ -18,7 +18,7 @@ describe('Map route test', function() {
 })
 
 describe('Friends title', function () {
-  it('should contain a h1 tag', function () {
+  it('should contain friends', function () {
     cy.visit('http://localhost:4200/friends')
     cy.contains("Friends:")
   });
