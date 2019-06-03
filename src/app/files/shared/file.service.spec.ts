@@ -1,5 +1,4 @@
 import {getTestBed, TestBed} from '@angular/core/testing';
-
 import { FileService } from './file.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
