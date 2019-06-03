@@ -42,7 +42,6 @@ describe('FriendService', () => {
     fsCollectionMock.doc.and.returnValue(dbUpdate);
     friendHelper = new FriendHelper();
     helper = new Helper();
-    // fsCollectionMock.snapshotChanges.and.returnValue(helper.getActions(1));
     TestBed.configureTestingModule({
       imports: [
         AngularFirestoreModule,
@@ -67,7 +66,6 @@ describe('FriendService', () => {
     beforeEach(() => {
       service.getFriends(); // calls getFriend before each "it"
     });
-
     it('should call collection and snapshotChanges on FireStore', () => {
       expect(angularFirestoreMock.collection).toHaveBeenCalledTimes(1);
     });
@@ -88,7 +86,7 @@ describe('FriendService', () => {
     });
   });
 
-  describe('getfriendById', () => {
+  describe('getFriendById', () => {
     beforeEach(() => {
       service.getFriendById('1');
     });

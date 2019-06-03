@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FriendAddComponent } from './friend-add.component';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -7,7 +6,6 @@ import {ButtonsModule} from 'ngx-bootstrap';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {FriendService} from '../shared/friend.service';
-
 
 
 describe('FriendAddComponent', () => {

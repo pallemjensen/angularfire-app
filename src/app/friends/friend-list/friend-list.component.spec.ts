@@ -60,9 +60,7 @@ describe('FriendListComponent', () => {
     });
   });
   describe('Navigation', () => {
-    let helper: Helper;
     beforeEach(() => {
-      helper = new Helper();
       fixture.detectChanges();
     });
     it('should navigate to /add when + button is clicked',
@@ -82,7 +80,7 @@ describe('FriendListComponent', () => {
       helper = new Helper();
       fixture.detectChanges();
     });
-    it('should call deleteFriend once when delete buttton is clicked', () => {
+    it('should call deleteFriend once when delete button is clicked', () => {
       component.Friends = helper.getFriends(1);
       fixture.detectChanges();
       spyOn(component, 'deleteFriend');
