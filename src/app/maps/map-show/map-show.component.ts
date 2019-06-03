@@ -16,7 +16,6 @@ export class MapShowComponent implements OnInit {
   minZoom = 2;
   zoom = 2;
   locationChosen = false;
-  picUrl: any;
   url: string;
 
   constructor(private friendService: FriendService) {
