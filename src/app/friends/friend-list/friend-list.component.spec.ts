@@ -107,7 +107,7 @@ describe('FriendListComponent', () => {
       helper = new Helper();
       fixture.detectChanges();
     });
-    it('should contain atlease one add friend button ', () => {
+    it('should contain at least one add friend button ', () => {
       const addFriendButton = fixture.debugElement
         .queryAll(By.css('button'));
       const nativeButton: HTMLButtonElement = addFriendButton[0].nativeElement;
@@ -120,11 +120,11 @@ describe('FriendListComponent', () => {
       expect(dh.count('ul')).toBe(1);
     });
 
-    it('should show no list when no friends are avalible', () => {
+    it('should show no list when no friends are available', () => {
       const listFriends = fixture.debugElement
         .queryAll(By.css('li'));
       expect(dh.count('listFriends')).toBe(0);
-      // expect(listFriends.length).toBe(0);
+      //expect(listFriends.length).toBe(0);
     });
 
     it('should show one friend on the list, when friend is added', () => {
@@ -167,9 +167,7 @@ describe('FriendListComponent', () => {
 
 
   describe('Async calls', () => {
-    let helper: Helper;
     beforeEach(() => {
-     helper = new Helper();
       fixture.detectChanges();
     });
     it('should call getFriends on friendService once on ngOnInit',  () => {
