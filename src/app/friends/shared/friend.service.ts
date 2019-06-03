@@ -49,7 +49,7 @@ export class FriendService {
       .get()
       .pipe(
         first(),
-        tap(friendDocument => {
+        tap(() => {
         }),
         switchMap(friendDocument => {
           if (!friendDocument || !friendDocument.data()) {
@@ -79,7 +79,7 @@ export class FriendService {
     return from (
     this.friendDoc.update(friend))
       .pipe(
-        map( friendRef => {
+        map( () => {
           return friend;
         })
       );

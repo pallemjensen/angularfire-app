@@ -158,11 +158,6 @@ describe('FriendListComponent', () => {
     });
   });
 
-  describe('Calls from service', () => {
-
-  });
-
-
   describe('Async calls', () => {
     beforeEach(() => {
       fixture.detectChanges();
