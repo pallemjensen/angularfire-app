@@ -51,12 +51,12 @@ describe('FriendListComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should should contain an h1 tag', () => {
+    it('should contain an h1 tag', () => {
       const h1element = fixture.debugElement.query(By.css('h1'));
       expect(h1element.nativeElement.textContent).toBe('Friends:');
     });
 
-    it('should atleast have one button on the page', () => {
+    it('should at least have one button on the page', () => {
       expect(dh.count('button')).toBeGreaterThanOrEqual(1);
     });
   });
