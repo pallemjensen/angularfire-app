@@ -5,8 +5,6 @@ import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore'
 import {FileService} from '../../files/shared/file.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {Observable, of} from 'rxjs';
-import GeoPoint = firestore.GeoPoint;
-import {firestore} from 'firebase';
 
 describe('FriendService', () => {
   let angularFirestoreMock: any;
@@ -23,6 +21,8 @@ describe('FriendService', () => {
   let refMock;
   let friendX: Friend;
   beforeEach(() => {
+
+
     angularFirestoreMock = jasmine.createSpyObj('AngularFireStore', ['collection', 'doc']);
     fsCollectionMock = jasmine.createSpyObj('collection', ['snapshotChanges', 'valueChanges', 'doc', 'add']);
     angularFirestoreMock.collection.and.returnValue(fsCollectionMock);
@@ -42,7 +42,6 @@ describe('FriendService', () => {
     fsCollectionMock.doc.and.returnValue(dbUpdate);
     friendHelper = new FriendHelper();
     helper = new Helper();
-    // fsCollectionMock.snapshotChanges.and.returnValue(helper.getActions(1));
     TestBed.configureTestingModule({
       imports: [
         AngularFirestoreModule,
@@ -58,14 +57,14 @@ describe('FriendService', () => {
   });
 
   it('should be created', () => {
-    // service = TestBed.get(FriendService);
+    service = TestBed.get(FriendService);
     expect(service).toBeTruthy();
   });
 
   describe('getFriends', () => {
 
     beforeEach(() => {
-      service.getFriends(); // calls getFriend before each "it"
+      service.getFriends(); //calls getFriend before each "it"
     });
 
     it('should call collection and snapshotChanges on FireStore', () => {
@@ -106,7 +105,7 @@ describe('FriendService', () => {
     it('should call pipe when deleting a friend ', ()  => {
       expect(pipeMock.pipe).toHaveBeenCalledTimes(1);
     });
-  });
+  })
 
   describe('updateFriend', () => {
     beforeEach(() => {
@@ -134,13 +133,7 @@ class Helper {
             data: () => {
               return {
                 id: 'testId' + i,
-                name: 'test' + i,
-                address: 'abc' + i,
-                mail: 'hello' + 1,
-                phone: 'lsad' + i,
-                url: 'wazzap' + i,
-                picture: 'picString',
-                location: {latitude: 34, longitude: 45}
+                name: 'test' + i
               };
             }
           }
@@ -156,15 +149,7 @@ class FriendHelper {
   getFriends(amount: number): Observable<Friend[]> {
     for (let i = 0; i < amount; i++) {
       this.friends.push(
-        {id: 'abc' + i,
-          name: 'efg' + i,
-          address: 'abc' + i,
-          mail: 'hello' + 1,
-          phone: 'lsad' + i,
-          url: 'wazzap' + i,
-          picture: 'picString',
-          location: new GeoPoint(34, 45)
-        });
+        {id: 'abc' + i, name: 'efg' + i, address: 'abc' + i, mail: 'hello' + 1, phone: 'lsad' + i, url: 'wazzap' + i, picture: 'picString'});
     }
     return of(this.friends);
   }

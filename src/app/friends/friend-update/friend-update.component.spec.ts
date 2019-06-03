@@ -1,16 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FriendUpdateComponent } from './friend-update.component';
-import {FriendService} from '../shared/friend.service';
-import {FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {RouterTestingModule} from '@angular/router/testing';
-import {FileService} from '../../files/shared/file.service';
-import {Observable, of} from 'rxjs';
-import {Friend} from '../shared/friend.model';
-import GeoPoint = firestore.GeoPoint;
-import {firestore} from 'firebase';
+import {FriendService} from "../shared/friend.service";
+import {FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
+import {AngularFireStorageModule} from "@angular/fire/storage";
+import {RouterTestingModule} from "@angular/router/testing";
+import {FileService} from "../../files/shared/file.service";
+import {Observable, of} from "rxjs";
+import {Friend} from "../shared/friend.model";
 
 describe('FriendUpdateComponent', () => {
   let component: FriendUpdateComponent;
@@ -27,7 +25,7 @@ describe('FriendUpdateComponent', () => {
     ]
       ,
       providers: [
-      {provide: FriendService, useClass: FriendServiceStub},
+      {provide: FriendService, useClass: friendServiceStub},
         {provide: FileService, useClass: fileServiceStub}
 
     ]
@@ -50,18 +48,9 @@ describe('FriendUpdateComponent', () => {
 class fileServiceStub {
 }
 
-class FriendServiceStub {
-  private friend: Friend;
+class friendServiceStub {
   getFriendById(id: string): Observable<Friend> {
-    this.friend = {id: 'abc',
-      name: 'efg',
-      address: 'abc',
-      mail: 'hello',
-      phone: 'lsad',
-      url: 'wazzap',
-      picture: 'picString',
-      location: new GeoPoint(34, 45)
-    };
-    return of( this.friend);
+    // @ts-ignore
+    return of([]);
   }
 }

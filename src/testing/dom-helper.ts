@@ -1,10 +1,8 @@
-import {Friend} from '../app/friends/shared/friend.model';
-import {Observable, of} from 'rxjs';
-import {ComponentFixture} from '@angular/core/testing';
-import {FriendListComponent} from '../app/friends/friend-list/friend-list.component';
-import {By} from '@angular/platform-browser';
-import GeoPoint = firestore.GeoPoint;
-import {firestore} from 'firebase';
+import {Friend} from "../app/friends/shared/friend.model";
+import {Observable, of} from "rxjs";
+import {ComponentFixture} from "@angular/core/testing";
+import {FriendListComponent} from "../app/friends/friend-list/friend-list.component";
+import {By} from "@angular/platform-browser";
 
 export class Helper {
   friends: Friend[] = [];
@@ -12,16 +10,15 @@ export class Helper {
     for (let i = 0; i < amount; i++) {
       this.friends.push(
         { id: 'test' + i, name: 'friend1' + i , address: 'test' + i, phone: '123' + i, mail: 'test' + i,
-          picture: 'asd' + i ,
-          location: new GeoPoint(34, 45)}
+          picture: 'asd' + i , url: 'http://test' + i }
       );
     }
     return of(this.friends);
   }
 }
-// Generic T.
+//Generic T.
 export class DOMHelper<T> {
-  private fixture: ComponentFixture<T>;
+  private fixture: ComponentFixture<T>
   constructor(fixture: ComponentFixture<T>) {
     this.fixture = fixture;
   }
