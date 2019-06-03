@@ -29,6 +29,7 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     FormsModule,
     AppRoutingModule,
     ButtonsModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, AngularFireStorageModule,
     HttpClientModule,
     AgmCoreModule,
