@@ -3,7 +3,7 @@ import * as admin from "firebase-admin";
 
 exports.deleteFriend = functions.firestore
   .document('Friends/{friendID}')
-  .onDelete((snap, context) => {
+  .onDelete((snap) => {
     return new Promise( async (resolve, reject) => {
       const deletedFriend = snap.data();
       if (deletedFriend) {
