@@ -114,13 +114,13 @@ describe('FriendListComponent', () => {
     });
 
     it('should show an unordered list of friends', () => {
-      const listFriends = fixture.debugElement
+      fixture.debugElement
         .queryAll(By.css('ul'));
       expect(dh.count('ul')).toBe(1);
     });
 
     it('should show no list when no friends are available', () => {
-      const listFriends = fixture.debugElement
+      fixture.debugElement
         .queryAll(By.css('li'));
       expect(dh.count('listFriends')).toBe(0);
     });
