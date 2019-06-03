@@ -57,8 +57,6 @@ describe('FriendListComponent', () => {
     });
 
     it('should atleast have one button on the page', () => {
-      // const buttons = fixture.debugElement
-      //   .queryAll(By.css('button'));
       expect(dh.count('button')).toBeGreaterThanOrEqual(1);
     });
   });
@@ -147,7 +145,7 @@ describe('FriendListComponent', () => {
 
     it('should show img tag with url on friends',  () => {
       friendServiceMock.getFriends.and.returnValue(helper.getFriends(1));
-      fileServiceMock.getFileUrl.and.returnValue(of ('http://hest.dk'))
+      fileServiceMock.getFileUrl.and.returnValue(of ('http://hest.dk'));
       fixture.detectChanges();
       expect(dh.count('img'))
         .toBe(1);
@@ -156,7 +154,7 @@ describe('FriendListComponent', () => {
     it('should not show img tag with url on friends if no url exits',  () => {
       friendServiceMock.getFriends.and.returnValue(helper.getFriends(1));
       helper.friends[0].picture = undefined;
-      fileServiceMock.getFileUrl.and.returnValue(of ('http://hest.dk'))
+      fileServiceMock.getFileUrl.and.returnValue(of ('http://hest.dk'));
       fixture.detectChanges();
       expect(dh.count('img'))
         .toBe(0);
@@ -171,7 +169,7 @@ describe('FriendListComponent', () => {
   describe('Async calls', () => {
     let helper: Helper;
     beforeEach(() => {
-      helper = new Helper();
+     helper = new Helper();
       fixture.detectChanges();
     });
     it('should call getFriends on friendService once on ngOnInit',  () => {
