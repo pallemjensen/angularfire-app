@@ -3,8 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FriendListComponent } from './friend-list.component';
 import {FriendService} from '../shared/friend.service';
 import {FileService} from '../../files/shared/file.service';
-import {Observable, of} from 'rxjs';
-import {Friend} from '../shared/friend.model';
+import {of} from 'rxjs';
 import {By} from '@angular/platform-browser';
 import {RouterTestingModule} from '@angular/router/testing';
 import {DOMHelper, Helper} from '../../../testing/dom-helper';
@@ -35,7 +34,7 @@ describe('FriendListComponent', () => {
         // {provide: FileService, useClass: fileServiceStub}
       ]
     })
-    .compileComponents();
+    .compileComponents().catch();
   }));
 
   beforeEach(() => {
@@ -124,7 +123,6 @@ describe('FriendListComponent', () => {
       const listFriends = fixture.debugElement
         .queryAll(By.css('li'));
       expect(dh.count('listFriends')).toBe(0);
-      //expect(listFriends.length).toBe(0);
     });
 
     it('should show one friend on the list, when friend is added', () => {
@@ -140,7 +138,6 @@ describe('FriendListComponent', () => {
     let helper: Helper;
     beforeEach(() => {
       helper = new Helper();
-      // fixture.detectChanges();
     });
 
     it('should show img tag with url on friends',  () => {
