@@ -47,9 +47,9 @@ export class FriendAddComponent implements OnInit {
     this.friend.location = this.geoPoint;
     this.friendService.addFriend(
       this.friend, this.file
-    ).subscribe(friend => {
+    ).subscribe(() => {
         this.router.navigate(['../'],
-          {relativeTo: this.activatedRoute});
+          {relativeTo: this.activatedRoute}).catch();
       },
       addFriendError => {
         window.alert('An error occurred while trying to add a friend ' + JSON.stringify(addFriendError));

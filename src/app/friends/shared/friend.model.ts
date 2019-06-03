@@ -1,4 +1,3 @@
-
 import GeoPoint = firestore.GeoPoint;
 import {firestore} from 'firebase';
 

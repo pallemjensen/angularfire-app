@@ -16,7 +16,7 @@ describe('HomeComponent', () => {
         AngularFireModule
       ]
     })
-    .compileComponents();
+    .compileComponents().catch();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
