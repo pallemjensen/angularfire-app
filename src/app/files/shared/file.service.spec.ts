@@ -5,7 +5,6 @@ import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore'
 import {of} from 'rxjs';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorage} from '@angular/fire/storage';
-import * as firebase from 'firebase';
 
 describe('FileService', () => {
   let angularFirestoreMock: any;

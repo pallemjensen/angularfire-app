@@ -6,7 +6,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonsModule} from 'ngx-bootstrap';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AngularFireStorageModule} from '@angular/fire/storage';
-import {AngularFirestore} from '@angular/fire/firestore';
 import {FriendService} from '../shared/friend.service';
 
 
@@ -32,7 +31,7 @@ describe('FriendAddComponent', () => {
         }
       ]
     })
-    .compileComponents();
+    .compileComponents().catch();
   }));
 
   beforeEach(() => {
