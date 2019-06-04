@@ -32,7 +32,7 @@ describe('FriendUpdateComponent', () => {
 
     ]
     })
-    .compileComponents();
+    .compileComponents().catch();
   }));
 
   beforeEach(() => {
