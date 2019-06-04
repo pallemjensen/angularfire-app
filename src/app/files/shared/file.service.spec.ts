@@ -9,25 +9,15 @@ import {AngularFireStorage} from '@angular/fire/storage';
 describe('FileService', () => {
   let angularFirestoreMock: any;
   let angularFireStorageMock: any;
-  let fsCollectionMock: any;
   let service: FileService;
   let httpMock: HttpTestingController;
-  let putMock: any;
   let refMock: any;
 
   beforeEach(() => {
-    angularFirestoreMock = jasmine.createSpyObj('AngularFirestore', ['collection', 'createId']);
-    angularFirestoreMock.collection.and.returnValue(fsCollectionMock);
-    fsCollectionMock = jasmine.createSpyObj('collection', ['snapshotChanges', 'valueChanges']);
-    fsCollectionMock.snapshotChanges.and.returnValue(of([]));
-
     angularFireStorageMock = jasmine.createSpyObj('AngularFireStorage', ['ref']);
-    refMock = jasmine.createSpyObj('ref', ['getDownloadURL', 'putString', 'getRandomId']);
+    refMock = jasmine.createSpyObj('ref', ['getDownloadURL']);
     angularFireStorageMock.ref.and.returnValue(refMock);
     refMock.getDownloadURL.and.returnValue(of('test'));
-    refMock.getRandomId.and.returnValue('');
-    putMock = jasmine.createSpyObj('Put', ['then', 'put', 'putString']);
-    putMock.then.and.returnValue(of(''));
 
     TestBed.configureTestingModule({
       imports: [
