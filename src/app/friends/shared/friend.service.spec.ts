@@ -17,7 +17,7 @@ describe('FriendService', () => {
   let dbUpdate: any;
   let httpMock: HttpTestingController;
   let service: FriendService;
-  let helper: Helper;
+  let helper: ActionHelper;
   let refMock;
   let friendX: Friend;
   beforeEach(() => {
@@ -38,7 +38,7 @@ describe('FriendService', () => {
     angularFirestoreMock.doc.and.returnValue(docMock);
     dbUpdate = jasmine.createSpyObj('doc', ['update']);
     fsCollectionMock.doc.and.returnValue(dbUpdate);
-    helper = new Helper();
+    helper = new ActionHelper();
     TestBed.configureTestingModule({
       imports: [
         AngularFirestoreModule,
@@ -49,7 +49,6 @@ describe('FriendService', () => {
         {provide: FileService, useValue: fileServiceMock}
       ]
     });
-    httpMock = getTestBed().get(HttpTestingController);
     service = TestBed.get(FriendService);
   });
 
@@ -118,7 +117,7 @@ describe('FriendService', () => {
 Fake payload
 This is what we expect to return.
  */
-class Helper {
+class ActionHelper {
   actions: any[] = [];
   getActions(amount: number): Observable<any[]> {
     for (let i = 0; i < amount; i++) {
