@@ -28,9 +28,7 @@ describe('FriendListComponent', () => {
       ],
       providers: [
         {provide: FriendService, useValue: friendServiceMock},
-        // {provide: FriendService, useClass: friendServiceStub},
         {provide: FileService, useValue: fileServiceMock}
-        // {provide: FileService, useClass: fileServiceStub}
       ]
     })
     .compileComponents().catch();

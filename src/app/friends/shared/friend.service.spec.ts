@@ -5,7 +5,6 @@ import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore'
 import {FileService} from '../../files/shared/file.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {Observable, of} from 'rxjs';
-import GeoPoint = firestore.GeoPoint;
 import {firestore} from 'firebase';
 
 describe('FriendService', () => {
@@ -19,7 +18,6 @@ describe('FriendService', () => {
   let httpMock: HttpTestingController;
   let service: FriendService;
   let helper: Helper;
-  let friendHelper: FriendHelper;
   let refMock;
   let friendX: Friend;
   beforeEach(() => {
@@ -40,7 +38,6 @@ describe('FriendService', () => {
     angularFirestoreMock.doc.and.returnValue(docMock);
     dbUpdate = jasmine.createSpyObj('doc', ['update']);
     fsCollectionMock.doc.and.returnValue(dbUpdate);
-    friendHelper = new FriendHelper();
     helper = new Helper();
     TestBed.configureTestingModule({
       imports: [
@@ -149,22 +146,3 @@ class Helper {
   }
 }
 
-class FriendHelper {
-  friends: Friend[] = [];
-  getFriends(amount: number): Observable<Friend[]> {
-    for (let i = 0; i < amount; i++) {
-      this.friends.push(
-        {id: 'abc' + i,
-          name: 'efg' + i,
-          address: 'abc' + i,
-          mail: 'hello' + 1,
-          phone: 'lsad' + i,
-          url: 'wazzap' + i,
-          picture: 'picString',
-          location: new GeoPoint(34, 45)
-        });
-    }
-    return of(this.friends);
-  }
-
-}
