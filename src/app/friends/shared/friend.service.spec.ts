@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 import { FriendService } from './friend.service';
 import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
 import {FileService} from '../../files/shared/file.service';
-import {Observable, of} from 'rxjs';
+import {from, Observable, of} from 'rxjs';
 import {firestore} from 'firebase';
 
 describe('FriendService', () => {
@@ -75,7 +75,6 @@ describe('FriendService', () => {
     it('should call doc when get friend by id', () => {
       expect(docMock.valueChanges).toHaveBeenCalledTimes(1);
     });
-
   });
 
   describe('delete friend', () => {

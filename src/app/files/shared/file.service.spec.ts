@@ -13,7 +13,7 @@ describe('FileService', () => {
   let service: FileService;
   let httpMock: HttpTestingController;
   let putMock: any;
-  let refMock;
+  let refMock: any;
 
   beforeEach(() => {
     angularFirestoreMock = jasmine.createSpyObj('AngularFirestore', ['collection', 'createId']);
@@ -72,7 +72,6 @@ describe('FileService', () => {
     });
 
     it('should return observable string', () => {
-      const service: FileService = TestBed.get(FileService);
       const d = service.getFileUrl('string');
 
       d.subscribe(o => {
