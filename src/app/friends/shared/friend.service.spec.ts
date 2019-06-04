@@ -1,9 +1,9 @@
-import {getTestBed, TestBed} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 import { Friend} from './friend.model';
 import { FriendService } from './friend.service';
 import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
 import {FileService} from '../../files/shared/file.service';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {Observable, of} from 'rxjs';
 import {firestore} from 'firebase';
 
@@ -14,8 +14,6 @@ describe('FriendService', () => {
   let docMock: any;
   let mapMock: any;
   let pipeMock: any;
-  let dbUpdate: any;
-  let httpMock: HttpTestingController;
   let service: FriendService;
   let helper: ActionHelper;
   let refMock;
@@ -36,13 +34,10 @@ describe('FriendService', () => {
     docMock.get.and.returnValue(pipeMock);
     docMock.update.and.returnValue(mapMock);
     angularFirestoreMock.doc.and.returnValue(docMock);
-    dbUpdate = jasmine.createSpyObj('doc', ['update']);
-    fsCollectionMock.doc.and.returnValue(dbUpdate);
     helper = new ActionHelper();
     TestBed.configureTestingModule({
       imports: [
         AngularFirestoreModule,
-        HttpClientTestingModule
       ],
       providers: [
         {provide: AngularFirestore, useValue: angularFirestoreMock},
