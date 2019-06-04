@@ -1,9 +1,7 @@
 import {TestBed} from '@angular/core/testing';
-import { Friend} from './friend.model';
 import { FriendService } from './friend.service';
 import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
 import {FileService} from '../../files/shared/file.service';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {Observable, of} from 'rxjs';
 import {firestore} from 'firebase';
 
@@ -12,12 +10,9 @@ describe('FriendService', () => {
   let fileServiceMock: any;
   let fsCollectionMock: any;
   let docMock: any;
-  let mapMock: any;
   let pipeMock: any;
   let service: FriendService;
   let helper: ActionHelper;
-  let refMock;
-  let friendX: Friend;
   beforeEach(() => {
     angularFirestoreMock = jasmine.createSpyObj('AngularFireStore', ['collection', 'doc']);
     fsCollectionMock = jasmine.createSpyObj('collection', ['snapshotChanges', 'valueChanges', 'doc', 'add']);
@@ -25,14 +20,10 @@ describe('FriendService', () => {
     fsCollectionMock.snapshotChanges.and.returnValue(of([]));
     fsCollectionMock.doc.and.returnValue();
     fileServiceMock = jasmine.createSpyObj('FileService', ['uploadFile']);
-    refMock = jasmine.createSpyObj('FriendService', ['updateFriend']);
-    refMock.updateFriend.and.returnValue(of(friendX));
     // doc
     pipeMock = jasmine.createSpyObj('get', ['pipe']);
-    mapMock = jasmine.createSpyObj('pipe', ['map']);
     docMock = jasmine.createSpyObj('doc', ['delete', 'get', 'valueChanges', 'update']);
     docMock.get.and.returnValue(pipeMock);
-    docMock.update.and.returnValue(mapMock);
     angularFirestoreMock.doc.and.returnValue(docMock);
     helper = new ActionHelper();
     TestBed.configureTestingModule({
