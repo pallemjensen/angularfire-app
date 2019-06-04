@@ -18,7 +18,6 @@ describe('FriendService', () => {
     fsCollectionMock = jasmine.createSpyObj('collection', ['snapshotChanges', 'valueChanges', 'doc', 'add']);
     angularFirestoreMock.collection.and.returnValue(fsCollectionMock);
     fsCollectionMock.snapshotChanges.and.returnValue(of([]));
-    fsCollectionMock.doc.and.returnValue();
     fileServiceMock = jasmine.createSpyObj('FileService', ['uploadFile']);
     // doc
     pipeMock = jasmine.createSpyObj('get', ['pipe']);
